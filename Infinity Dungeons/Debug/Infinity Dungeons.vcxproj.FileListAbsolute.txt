@@ -1,0 +1,3 @@
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\Infinity Dungeons.vcxproj.AssemblyReference.cache
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\InfinityDungeons.Main_Menu.resources
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\Infinity Dungeons.vcxproj.GenerateResource.cache
