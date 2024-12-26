@@ -1,4 +1,5 @@
 #pragma once
+#include "New_Game.h"
 
 namespace InfinityDungeons {
 
@@ -9,12 +10,12 @@ namespace InfinityDungeons {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	// Константы для Windows API
+	// РљРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ Windows API
 	#define WM_NCLBUTTONDOWN 0x00A1
 	#define HTCAPTION 2
 
 	/// <summary>
-	/// Сводка для Main_Menu
+	/// РЎРІРѕРґРєР° РґР»СЏ Main_Menu
 	/// </summary>
 	public ref class Main_Menu : public System::Windows::Forms::Form
 	{
@@ -23,13 +24,13 @@ namespace InfinityDungeons {
 		{
 			InitializeComponent();
 			//
-			//TODO: добавьте код конструктора
+			//TODO: РґРѕР±Р°РІСЊС‚Рµ РєРѕРґ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~Main_Menu()
 		{
@@ -48,14 +49,14 @@ namespace InfinityDungeons {
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -72,8 +73,9 @@ namespace InfinityDungeons {
 			this->To_New_Game->Name = L"To_New_Game";
 			this->To_New_Game->Size = System::Drawing::Size(214, 60);
 			this->To_New_Game->TabIndex = 0;
-			this->To_New_Game->Text = L"button1";
+			this->To_New_Game->Text = L"New Game";
 			this->To_New_Game->UseVisualStyleBackColor = true;
+			this->To_New_Game->Click += gcnew System::EventHandler(this, &Main_Menu::To_New_Game_Click);
 			// 
 			// To_Save_Game
 			// 
@@ -126,19 +128,27 @@ namespace InfinityDungeons {
 		}
 
 #pragma endregion
-	// Импортируем Windows API функций
-	[System::Runtime::InteropServices::DllImport("user32.dll")]
-	static bool ReleaseCapture();
+		// РРјРїРѕСЂС‚РёСЂСѓРµРј Windows API С„СѓРЅРєС†РёР№
+		[System::Runtime::InteropServices::DllImport("user32.dll")]
+		static bool ReleaseCapture();
 
-	[System::Runtime::InteropServices::DllImport("user32.dll")]
-	static IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+		[System::Runtime::InteropServices::DllImport("user32.dll")]
+		static IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
-	// Метод для обработки перемещения окна
-	private: System::Void Main_Menu_MouseDown_1(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
-	{
-		// Отправляем системное сообщение о начале перемещения окна
-		ReleaseCapture();
-		SendMessage(this->Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
-	}
-	};
+		// РњРµС‚РѕРґ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё РїРµСЂРµРјРµС‰РµРЅРёСЏ РѕРєРЅР°
+		private: System::Void Main_Menu_MouseDown_1(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
+		{
+			// РћС‚РїСЂР°РІР»СЏРµРј СЃРёСЃС‚РµРјРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РЅР°С‡Р°Р»Рµ РїРµСЂРµРјРµС‰РµРЅРёСЏ РѕРєРЅР°
+			ReleaseCapture();
+			SendMessage(this->Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+		}
+	
+		private: System::Void To_New_Game_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			New_Game^ form = gcnew New_Game;
+			form->Show();
+			form->Owner = this;
+			this->Hide();
+		}
+};
 }

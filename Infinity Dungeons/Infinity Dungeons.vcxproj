@@ -121,15 +121,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main_Menu.cpp" />
+    <ClCompile Include="New_Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main_Menu.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="New_Game.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Main_Menu.resx">
       <DependentUpon>Main_Menu.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="New_Game.resx">
+      <DependentUpon>New_Game.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
