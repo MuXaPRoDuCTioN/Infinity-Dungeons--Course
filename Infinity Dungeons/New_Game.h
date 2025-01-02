@@ -142,7 +142,7 @@ namespace InfinityDungeons {
 			this->buttonNextSprite->Name = L"buttonNextSprite";
 			this->buttonNextSprite->Size = System::Drawing::Size(25, 23);
 			this->buttonNextSprite->TabIndex = 1;
-			this->buttonNextSprite->Text = L"buttonNextSprite";
+			this->buttonNextSprite->Text = L">";
 			this->buttonNextSprite->UseVisualStyleBackColor = true;
 			this->buttonNextSprite->Click += gcnew System::EventHandler(this, &New_Game::buttonNextSprite_Click);
 			// 
@@ -152,7 +152,7 @@ namespace InfinityDungeons {
 			this->buttonPreviousSprite->Name = L"buttonPreviousSprite";
 			this->buttonPreviousSprite->Size = System::Drawing::Size(25, 23);
 			this->buttonPreviousSprite->TabIndex = 1;
-			this->buttonPreviousSprite->Text = L"buttonPreviousSprite";
+			this->buttonPreviousSprite->Text = L"<";
 			this->buttonPreviousSprite->UseVisualStyleBackColor = true;
 			this->buttonPreviousSprite->Click += gcnew System::EventHandler(this, &New_Game::buttonPreviousSprite_Click);
 			// 
@@ -345,7 +345,7 @@ namespace InfinityDungeons {
 			this->buttonSave->Name = L"buttonSave";
 			this->buttonSave->Size = System::Drawing::Size(75, 23);
 			this->buttonSave->TabIndex = 8;
-			this->buttonSave->Text = L"Сохранить";
+			this->buttonSave->Text = L"Save";
 			this->buttonSave->UseVisualStyleBackColor = true;
 			this->buttonSave->Click += gcnew System::EventHandler(this, &New_Game::buttonSave_Click);
 			// 
@@ -355,7 +355,7 @@ namespace InfinityDungeons {
 			this->buttonBack->Name = L"buttonBack";
 			this->buttonBack->Size = System::Drawing::Size(75, 23);
 			this->buttonBack->TabIndex = 9;
-			this->buttonBack->Text = L"Назад";
+			this->buttonBack->Text = L"Back";
 			this->buttonBack->UseVisualStyleBackColor = true;
 			this->buttonBack->Click += gcnew System::EventHandler(this, &New_Game::buttonBack_Click);
 			// 
@@ -511,7 +511,7 @@ namespace InfinityDungeons {
 			labelAgility->Text = agilityPoints.ToString();
 
 			// Обновление Label с общим количеством очков
-			labelTotalPoints->Text = "Очки: " + totalPoints.ToString();
+			labelTotalPoints->Text = "Points: " + totalPoints.ToString();
 
 			// Блокировка кнопок с учетом ограничений
 			btnStrengthPlus1->Enabled = (totalPoints >= 1);
@@ -532,6 +532,9 @@ namespace InfinityDungeons {
 
 			// Пересчет производных параметров
 			RecalculateDerivedStats();
+
+			// Продолжить можно будет только после распределения очков
+			buttonSave->Enabled = (totalPoints == 0);
 		}
 
 		private: System::Void RecalculateDerivedStats() 
@@ -715,13 +718,14 @@ namespace InfinityDungeons {
 
 		private: System::Void buttonBack_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
-			Owner->Show();
 			this->Close();
 		}
 
 		private: System::Void buttonSave_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
 			SaveToFile();
+			this->DialogResult = System::Windows::Forms::DialogResult::OK;
+			this->Close();
 		}
 	};
 }

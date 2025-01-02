@@ -120,10 +120,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Hub_location.cpp" />
+    <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Main_Menu.cpp" />
     <ClCompile Include="New_Game.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Hub_location.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Main_Menu.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -132,6 +140,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Hub_location.resx">
+      <DependentUpon>Hub_location.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inventory.resx">
+      <DependentUpon>Inventory.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main_Menu.resx">
       <DependentUpon>Main_Menu.h</DependentUpon>
     </EmbeddedResource>

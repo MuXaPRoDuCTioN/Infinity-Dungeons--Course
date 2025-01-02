@@ -1,5 +1,6 @@
 #pragma once
 #include "New_Game.h"
+#include "Hub_location.h"
 
 namespace InfinityDungeons {
 
@@ -145,10 +146,15 @@ namespace InfinityDungeons {
 	
 		private: System::Void To_New_Game_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
-			New_Game^ form = gcnew New_Game;
-			form->Show();
-			form->Owner = this;
-			this->Hide();
+			New_Game^ formNewGame = gcnew New_Game;
+			formNewGame->ShowDialog();
+			if (formNewGame->DialogResult == System::Windows::Forms::DialogResult::OK)
+			{
+				Hub_location^ formStartNewGame = gcnew Hub_location;
+				formStartNewGame->Show();
+				formStartNewGame->Owner = this;
+				To_New_Game->Enabled = false;
+			}
 		}
-};
+	};
 }

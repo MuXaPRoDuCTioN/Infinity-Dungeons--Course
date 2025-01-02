@@ -1,15 +1,10 @@
-﻿  Main_Menu.cpp
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(548,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(558,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(559,28): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(560,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(712,22): warning C4101: e: неиспользованная локальная переменная
-  New_Game.cpp
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(548,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(558,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(559,28): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(560,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(712,22): warning C4101: e: неиспользованная локальная переменная
+﻿  Hub_location.cpp
+  Main_Menu.cpp
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(551,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(561,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(562,28): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(563,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(714,22): warning C4101: e: неиспользованная локальная переменная
   Создание кода...
-  Main_Menu.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
+  Hub_location.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
   Infinity Dungeons.vcxproj -> D:\Visual studio code\C++\Infinity Dungeons\Debug\Infinity Dungeons.exe

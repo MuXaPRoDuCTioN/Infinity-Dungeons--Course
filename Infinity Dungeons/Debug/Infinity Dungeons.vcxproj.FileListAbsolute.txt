@@ -2,3 +2,4 @@ D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\Infinity Dun
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\InfinityDungeons.Main_Menu.resources
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\Infinity Dungeons.vcxproj.GenerateResource.cache
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\InfinityDungeons.New_Game.resources
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\InfinityDungeons.Hub_location.resources
