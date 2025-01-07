@@ -132,6 +132,7 @@
     <ClInclude Include="Inventory.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="ItemData.h" />
     <ClInclude Include="Main_Menu.h">
       <FileType>CppForm</FileType>
     </ClInclude>

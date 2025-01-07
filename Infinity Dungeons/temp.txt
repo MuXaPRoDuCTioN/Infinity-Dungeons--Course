@@ -1,0 +1,9 @@
+30
+30
+35
+210
+202
+35
+D:\Visual studio code\C++\Infinity Dungeons\Debug\PlayerSprites\Test3.png
+1003,1005
+1001,None,None,None,None,None,None,None

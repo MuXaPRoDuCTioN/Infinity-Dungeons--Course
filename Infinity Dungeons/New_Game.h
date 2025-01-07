@@ -704,7 +704,8 @@ namespace InfinityDungeons {
 					inventorySlots.ToString(),
 					spriteFilePath,
 					// Сериализуем ID предметов
-					String::Join(",", inventoryItemIds)
+					String::Join(",", "1001,1003,1005"),
+					String::Join(",", "None,None,None,None,None,None,None,None")
 				};
 
 				// Записываем в файл

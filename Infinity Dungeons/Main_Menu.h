@@ -1,6 +1,5 @@
 #pragma once
 #include "New_Game.h"
-#include "Hub_location.h"
 
 namespace InfinityDungeons {
 
@@ -80,12 +79,14 @@ namespace InfinityDungeons {
 			// 
 			// To_Save_Game
 			// 
+			this->To_Save_Game->Enabled = false;
 			this->To_Save_Game->Location = System::Drawing::Point(214, 206);
 			this->To_Save_Game->Name = L"To_Save_Game";
 			this->To_Save_Game->Size = System::Drawing::Size(214, 60);
 			this->To_Save_Game->TabIndex = 0;
-			this->To_Save_Game->Text = L"button1";
+			this->To_Save_Game->Text = L"Save Game";
 			this->To_Save_Game->UseVisualStyleBackColor = true;
+			this->To_Save_Game->Click += gcnew System::EventHandler(this, &Main_Menu::To_Save_Game_Click);
 			// 
 			// To_Load_Game
 			// 
@@ -93,8 +94,9 @@ namespace InfinityDungeons {
 			this->To_Load_Game->Name = L"To_Load_Game";
 			this->To_Load_Game->Size = System::Drawing::Size(214, 60);
 			this->To_Load_Game->TabIndex = 0;
-			this->To_Load_Game->Text = L"button1";
+			this->To_Load_Game->Text = L"Load Game";
 			this->To_Load_Game->UseVisualStyleBackColor = true;
+			this->To_Load_Game->Click += gcnew System::EventHandler(this, &Main_Menu::To_Load_Game_Click);
 			// 
 			// To_Exit
 			// 
@@ -102,8 +104,9 @@ namespace InfinityDungeons {
 			this->To_Exit->Name = L"To_Exit";
 			this->To_Exit->Size = System::Drawing::Size(214, 60);
 			this->To_Exit->TabIndex = 0;
-			this->To_Exit->Text = L"button1";
+			this->To_Exit->Text = L"Exit Game";
 			this->To_Exit->UseVisualStyleBackColor = true;
+			this->To_Exit->Click += gcnew System::EventHandler(this, &Main_Menu::To_Exit_Click);
 			// 
 			// Main_Menu
 			// 
@@ -144,17 +147,27 @@ namespace InfinityDungeons {
 			SendMessage(this->Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
 		}
 	
-		private: System::Void To_New_Game_Click(System::Object^ sender, System::EventArgs^ e) 
+		private: System::Void To_New_Game_Click(System::Object^ sender, System::EventArgs^ e);
+
+		public: Void SetSaveLoadEnabled(bool Set)
 		{
-			New_Game^ formNewGame = gcnew New_Game;
-			formNewGame->ShowDialog();
-			if (formNewGame->DialogResult == System::Windows::Forms::DialogResult::OK)
-			{
-				Hub_location^ formStartNewGame = gcnew Hub_location;
-				formStartNewGame->Show();
-				formStartNewGame->Owner = this;
-				To_New_Game->Enabled = false;
-			}
+			To_Save_Game->Enabled = Set;
+			To_Load_Game->Enabled = Set;
+		}
+
+		private: System::Void To_Exit_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			this->Close();
+		}
+
+		private: System::Void To_Save_Game_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+
+		}
+
+		private: System::Void To_Load_Game_Click(System::Object^ sender, System::EventArgs^ e)
+		{
+
 		}
 	};
 }

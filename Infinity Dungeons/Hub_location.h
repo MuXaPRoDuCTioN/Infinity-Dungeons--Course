@@ -1,5 +1,6 @@
 #pragma once
 #include "Inventory.h"
+#include "Main_Menu.h"
 
 namespace InfinityDungeons {
 
@@ -14,23 +15,23 @@ namespace InfinityDungeons {
 	#define WM_NCLBUTTONDOWN 0x00A1
 	#define HTCAPTION 2
 
+	ref class Main_Menu;
 
 	/// <summary>
 	/// Сводка для Hub_location
 	/// </summary>
 	public ref class Hub_location : public System::Windows::Forms::Form
 	{
-	private: Inventory^ formInventory;
+	
 
 	public:
-		Hub_location(void)
+		Hub_location(Main_Menu^ parent)
 		{
 			InitializeComponent();
-			//
-			//TODO: добавьте код конструктора
-			//
-			Inventory^ formInventory = gcnew Inventory;
-		}
+			parentForm = parent;
+		}	
+		
+		Main_Menu^ parentForm;
 
 	protected:
 		/// <summary>
@@ -157,7 +158,18 @@ namespace InfinityDungeons {
 		
 		private: System::Void buttonInventory_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
+			Inventory^ formInventory = gcnew Inventory;		
+			formInventory->FormClosed += gcnew FormClosedEventHandler(this, &Hub_location::Inventory_Closed);
+			buttonInventory->Enabled = false;
+			parentForm->SetSaveLoadEnabled(false);
 			formInventory->Show();
 		}
-};
+
+		private: Void Inventory_Closed(Object^ sender, FormClosedEventArgs^ e)
+		{
+			// Код, который выполнится после закрытия дочерней формы
+			parentForm->SetSaveLoadEnabled(true);
+			buttonInventory->Enabled = true;
+		}
+	};
 }
