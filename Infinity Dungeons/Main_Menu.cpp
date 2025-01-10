@@ -6,7 +6,9 @@ using namespace System;
 using namespace System::Windows::Forms;
 
 namespace InfinityDungeons {
-	System::Void Main_Menu::To_New_Game_Click(System::Object^ sender, System::EventArgs^ e) {
+
+	System::Void Main_Menu::To_New_Game_Click(System::Object^ sender, System::EventArgs^ e) 
+	{
 		New_Game^ formNewGame = gcnew New_Game;
 		formNewGame->ShowDialog();
 		if (formNewGame->DialogResult == System::Windows::Forms::DialogResult::OK)
@@ -17,6 +19,15 @@ namespace InfinityDungeons {
 			To_Save_Game->Enabled = true;
 			formStartNewGame->Show();
 		}
+	}
+
+	System::Void Main_Menu::LoadGame()
+	{
+		Hub_location^ formStartNewGame = gcnew Hub_location(this);
+		formStartNewGame->Owner = this;
+		To_New_Game->Enabled = false;
+		To_Save_Game->Enabled = true;
+		formStartNewGame->Show();
 	}
 }
 

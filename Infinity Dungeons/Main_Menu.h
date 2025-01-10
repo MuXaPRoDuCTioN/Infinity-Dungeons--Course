@@ -9,13 +9,14 @@ namespace InfinityDungeons {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	
 
-	// РљРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ Windows API
+	// Константы для Windows API
 	#define WM_NCLBUTTONDOWN 0x00A1
 	#define HTCAPTION 2
 
 	/// <summary>
-	/// РЎРІРѕРґРєР° РґР»СЏ Main_Menu
+	/// Сводка для Main_Menu
 	/// </summary>
 	public ref class Main_Menu : public System::Windows::Forms::Form
 	{
@@ -24,13 +25,13 @@ namespace InfinityDungeons {
 		{
 			InitializeComponent();
 			//
-			//TODO: РґРѕР±Р°РІСЊС‚Рµ РєРѕРґ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
+			//TODO: добавьте код конструктора
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
+		/// Освободить все используемые ресурсы.
 		/// </summary>
 		~Main_Menu()
 		{
@@ -49,14 +50,14 @@ namespace InfinityDungeons {
 
 	private:
 		/// <summary>
-		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
+		/// Обязательная переменная конструктора.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
-		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
+		/// Требуемый метод для поддержки конструктора — не изменяйте 
+		/// содержимое этого метода с помощью редактора кода.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -132,27 +133,27 @@ namespace InfinityDungeons {
 		}
 
 #pragma endregion
-		// РРјРїРѕСЂС‚РёСЂСѓРµРј Windows API С„СѓРЅРєС†РёР№
+		// Импортируем Windows API функций
 		[System::Runtime::InteropServices::DllImport("user32.dll")]
 		static bool ReleaseCapture();
 
 		[System::Runtime::InteropServices::DllImport("user32.dll")]
 		static IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
-		// РњРµС‚РѕРґ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё РїРµСЂРµРјРµС‰РµРЅРёСЏ РѕРєРЅР°
+		// Метод для обработки перемещения окна
 		private: System::Void Main_Menu_MouseDown_1(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
 		{
-			// РћС‚РїСЂР°РІР»СЏРµРј СЃРёСЃС‚РµРјРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РЅР°С‡Р°Р»Рµ РїРµСЂРµРјРµС‰РµРЅРёСЏ РѕРєРЅР°
+			// Отправляем системное сообщение о начале перемещения окна
 			ReleaseCapture();
 			SendMessage(this->Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
 		}
 	
+		
 		private: System::Void To_New_Game_Click(System::Object^ sender, System::EventArgs^ e);
 
-		public: Void SetSaveLoadEnabled(bool Set)
+		public: Void SetSaveEnabled(bool Set)
 		{
 			To_Save_Game->Enabled = Set;
-			To_Load_Game->Enabled = Set;
 		}
 
 		private: System::Void To_Exit_Click(System::Object^ sender, System::EventArgs^ e) 
@@ -162,12 +163,192 @@ namespace InfinityDungeons {
 
 		private: System::Void To_Save_Game_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
+			// Путь к папке для сохранения
+			String^ saveFolder = Application::StartupPath + "\\SavedFiles\\";
 
+			// Создаем папку, если она не существует
+			if (!Directory::Exists(saveFolder)) {
+				Directory::CreateDirectory(saveFolder);
+			}
+
+			// Создаем форму для ввода имени файла
+			Form^ inputForm = gcnew Form();
+			inputForm->Text = "Сохранение файла";
+			inputForm->Size = System::Drawing::Size(300, 200);
+			inputForm->StartPosition = FormStartPosition::CenterScreen;
+
+			Label^ labelFileName = gcnew Label();
+			labelFileName->Text = "Введите название файла:";
+			labelFileName->Location = Point(10, 20);
+			labelFileName->AutoSize = true;
+
+			TextBox^ textBoxFileName = gcnew TextBox();
+			textBoxFileName->Location = Point(10, 50);
+			textBoxFileName->Size = System::Drawing::Size(260, 25);
+
+			Button^ btnSaveFile = gcnew Button();
+			btnSaveFile->Text = "Сохранить";
+			btnSaveFile->Location = Point(100, 100);
+			btnSaveFile->DialogResult = System::Windows::Forms::DialogResult::OK;
+
+			inputForm->Controls->Add(labelFileName);
+			inputForm->Controls->Add(textBoxFileName);
+			inputForm->Controls->Add(btnSaveFile);
+			inputForm->AcceptButton = btnSaveFile;
+
+			// Показываем форму
+			if (inputForm->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+				// Получаем введенное имя файла
+				String^ userFileName = textBoxFileName->Text;
+
+				// Проверяем, что имя не пустое
+				if (String::IsNullOrWhiteSpace(userFileName)) {
+					MessageBox::Show("Имя файла не может быть пустым!", "Ошибка",
+						MessageBoxButtons::OK, MessageBoxIcon::Error);
+					return;
+				}
+
+				// Добавляем расширение, если не указано
+				if (!userFileName->EndsWith(".txt")) {
+					userFileName += ".txt";
+				}
+
+				// Полный путь к файлу
+				String^ fullPath = Path::Combine(saveFolder, userFileName);
+
+				try {
+					// Проверяем существование файла
+					if (File::Exists(fullPath)) {
+						auto result = MessageBox::Show("Файл с таким именем уже существует. Перезаписать?",
+							"Подтверждение", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+
+						if (result == System::Windows::Forms::DialogResult::No) {
+							return;
+						}
+					}
+
+					// Копируем файл
+					File::Copy("temp.txt", fullPath, true);
+
+					MessageBox::Show("Файл успешно сохранен!", "Успех",
+						MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+				catch (Exception^ ex) {
+					MessageBox::Show("Ошибка сохранения: " + ex->Message, "Ошибка",
+						MessageBoxButtons::OK, MessageBoxIcon::Error);
+				}
+			}
 		}
+
+		Form^ loadFileForm;
 
 		private: System::Void To_Load_Game_Click(System::Object^ sender, System::EventArgs^ e)
 		{
+			// Создаем новую форму загрузки файлов
+			loadFileForm = gcnew Form();
+			loadFileForm->Text = "Загрузка файла";
+			loadFileForm->Size = System::Drawing::Size(400, 500);
+			loadFileForm->StartPosition = FormStartPosition::CenterScreen;
 
+			// Создаем ListBox
+			ListBox^ listBoxFiles = gcnew ListBox();
+			listBoxFiles->Dock = DockStyle::Fill;
+			listBoxFiles->Font = gcnew System::Drawing::Font("Arial", 10);
+			listBoxFiles->DoubleClick += gcnew EventHandler(this, &Main_Menu::listBoxFiles_DoubleClick);
+
+			// Загружаем список файлов
+			LoadFileList(listBoxFiles);
+
+			// Добавляем ListBox на форму
+			loadFileForm->Controls->Add(listBoxFiles);
+
+			// Показываем форму
+			loadFileForm->ShowDialog();
+		}
+
+		// Метод загрузки списка файлов
+		private: System::Void LoadFileList(ListBox^ listBox) {
+			// Очищаем существующий список
+			listBox->Items->Clear();
+
+			// Путь к папке с сохраненными файлами
+			String^ saveFolder = Application::StartupPath + "\\SavedFiles\\";
+
+			try {
+				// Проверяем существование папки
+				if (!Directory::Exists(saveFolder)) {
+					Directory::CreateDirectory(saveFolder);
+				}
+
+				// Получаем список всех текстовых файлов
+				array<String^>^ files = Directory::GetFiles(saveFolder, "*.txt");
+
+				// Добавляем имена файлов в ListBox
+				for each (String ^ file in files) {
+					listBox->Items->Add(Path::GetFileName(file));
+				}
+
+				// Если файлов нет, показываем сообщение
+				if (files->Length == 0) {
+					MessageBox::Show("В папке нет файлов.", "Информация",
+						MessageBoxButtons::OK, MessageBoxIcon::Information);
+				}
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Ошибка получения списка файлов: " + ex->Message, "Ошибка",
+					MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+
+		// Обработчик двойного клика по файлу
+		private: System::Void listBoxFiles_DoubleClick(Object^ sender, EventArgs^ e) {
+			// Получаем ListBox
+			ListBox^ listBox = safe_cast<ListBox^>(sender);
+
+			// Проверяем, выбран ли файл
+			if (listBox->SelectedItem == nullptr) {
+				MessageBox::Show("Выберите файл!", "Внимание",
+					MessageBoxButtons::OK, MessageBoxIcon::Warning);
+				return;
+			}
+
+			// Получаем имя выбранного файла
+			String^ selectedFileName = listBox->SelectedItem->ToString();
+			String^ saveFolder = Application::StartupPath + "\\SavedFiles\\";
+
+			// Путь к временному файлу
+			String^ tempFilePath = Application::StartupPath + "\\temp.txt";
+
+			try {
+				// Полный путь к исходному файлу
+				String^ fullFilePath = Path::Combine(saveFolder, selectedFileName);
+
+				// Читаем содержимое файла
+				String^ fileContent = File::ReadAllText(fullFilePath);
+
+				// Сохраняем содержимое во временный файл
+				File::WriteAllText(tempFilePath, fileContent);
+
+				// Закрываем форму выбора файлов
+				loadFileForm->Close();
+
+				LoadGame();
+
+				// Дополнительно можно открыть временный файл 
+				// или выполнить другие действия
+				// System::Diagnostics::Process::Start(tempFilePath);
+			}
+			catch (Exception^ ex) {
+				MessageBox::Show("Ошибка загрузки файла: " + ex->Message, "Ошибка",
+					MessageBoxButtons::OK, MessageBoxIcon::Error);
+			}
+		}
+
+		private: System::Void LoadGame();
+
+		public: System::Void SetLoadEnabled(bool Set)
+		{
+			To_Load_Game->Enabled = Set;
 		}
 	};
 }

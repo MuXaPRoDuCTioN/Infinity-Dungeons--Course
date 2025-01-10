@@ -1,6 +1,7 @@
 #pragma once
 #include "Inventory.h"
 #include "Main_Menu.h"
+#include "Dungeon.h"
 
 namespace InfinityDungeons {
 
@@ -15,8 +16,6 @@ namespace InfinityDungeons {
 	#define WM_NCLBUTTONDOWN 0x00A1
 	#define HTCAPTION 2
 
-	ref class Main_Menu;
-
 	/// <summary>
 	/// —водка дл€ Hub_location
 	/// </summary>
@@ -30,7 +29,9 @@ namespace InfinityDungeons {
 			InitializeComponent();
 			parentForm = parent;
 		}	
-		
+	private: System::Windows::Forms::Button^ buttonExit;
+	public:
+
 		Main_Menu^ parentForm;
 
 	protected:
@@ -48,7 +49,8 @@ namespace InfinityDungeons {
 	protected:
 	private: System::Windows::Forms::Button^ button2;
 	private: System::Windows::Forms::Button^ button3;
-	private: System::Windows::Forms::Button^ button4;
+	private: System::Windows::Forms::Button^ buttonToDungeon;
+
 	private: System::Windows::Forms::Button^ buttonInventory;
 
 	
@@ -69,8 +71,9 @@ namespace InfinityDungeons {
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->button3 = (gcnew System::Windows::Forms::Button());
-			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->buttonToDungeon = (gcnew System::Windows::Forms::Button());
 			this->buttonInventory = (gcnew System::Windows::Forms::Button());
+			this->buttonExit = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// button1
@@ -100,14 +103,15 @@ namespace InfinityDungeons {
 			this->button3->Text = L"Magick shop";
 			this->button3->UseVisualStyleBackColor = true;
 			// 
-			// button4
+			// buttonToDungeon
 			// 
-			this->button4->Location = System::Drawing::Point(474, 376);
-			this->button4->Name = L"button4";
-			this->button4->Size = System::Drawing::Size(120, 60);
-			this->button4->TabIndex = 3;
-			this->button4->Text = L"To Dungeon";
-			this->button4->UseVisualStyleBackColor = true;
+			this->buttonToDungeon->Location = System::Drawing::Point(474, 376);
+			this->buttonToDungeon->Name = L"buttonToDungeon";
+			this->buttonToDungeon->Size = System::Drawing::Size(120, 60);
+			this->buttonToDungeon->TabIndex = 3;
+			this->buttonToDungeon->Text = L"To Dungeon";
+			this->buttonToDungeon->UseVisualStyleBackColor = true;
+			this->buttonToDungeon->Click += gcnew System::EventHandler(this, &Hub_location::buttonToDungeon_Click);
 			// 
 			// buttonInventory
 			// 
@@ -119,13 +123,24 @@ namespace InfinityDungeons {
 			this->buttonInventory->UseVisualStyleBackColor = true;
 			this->buttonInventory->Click += gcnew System::EventHandler(this, &Hub_location::buttonInventory_Click);
 			// 
+			// buttonExit
+			// 
+			this->buttonExit->Location = System::Drawing::Point(575, 12);
+			this->buttonExit->Name = L"buttonExit";
+			this->buttonExit->Size = System::Drawing::Size(75, 23);
+			this->buttonExit->TabIndex = 5;
+			this->buttonExit->Text = L"X";
+			this->buttonExit->UseVisualStyleBackColor = true;
+			this->buttonExit->Click += gcnew System::EventHandler(this, &Hub_location::buttonExit_Click);
+			// 
 			// Hub_location
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(680, 480);
+			this->Controls->Add(this->buttonExit);
 			this->Controls->Add(this->buttonInventory);
-			this->Controls->Add(this->button4);
+			this->Controls->Add(this->buttonToDungeon);
 			this->Controls->Add(this->button3);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
@@ -133,6 +148,8 @@ namespace InfinityDungeons {
 			this->Name = L"Hub_location";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Hub_location";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Hub_location::Hub_location_FormClosing);
+			this->Load += gcnew System::EventHandler(this, &Hub_location::Hub_location_Load);
 			this->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Hub_location::Hub_location_MouseDown);
 			this->ResumeLayout(false);
 
@@ -154,22 +171,54 @@ namespace InfinityDungeons {
 			ReleaseCapture();
 			SendMessage(this->Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
 		}
-
 		
 		private: System::Void buttonInventory_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
 			Inventory^ formInventory = gcnew Inventory;		
 			formInventory->FormClosed += gcnew FormClosedEventHandler(this, &Hub_location::Inventory_Closed);
 			buttonInventory->Enabled = false;
-			parentForm->SetSaveLoadEnabled(false);
+			parentForm->SetSaveEnabled(false);
 			formInventory->Show();
 		}
 
 		private: Void Inventory_Closed(Object^ sender, FormClosedEventArgs^ e)
 		{
 			//  од, который выполнитс€ после закрыти€ дочерней формы
-			parentForm->SetSaveLoadEnabled(true);
+			parentForm->SetSaveEnabled(true);
 			buttonInventory->Enabled = true;
+		}
+
+		private: System::Void Hub_location_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) 
+		{
+			parentForm->SetLoadEnabled(true);
+		}
+
+		private: System::Void Hub_location_Load(System::Object^ sender, System::EventArgs^ e)
+		{
+			parentForm->SetLoadEnabled(false);
+		}
+
+		private: System::Void buttonExit_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			this->Close();
+		}
+
+		private: System::Void buttonToDungeon_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			Dungeon^ ToDungeon = gcnew Dungeon;
+			buttonToDungeon->Enabled = false;
+			ToDungeon->FormClosed += gcnew FormClosedEventHandler(this, &Hub_location::Dungeon_Closed);
+			ToDungeon->Show();
+			this->Hide();
+			parentForm->Hide();
+		}
+
+		private: Void Dungeon_Closed(Object^ sender, FormClosedEventArgs^ e)
+		{
+			//  од, который выполнитс€ после закрыти€ дочерней формы
+			buttonToDungeon->Enabled = true;
+			this->Show();
+			parentForm->Show();
 		}
 	};
 }

@@ -120,12 +120,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Dungeon.cpp" />
     <ClCompile Include="Hub_location.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Main_Menu.cpp" />
     <ClCompile Include="New_Game.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dungeon.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="DungeonGenerator.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Hub_location.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -139,8 +145,13 @@
     <ClInclude Include="New_Game.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Dungeon.resx">
+      <DependentUpon>Dungeon.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Hub_location.resx">
       <DependentUpon>Hub_location.h</DependentUpon>
     </EmbeddedResource>
