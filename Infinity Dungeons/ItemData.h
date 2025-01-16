@@ -17,6 +17,9 @@ namespace InfinityDungeons
 	public:
 		int ID;
 		String^ Name;
+		int Price;
+		int EquipmentType; // Тип экипировки
+		bool CanEquip;     // Можно ли экипировать
 
 		// Конструктор
 		ItemData(int id, String^ name) {
@@ -24,9 +27,31 @@ namespace InfinityDungeons
 			Name = name;
 		}
 
+		// Конструктор по умолчанию
+		ItemData() : ID(0), Name(""), Price(0) {}
+
+		// Конструктор с параметрами
+		ItemData(int id, String^ name, int price)
+			: ID(id), Name(name), Price(price) {}
+
+		ItemData(int id, String^ name, int price, int equipType, bool canEquip) :
+			ID(id),
+			Name(name),
+			Price(price),
+			EquipmentType(equipType),
+			CanEquip(canEquip) {}
+
 		// Переопределяем метод ToString() для отображения только названия
 		virtual String^ ToString() override {
 			return Name;
+		}		
+		
+		// Метод для получения полной информации о предмете
+		String^ GetFullInfo() {
+			return String::Format(
+				"ID: {0}, Name: {1}, Price: {2}, Type: {3}, Equipable: {4}",
+				ID, Name, Price, EquipmentType, CanEquip
+			);
 		}
 	};
 }

@@ -20,20 +20,34 @@ namespace InfinityDungeons
 	#define WM_NCLBUTTONDOWN 0x00A1
 	#define HTCAPTION 2
 
-	
-
 	/// <summary>
 	/// Сводка для Inventory
 	/// </summary>
 	public ref class Inventory : public System::Windows::Forms::Form
 	{
+	private:
+		// Константы
+		static String^ ITEMS_FILE = "Items.txt";
+		static String^ TEMP_FILE = "temp.txt";
+		int MAX_INVENTORY_SLOTS;
+
 	public:
 		Inventory(void)
 		{
+			ITEMS_FILE = GetFilePath("Items.txt");
+			TEMP_FILE = GetFilePath("temp.txt");
+			int MAX_INVENTORY_SLOTS;
+
 			InitializeComponent();
-			//
-			//TODO: добавьте код конструктора
-			//
+			LoadPlayerImage();
+			LoadPlayerStats();
+			LoadPlayerInventory();
+			LoadPlayerEquipment();
+			SetupListBoxHandlers();
+			SetupExitButton();
+			InitializeContextMenu();
+			CreateUnequipMethods();
+			UpdateInventoryLabel(); // Устанавливаем initial label
 		}
 
 	protected:
@@ -49,28 +63,16 @@ namespace InfinityDungeons
 		}
 	private: System::Windows::Forms::PictureBox^ pictureBoxPlayer;
 	private: System::Windows::Forms::Label^ labelStrength;
-
 	private: System::Windows::Forms::Label^ labelIntelligence;
 	private: System::Windows::Forms::Label^ labelAgility;
 	private: System::Windows::Forms::Label^ labelHP;
 	private: System::Windows::Forms::Label^ labelMP;
 	private: System::Windows::Forms::Label^ labelInvent;
-
-
-
-
-
-
-
 	private: System::Windows::Forms::ListBox^ listBoxItems;
 	private: System::Windows::Forms::Button^ buttonHelmet;
 	private: System::Windows::Forms::Button^ buttonCuirass;
 	private: System::Windows::Forms::Button^ buttonGreaves;
 	private: System::Windows::Forms::Button^ buttonBoots;
-
-
-
-
 	private: System::Windows::Forms::Button^ buttonGloves;
 	private: System::Windows::Forms::Button^ buttonRing;
 	private: System::Windows::Forms::Button^ buttonNecklace;
@@ -82,21 +84,6 @@ namespace InfinityDungeons
 	private: System::Windows::Forms::Label^ lblHP;
 	private: System::Windows::Forms::Label^ lblMP;
 	private: System::Windows::Forms::Label^ lblInv;
-
-
-
-
-
-
-
-
-
-
-
-	protected:
-
-	protected:
-
 	private:
 		/// <summary>
 		/// Обязательная переменная конструктора.
@@ -206,7 +193,6 @@ namespace InfinityDungeons
 			this->listBoxItems->Name = L"listBoxItems";
 			this->listBoxItems->Size = System::Drawing::Size(130, 208);
 			this->listBoxItems->TabIndex = 7;
-			this->listBoxItems->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Inventory::listBoxItems_MouseClick);
 			// 
 			// buttonHelmet
 			// 
@@ -216,7 +202,6 @@ namespace InfinityDungeons
 			this->buttonHelmet->TabIndex = 8;
 			this->buttonHelmet->Text = L"buttonHelmet";
 			this->buttonHelmet->UseVisualStyleBackColor = true;
-			this->buttonHelmet->Click += gcnew System::EventHandler(this, &Inventory::buttonHelmet_Click);
 			// 
 			// buttonCuirass
 			// 
@@ -226,7 +211,6 @@ namespace InfinityDungeons
 			this->buttonCuirass->TabIndex = 8;
 			this->buttonCuirass->Text = L"buttonCuirass";
 			this->buttonCuirass->UseVisualStyleBackColor = true;
-			this->buttonCuirass->Click += gcnew System::EventHandler(this, &Inventory::buttonCuirass_Click);
 			// 
 			// buttonGreaves
 			// 
@@ -236,7 +220,6 @@ namespace InfinityDungeons
 			this->buttonGreaves->TabIndex = 8;
 			this->buttonGreaves->Text = L"buttonGreaves";
 			this->buttonGreaves->UseVisualStyleBackColor = true;
-			this->buttonGreaves->Click += gcnew System::EventHandler(this, &Inventory::buttonGreaves_Click);
 			// 
 			// buttonBoots
 			// 
@@ -246,7 +229,6 @@ namespace InfinityDungeons
 			this->buttonBoots->TabIndex = 8;
 			this->buttonBoots->Text = L"buttonBoots";
 			this->buttonBoots->UseVisualStyleBackColor = true;
-			this->buttonBoots->Click += gcnew System::EventHandler(this, &Inventory::buttonBoots_Click);
 			// 
 			// buttonGloves
 			// 
@@ -256,7 +238,6 @@ namespace InfinityDungeons
 			this->buttonGloves->TabIndex = 8;
 			this->buttonGloves->Text = L"buttonGloves";
 			this->buttonGloves->UseVisualStyleBackColor = true;
-			this->buttonGloves->Click += gcnew System::EventHandler(this, &Inventory::buttonGloves_Click);
 			// 
 			// buttonRing
 			// 
@@ -266,7 +247,6 @@ namespace InfinityDungeons
 			this->buttonRing->TabIndex = 8;
 			this->buttonRing->Text = L"buttonRing";
 			this->buttonRing->UseVisualStyleBackColor = true;
-			this->buttonRing->Click += gcnew System::EventHandler(this, &Inventory::buttonRing_Click);
 			// 
 			// buttonNecklace
 			// 
@@ -276,7 +256,6 @@ namespace InfinityDungeons
 			this->buttonNecklace->TabIndex = 8;
 			this->buttonNecklace->Text = L"buttonNecklace";
 			this->buttonNecklace->UseVisualStyleBackColor = true;
-			this->buttonNecklace->Click += gcnew System::EventHandler(this, &Inventory::buttonNecklace_Click);
 			// 
 			// buttonWeapon
 			// 
@@ -286,7 +265,6 @@ namespace InfinityDungeons
 			this->buttonWeapon->TabIndex = 9;
 			this->buttonWeapon->Text = L"buttonWeapon";
 			this->buttonWeapon->UseVisualStyleBackColor = true;
-			this->buttonWeapon->Click += gcnew System::EventHandler(this, &Inventory::buttonWeapon_Click);
 			// 
 			// buttonExit
 			// 
@@ -296,7 +274,6 @@ namespace InfinityDungeons
 			this->buttonExit->TabIndex = 10;
 			this->buttonExit->Text = L"X";
 			this->buttonExit->UseVisualStyleBackColor = true;
-			this->buttonExit->Click += gcnew System::EventHandler(this, &Inventory::buttonExit_Click);
 			// 
 			// lblStrength
 			// 
@@ -384,7 +361,6 @@ namespace InfinityDungeons
 			this->Name = L"Inventory";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Inventory";
-			this->Load += gcnew System::EventHandler(this, &Inventory::Inventory_Load);
 			this->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Inventory::Inventory_MouseDown);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxPlayer))->EndInit();
 			this->ResumeLayout(false);
@@ -399,137 +375,9 @@ namespace InfinityDungeons
 		[System::Runtime::InteropServices::DllImport("user32.dll")]
 		static IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
-		// Метод для чтения ID из файла
-		private: List<int>^ ReadIDsFromFile(String^ filename) {
-			List<int>^ ids = gcnew List<int>();
-
-			// Читаем все строки файла
-			array<String^>^ lines = File::ReadAllLines(filename);
-
-			// Получаем 8-ю строку (индекс 7)
-			String^ sevenLine = lines[7];
-
-			// Разбиваем строку по запятой
-			array<String^>^ idStrings = sevenLine->Split(',');
-
-			// Преобразуем каждый ID
-			for each (String ^ idStr in idStrings) {
-				int id;
-				if (Int32::TryParse(idStr->Trim(), id)) {
-					ids->Add(id);
-				}
-			}
-
-			return ids;
-		}
-
-		private: Void LoadItemNames(List<int>^ itemIDs) 
-		{
-			try {
-				// Чтение всех строк файла с предметами
-				array<String^>^ itemLines = File::ReadAllLines("Items.txt");
-
-				// Очищаем существующий ListBox
-				listBoxItems->Items->Clear();
-
-				// Перебираем каждый ID из списка
-				for each (int targetID in itemIDs) {
-					// Ищем соответствующую строку в файле
-					for each (String ^ line in itemLines) {
-						// Разбиваем строку на части
-						array<String^>^ parts = line->Split(',');
-
-						// Проверяем, совпадает ли ID
-						if (parts->Length >= 3 &&
-							Int32::Parse(parts[0]->Trim()) == targetID) {
-
-							// Добавляем название предмета в ListBox
-							listBoxItems->Items->Add(gcnew ItemData(targetID, parts[2]->Trim()));
-							break; // Выходим из внутреннего цикла после находки
-						}
-					}
-				}
-			}
-			catch (Exception^ ex) {
-				MessageBox::Show("Ошибка загрузки предметов: " + ex->Message);
-			}
-		}
-
-		private: System::Void Inventory_Load(System::Object^ sender, System::EventArgs^ e) 
-		{
-			String^ fileName = "temp.txt";
-			LoadImageFromFile();
-			LoadStatsFromFile();
-			List<int>^ IDs = ReadIDsFromFile(fileName);
-			LoadItemNames(IDs);
-			InitializeContextMenu();
-			LoadEquipment(fileName);
-		}
-
 		private:
 			// Объявляем контекстное меню
-			System::Windows::Forms::ContextMenuStrip^ itemContextMenu;
-
-			void InitializeContextMenu() 
-			{
-				// Создаем контекстное меню
-				itemContextMenu = gcnew System::Windows::Forms::ContextMenuStrip();
-
-				ToolStripMenuItem^ equipItem = gcnew ToolStripMenuItem("Экипировать");
-				equipItem->Name = "EquipItem"; // Задаем имя
-
-				equipItem->Click += gcnew EventHandler(this, &Inventory::OnEquipItem);
-
-				// Добавляем пункты меню
-				itemContextMenu->Items->Add(equipItem);
-				itemContextMenu->Items->Add("Редактировать", nullptr, gcnew EventHandler(this, &Inventory::OnEditItem));
-				itemContextMenu->Items->Add("Удалить", nullptr, gcnew EventHandler(this, &Inventory::OnDeleteItem));
-
-				// Назначаем контекстное меню ListBox
-				listBoxItems->ContextMenuStrip = itemContextMenu;
-			}
-
-			// Обработчики событий для пунктов меню
-			void OnEquipItem(Object^ sender, EventArgs^ e)
-			{
-				if (listBoxItems->SelectedItem != nullptr) {
-					// Чтение всех строк файла с предметами
-					array<String^>^ itemLines = File::ReadAllLines("Items.txt");
-
-					ItemData^ selectedItem = safe_cast<ItemData^>(listBoxItems->SelectedItem);
-					int selectedID = selectedItem->ID;
-
-					// Перебираем каждый ID из списка
-					for each (String ^ line in itemLines) {
-						// Разбиваем строку на части
-						array<String^>^ parts = line->Split(',');
-
-						// Проверяем, совпадает ли ID
-						if (parts->Length >= 3 &&
-							Int32::Parse(parts[0]->Trim()) == selectedID && 
-							Int32::Parse(parts[3]->Trim())) {
-
-							EquipItem(selectedID, listBoxItems->SelectedIndex);
-						}
-					}
-				}				
-			}
-
-			void OnEditItem(Object^ sender, EventArgs^ e) 
-			{
-				if (listBoxItems->SelectedItem != nullptr) {
-					String^ selectedItem = listBoxItems->SelectedItem->ToString();
-					MessageBox::Show("Редактирование: " + selectedItem);
-				}
-			}
-
-			void OnDeleteItem(Object^ sender, EventArgs^ e) 
-			{
-				if (listBoxItems->SelectedItem != nullptr) {
-					int selectedIndex = listBoxItems->SelectedIndex;
-					listBoxItems->Items->RemoveAt(selectedIndex);
-				}
-			}
+			System::Windows::Forms::ContextMenuStrip^ itemContextMenu;		
 
 		private: System::Void Inventory_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
 		{
@@ -537,367 +385,592 @@ namespace InfinityDungeons
 			ReleaseCapture();
 			SendMessage(this->Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
 		}
+			   String^ ReadSpecificLine(String^ filename, int lineNumber) {
+				   try {
+					   // Читаем все строки файла
+					   array<String^>^ lines = File::ReadAllLines(filename);
 
-		private: Void LoadImageFromFile() 
-		{
-			std::string filePath = "temp.txt";
-			std::ifstream file(filePath);
-			std::string line;
-    
-			// Пропускаем первые 6 строк
-			for (int i = 0; i < 6; ++i) {
-				std::getline(file, line);
-			}
-    
-			// Читаем 7-ю строку (путь к картинке)
-			std::getline(file, line);
-    
-			// Преобразуем std::string в System::String^
-			String^ imagePath = gcnew String(line.c_str());
-    
-			// Загружаем изображение в существующий ImageBox
-			if (System::IO::File::Exists(imagePath)) 
-			{
-				pictureBoxPlayer->Image = Image::FromFile(imagePath);
-			}
-		}
+					   // Проверяем, существует ли указанная строка
+					   if (lineNumber > 0 && lineNumber <= lines->Length) {
+						   // Возвращаем строку (с учетом, что нумерация начинается с 1)
+						   return lines[lineNumber - 1]->Trim();
+					   }
+					   else {
+						   // Возвращаем пустую строку, если строка не найдена
+						   return String::Empty;
+					   }
+				   }
+				   catch (Exception^ ex) {
+					   // В случае ошибки выводим сообщение и возвращаем пустую строку
+					   MessageBox::Show("Ошибка чтения файла: " + ex->Message);
+					   return String::Empty;
+				   }
+			   }
 
-		private: Void LoadStatsFromFile()
-		{
-			std::string filePath = "temp.txt";
-			std::ifstream file(filePath);
-			std::string line;
+			   void LoadPlayerImage() {
+				   try {
+					   String^ imagePath = ReadSpecificLine(TEMP_FILE, 7);
+					   if (File::Exists(imagePath)) {
+						   pictureBoxPlayer->Image = Image::FromFile(imagePath);
+					   }
+				   }
+				   catch (Exception^ ex) {
+					   MessageBox::Show("Ошибка загрузки изображения: " + ex->Message);
+				   }
+			   }
 
-			for (int i = 0; i < 6; i++) 
-			{
-				std::getline(file, line);
+			   void LoadPlayerStats() {
+				   try {
+					   array<String^>^ statsLines = File::ReadAllLines(TEMP_FILE);
 
-				// Преобразуем std::string в System::String^
-				String^ labelText = gcnew String(line.c_str());
+					   labelStrength->Text = statsLines[0];
+					   labelIntelligence->Text = statsLines[1];
+					   labelAgility->Text = statsLines[2];
+					   labelHP->Text = statsLines[3];
+					   labelMP->Text = statsLines[4];
+					   labelInvent->Text = statsLines[5];
 
-				// Устанавливаем текст в label
-				if (i == 0)
-					labelStrength->Text = labelText;
-				else if (i == 1)
-					labelIntelligence->Text = labelText;
-				else if (i == 2)
-					labelAgility->Text = labelText;
-				else if (i == 3)
-					labelHP->Text = labelText;
-				else if (i == 4)
-					labelMP->Text = labelText;
-				else if (i == 5)
-					labelInvent->Text = labelText;
-			}			
-		}
+					   // Парсим максимальный размер инвентаря из 6 строки
+					   if (Int32::TryParse(statsLines[5]->Trim(), MAX_INVENTORY_SLOTS)) {
+						   // Обновляем label с учетом текущего количества предметов
+						   UpdateInventoryLabel();
+					   }
+					   else {
+						   // Значение по умолчанию, если парсинг не удался
+						   MAX_INVENTORY_SLOTS = 20;
+					   }
+				   }
+				   catch (Exception^ ex) {
+					   MessageBox::Show("Ошибка загрузки статов: " + ex->Message);
+				   }
+			   }
 		
-		private: Void LoadEquipment(String^ filename)
-		{
-			// Читаем все строки файла
-			array<String^>^ lines = File::ReadAllLines(filename);
+			   void LoadPlayerInventory() {
+				   try {
+					   // Логика загрузки инвентаря
+					   List<int>^ inventoryIDs = ParseInventoryIDs(TEMP_FILE);
+					   PopulateInventoryListBox(inventoryIDs);
+				   }
+				   catch (Exception^ ex) {
+					   MessageBox::Show("Ошибка загрузки инвентаря: " + ex->Message);
+				   }
+			   }
 
-			// Получаем 9-ю строку (индекс 8)
-			String^ eightLine = lines[8];
+			   List<int>^ ParseInventoryIDs(String^ filename) {
+				   List<int>^ ids = gcnew List<int>();
+				   array<String^>^ lines = File::ReadAllLines(filename);
 
-			// Разбиваем строку по запятой
-			array<String^>^ idStrings = eightLine->Split(',');
+				   array<String^>^ idStrings = lines[7]->Split(',');
+				   for each (String ^ idStr in idStrings) {
+					   int id;
+					   if (Int32::TryParse(idStr->Trim(), id)) {
+						   ids->Add(id);
+					   }
+				   }
+				   return ids;
+			   }
 
-			//Заглушка: заносим в текст кнопок None или название предмета
-			int i = 0;
-			if (idStrings[i] == "None")
-				buttonWeapon->Text = idStrings[i];
-			else
-				buttonWeapon->Text = LoadItemName(Int32::Parse(idStrings[i]));
-			i++;
+			   void PopulateInventoryListBox(List<int>^ itemIDs) {
+				   listBoxItems->Items->Clear();
 
-			if (idStrings[i] == "None")
-				buttonHelmet->Text = idStrings[i];
-			else
-				buttonHelmet->Text = LoadItemName(Int32::Parse(idStrings[i]));
-			i++;
+				   array<String^>^ itemLines = File::ReadAllLines(ITEMS_FILE);
 
-			if (idStrings[i] == "None")
-				buttonCuirass->Text = idStrings[i];
-			else
-				buttonCuirass->Text = LoadItemName(Int32::Parse(idStrings[i]));
-			i++;
+				   for each (int targetID in itemIDs) {
+					   for each (String ^ line in itemLines) {
+						   array<String^>^ parts = line->Split(',');
 
-			if (idStrings[i] == "None")
-				buttonGloves->Text = idStrings[i];
-			else
-				buttonGloves->Text = LoadItemName(Int32::Parse(idStrings[i]));
-			i++;
+						   if (parts->Length >= 3 &&
+							   Int32::Parse(parts[0]->Trim()) == targetID) {
 
-			if (idStrings[i] == "None")
-				buttonGreaves->Text = idStrings[i];
-			else
-				buttonGreaves->Text = LoadItemName(Int32::Parse(idStrings[i]));
-			i++;
+							   listBoxItems->Items->Add(
+								   gcnew ItemData(targetID, parts[2]->Trim())
+							   );
+							   break;
+						   }
+					   }
+				   }
+			   }
 
-			if (idStrings[i] == "None")
-				buttonBoots->Text = idStrings[i];
-			else
-				buttonBoots->Text = LoadItemName(Int32::Parse(idStrings[i]));
-			i++;
+			   void LoadPlayerEquipment() {
+				   try {
+					   array<String^>^ lines = File::ReadAllLines(TEMP_FILE);
+					   array<String^>^ equipmentIDs = lines[8]->Split(',');
 
-			if (idStrings[i] == "None")
-				buttonNecklace->Text = idStrings[i];
-			else
-				buttonNecklace->Text = LoadItemName(Int32::Parse(idStrings[i]));
-			i++;
+					   UpdateEquipmentButtons(equipmentIDs);
+				   }
+				   catch (Exception^ ex) {
+					   MessageBox::Show("Ошибка загрузки экипировки: " + ex->Message);
+				   }
+			   }
 
-			if (idStrings[i] == "None")
-				buttonRing->Text = idStrings[i];
-			else
-				buttonRing->Text = LoadItemName(Int32::Parse(idStrings[i]));
-		}
+			   List<Button^>^ GetEquipmentButtons() {
+				   List<Button^>^ buttons = gcnew List<Button^>();
+				   buttons->Add(buttonWeapon);
+				   buttons->Add(buttonHelmet);
+				   buttons->Add(buttonCuirass);
+				   buttons->Add(buttonGloves);
+				   buttons->Add(buttonGreaves);
+				   buttons->Add(buttonBoots);
+				   buttons->Add(buttonNecklace);
+				   buttons->Add(buttonRing);
+				   return buttons;
+			   }
 
-		private: String^ LoadItemName(Int32 itemID)
-		{
-			// Чтение всех строк файла с предметами
-			array<String^>^ itemLines = File::ReadAllLines("Items.txt");
+			   void UpdateEquipmentButtons(array<String^>^ equipmentIDs) {
+				   List<Button^>^ buttons = GetEquipmentButtons();
 
+				   for (int i = 0; i < buttons->Count; i++) {
+					   if (equipmentIDs[i] == "None")
+						   buttons[i]->Text = "None";
+					   else
+						   buttons[i]->Text = GetItemNameById(Int32::Parse(equipmentIDs[i]));
+				   }
+			   }
 
-			// Перебираем каждый ID из списка
-			for each (String ^ line in itemLines) {
-				// Разбиваем строку на части
-				array<String^>^ parts = line->Split(',');
+			   String^ GetItemNameById(int itemID) {
+				   array<String^>^ itemLines = File::ReadAllLines(ITEMS_FILE);
 
-				// Проверяем, совпадает ли ID
-				if (parts->Length >= 3 &&
-					Int32::Parse(parts[0]->Trim()) == itemID) {
+				   for each (String ^ line in itemLines) {
+					   array<String^>^ parts = line->Split(',');
 
-					// Добавляем название предмета в ListBox
-					return parts[2]->Trim();
-				}
-			}
-		}
+					   if (parts->Length >= 3 &&
+						   Int32::Parse(parts[0]->Trim()) == itemID) {
+						   return parts[2]->Trim();
+					   }
+				   }
 
-		private: Void EquipItem(int selectedID, int index)
-		{
-			// Чтение всех строк файла с предметами
-			array<String^>^ itemLines = File::ReadAllLines("Items.txt");
+				   return "Unnamed";
+			   }
+			   
 
-			// Перебираем каждый ID из списка
-			for each (String ^ line in itemLines) {
-				// Разбиваем строку на части
-				array<String^>^ parts = line->Split(',');
+			   void InitializeContextMenu() {
+				   itemContextMenu = gcnew System::Windows::Forms::ContextMenuStrip();
 
-				// Проверяем, совпадает ли ID
-				if (parts->Length >= 3 &&
-					Int32::Parse(parts[0]->Trim()) == selectedID &&
-					Int32::Parse(parts[1]->Trim()) == 0)
-				{
-					String^ tempString = buttonWeapon->Text;
-					buttonWeapon->Text = parts[2]->Trim();
-					listBoxItems->Items->RemoveAt(index);
-					if (tempString != "None")
-					{
-						ReplaceItem(selectedID, index);
-					}
-					else
-					{
-						FromInventory(selectedID, index);
-					}
-					
-				}
-			}
-		}
+				   // Создаем пункт "Экипировать" с именем
+				   ToolStripMenuItem^ equipItem =
+					   gcnew ToolStripMenuItem("Экипировать");
+				   equipItem->Name = "EquipItem"; // Важно задать имя
 
-		private: Int32 FindID(String^ IDlessString)
-		{
-			// Чтение всех строк файла с предметами
-			array<String^>^ itemLines = File::ReadAllLines("Items.txt");
+				   equipItem->Click +=
+					   gcnew EventHandler(this, &Inventory::OnEquipItem);
 
-			// Перебираем каждый ID из списка
-			for each (String ^ line in itemLines) {
-				// Разбиваем строку на части
-				array<String^>^ parts = line->Split(',');
+				   // Добавляем пункты меню
+				   itemContextMenu->Items->Add(equipItem);
+				   itemContextMenu->Items->Add(
+					   "Редактировать",
+					   nullptr,
+					   gcnew EventHandler(this, &Inventory::OnEditItem)
+				   );
+				   itemContextMenu->Items->Add(
+					   "Удалить",
+					   nullptr,
+					   gcnew EventHandler(this, &Inventory::OnDeleteItem)
+				   );
 
-				// Проверяем, совпадает ли ID
-				if (parts->Length >= 3 &&
-					parts[2]->Trim() == IDlessString)
-				{
-					return Int32::Parse(parts[0]->Trim());
-				}
-			}
-		}
+				   // Назначаем контекстное меню ListBox
+				   listBoxItems->ContextMenuStrip = itemContextMenu;
 
-		private: Void FromInventory(int selectedID, int index)
-		{
-			// Чтение всех строк файла с предметами
-			array<String^>^ itemLines = File::ReadAllLines("Items.txt");
-			array<String^>^ lines = File::ReadAllLines("temp.txt");
-			
-			// Разделяем строку на элементы
-			array<String^>^ elements = lines[7]->Split(',');
-			// Заменяем нужный элемент
-			List<String^>^ newElements = gcnew List<String^>(elements);
-			newElements->RemoveAt(index);
+				   // Добавляем пункты только для экипируемых предметов
+				   listBoxItems->MouseClick +=
+					   gcnew MouseEventHandler(this, &Inventory::UpdateContextMenu);
+			   }
 
-			// Собираем строку обратно
-			lines[7] = String::Join(",", newElements->ToArray());
+			   void UpdateContextMenu(Object^ sender, MouseEventArgs^ e) {
+				   // Очищаем существующее меню
+				   itemContextMenu->Items->Clear();
 
-			elements = lines[8]->Split(',');
-			// Перебираем каждый ID из списка
-			for each (String ^ line in itemLines) {
-				// Разбиваем строку на части
-				array<String^>^ parts = line->Split(',');
+				   ItemData^ selectedItem =
+					   dynamic_cast<ItemData^>(listBoxItems->SelectedItem);
 
-				// Проверяем, совпадает ли ID
-				if (parts->Length >= 3 &&
-					Int32::Parse(parts[0]->Trim()) == selectedID)
-				{
-					elements[Int32::Parse(parts[1]->Trim())] = selectedID.ToString();
-				}
-			}
-			lines[8] = String::Join(",", elements);	
+				   if (selectedItem != nullptr && CanEquipItem(selectedItem->ID)) {
+					   // Добавляем пункты только для экипируемых предметов
+					   ToolStripMenuItem^ equipItem =
+						   gcnew ToolStripMenuItem("Экипировать");
+					   equipItem->Click +=
+						   gcnew EventHandler(this, &Inventory::OnEquipItem);
 
-			// Перезаписываем файл
-			File::WriteAllLines("temp.txt", lines);
-		}
+					   itemContextMenu->Items->Add(equipItem);
+					   itemContextMenu->Items->Add(
+						   "Редактировать",
+						   nullptr,
+						   gcnew EventHandler(this, &Inventory::OnEditItem)
+					   );
+					   itemContextMenu->Items->Add(
+						   "Удалить",
+						   nullptr,
+						   gcnew EventHandler(this, &Inventory::OnDeleteItem)
+					   );
+				   }
+				   else if (selectedItem != nullptr) {
+					   // Для неэкипируемых - только редактирование и удаление
+					   itemContextMenu->Items->Add(
+						   "Редактировать",
+						   nullptr,
+						   gcnew EventHandler(this, &Inventory::OnEditItem)
+					   );
+					   itemContextMenu->Items->Add(
+						   "Удалить",
+						   nullptr,
+						   gcnew EventHandler(this, &Inventory::OnDeleteItem)
+					   );
+				   }
 
-		private: Void ReplaceItem(int selectedID, int index)
-		{
-			// Чтение всех строк файла с предметами
-			array<String^>^ itemLines = File::ReadAllLines("Items.txt");
-			array<String^>^ lines = File::ReadAllLines("temp.txt");
+				   // Назначаем контекстное меню
+				   listBoxItems->ContextMenuStrip = itemContextMenu;
+			   }
 
-			// Разделяем строку на элементы
-			array<String^>^ elements = lines[7]->Split(',');
-			// Заменяем нужный элемент
-			List<String^>^ newElements = gcnew List<String^>(elements);
-			newElements->RemoveAt(index);
+			   void ListBoxMouseClickHandler(Object^ sender, MouseEventArgs^ e) {
+				   ItemData^ selectedItem =
+					   dynamic_cast<ItemData^>(listBoxItems->SelectedItem);
 
-			elements = lines[8]->Split(',');
-			// Перебираем каждый ID из списка
-			for each (String ^ line in itemLines) {
-				// Разбиваем строку на части
-				array<String^>^ parts = line->Split(',');
+				   if (selectedItem != nullptr) {
+					   UpdateContextMenuVisibility(selectedItem->ID);
+				   }
+			   }
 
-				// Проверяем, совпадает ли ID
-				if (parts->Length >= 3 &&
-					Int32::Parse(parts[0]->Trim()) == selectedID)
-				{
-					Int32 temp = Int32::Parse(elements[Int32::Parse(parts[1]->Trim())]);
-					elements[Int32::Parse(parts[1]->Trim())] = selectedID.ToString();
-	
-					// Добавляем название предмета в ListBox
-					listBoxItems->Items->Add(gcnew ItemData(temp, LoadItemName(temp)));
-					newElements->Add(temp.ToString());
-				}
-			}
+			   void OnEquipItem(Object^ sender, EventArgs^ e) {
+				   ItemData^ selectedItem = GetSelectedInventoryItem();
+				   if (selectedItem == nullptr) return;
 
-			// Собираем строку обратно
-			lines[7] = String::Join(",", newElements->ToArray());
-			lines[8] = String::Join(",", elements);
+				   if (CanEquipItem(selectedItem->ID)) {
+					   EquipSelectedItem(selectedItem);
+				   }
+			   }
 
-			// Перезаписываем файл
-			File::WriteAllLines("temp.txt", lines);
-		}
+			   void UpdateContextMenuVisibility(int itemID) {
+				   bool canEquip = CanEquipItem(itemID);
 
-		private: Void FromEquipToInv(int IndexOfItem)
-		{
-			// Чтение всех строк файла с предметами
-			array<String^>^ lines = File::ReadAllLines("temp.txt");
+				   if (itemContextMenu->Items->Count > 0) {
+					   // Находим пункт "Экипировать"
+					   ToolStripMenuItem^ equipItem =
+						   dynamic_cast<ToolStripMenuItem^>(
+							   itemContextMenu->Items->Find("EquipItem", true)
+							   );
 
-			// Разделяем строку на элементы
-			array<String^>^ elements = lines[8]->Split(',');
-			Int32 temp = Int32::Parse(elements[IndexOfItem]->Trim());
-			elements[IndexOfItem] = "None";
-			lines[8] = String::Join(",", elements);
+					   if (equipItem != nullptr) {
+						   equipItem->Visible = canEquip;
+					   }
+				   }
+			   }
 
-			listBoxItems->Items->Add(gcnew ItemData(temp, LoadItemName(temp)));
-			elements = lines[7]->Split(',');
-			List<String^>^ newElements = gcnew List<String^>(elements);
-			newElements->Add(temp.ToString());
+			   int GetItemSlotIndex(int itemID) {
+				   array<String^>^ itemLines = File::ReadAllLines(ITEMS_FILE);
 
-			// Собираем строку обратно
-			lines[7] = String::Join(",", newElements->ToArray());
+				   for each (String ^ line in itemLines) {
+					   array<String^>^ parts = line->Split(',');
 
-			// Перезаписываем файл
-			File::WriteAllLines("temp.txt", lines);
-		}
+					   if (parts->Length >= 4 &&
+						   Int32::Parse(parts[0]->Trim()) == itemID) {
+						   return Int32::Parse(parts[1]->Trim()); // Возвращаем значение 2 столбца
+					   }
+				   }
+				   return -1;
+			   }
 
-		private: System::Void buttonExit_Click(System::Object^ sender, System::EventArgs^ e) 
-		{
-			this->Close();
-		}
+			   ItemData^ GetSelectedInventoryItem() {
+				   return dynamic_cast<ItemData^>(listBoxItems->SelectedItem);
+			   }
 
-		private: System::Void buttonWeapon_Click(System::Object^ sender, System::EventArgs^ e) 
-		{
-			buttonWeapon->Text = "None";
-			FromEquipToInv(0);
-		}
+			   bool CanEquipItem(int itemID) {
+				   array<String^>^ itemLines = File::ReadAllLines(ITEMS_FILE);
 
-		private: System::Void buttonHelmet_Click(System::Object^ sender, System::EventArgs^ e) 
-		{
-			buttonHelmet->Text = "None";
-			FromEquipToInv(1);
-		}
+				   for each (String ^ line in itemLines) {
+					   array<String^>^ parts = line->Split(',');
 
-		private: System::Void buttonCuirass_Click(System::Object^ sender, System::EventArgs^ e) 
-		{
-			buttonCuirass->Text = "None";
-			FromEquipToInv(2);
-		}
+					   if (parts->Length >= 4 &&
+						   Int32::Parse(parts[0]->Trim()) == itemID &&
+						   Int32::Parse(parts[3]->Trim()) == 1) {  // Проверка на 1 во 4 столбце
+						   return true;
+					   }
+				   }
+				   return false;
+			   }
 
-		private: System::Void buttonGloves_Click(System::Object^ sender, System::EventArgs^ e) 
-		{
-			buttonGloves->Text = "None";
-			FromEquipToInv(3);
-		}
+			   void EquipSelectedItem(ItemData^ item) {
+				   int slotIndex = GetItemSlotIndex(item->ID);
+				   if (slotIndex == -1) return;
 
-		private: System::Void buttonGreaves_Click(System::Object^ sender, System::EventArgs^ e) 
-		{
-			buttonGreaves->Text = "None";
-			FromEquipToInv(4);
-		}
+				   array<String^>^ lines = File::ReadAllLines(TEMP_FILE);
+				   List<String^>^ inventoryItems =
+					   gcnew List<String^>(lines[7]->Split(','));
+				   List<String^>^ equipmentItems =
+					   gcnew List<String^>(lines[8]->Split(','));
 
-		private: System::Void buttonBoots_Click(System::Object^ sender, System::EventArgs^ e) 
-		{
-			buttonBoots->Text = "None";
-			FromEquipToInv(5);
-		}
+				   // Если слот занят, возвращаем текущий предмет в инвентарь
+				   if (equipmentItems[slotIndex] != "None") {
+					   int currentItemId = Int32::Parse(equipmentItems[slotIndex]);
+					   inventoryItems->Add(currentItemId.ToString());
+				   }
 
-		private: System::Void buttonNecklace_Click(System::Object^ sender, System::EventArgs^ e) 
-		{
-			buttonNecklace->Text = "None";
-			FromEquipToInv(6);
-		}
+				   // Экипируем новый предмет
+				   equipmentItems[slotIndex] = item->ID.ToString();
 
-		private: System::Void buttonRing_Click(System::Object^ sender, System::EventArgs^ e) 
-		{
-			buttonRing->Text = "None";
-			FromEquipToInv(7);
-		}
+				   // Удаляем предмет из инвентаря
+				   int inventoryIndex = inventoryItems->IndexOf(item->ID.ToString());
+				   if (inventoryIndex != -1) {
+					   inventoryItems->RemoveAt(inventoryIndex);
+				   }
 
-		private: System::Void listBoxItems_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
-		{
-			ItemData^ selectedItem = dynamic_cast<ItemData^>(listBoxItems->SelectedItem);
+				   // Обновляем файл
+				   lines[7] = String::Join(",", inventoryItems->ToArray());
+				   lines[8] = String::Join(",", equipmentItems->ToArray());
+				   File::WriteAllLines(TEMP_FILE, lines);
 
-			if (selectedItem != nullptr)
-			{
-				// Чтение всех строк файла с предметами
-				array<String^>^ itemLines = File::ReadAllLines("Items.txt");
+				   // Обновляем интерфейс
+				   UpdateEquipmentButtons(equipmentItems->ToArray());
+				   LoadPlayerInventory();
+				   UpdateInventoryLabel(); // Обновляем label после экипирования
+			   }
 
-				// Перебираем каждый ID из списка
-				for each (String ^ line in itemLines) {
-					// Разбиваем строку на части
-					array<String^>^ parts = line->Split(',');
+			   int FindItemTypeIndex(int itemID) {
+				   array<String^>^ itemLines = File::ReadAllLines(ITEMS_FILE);
 
-					// Проверяем, совпадает ли ID
-					if (parts->Length >= 3 &&
-						Int32::Parse(parts[0]->Trim()) == selectedItem->ID &&
-						Int32::Parse(parts[3]->Trim()) == 0)
-					{
-						listBoxItems->ContextMenuStrip->Items[0]->Visible = false;
-						break;
-					}
-					else
-						listBoxItems->ContextMenuStrip->Items[0]->Visible = true;
-				}
-			}
-		}
+				   for each (String ^ line in itemLines) {
+					   array<String^>^ parts = line->Split(',');
+
+					   if (parts->Length >= 4 &&
+						   Int32::Parse(parts[0]->Trim()) == itemID) {
+						   return Int32::Parse(parts[1]->Trim());
+					   }
+				   }
+				   return -1;
+			   }
+
+			   void OnEditItem(Object^ sender, EventArgs^ e) {
+				   ItemData^ selectedItem = GetSelectedInventoryItem();
+				   if (selectedItem != nullptr) {
+					   MessageBox::Show("Редактирование: " + selectedItem->Name);
+				   }
+			   }
+
+			   void OnDeleteItem(Object^ sender, EventArgs^ e) {
+				   int selectedIndex = listBoxItems->SelectedIndex;
+				   if (selectedIndex != -1) {
+					   // Удаление из файла
+					   RemoveItemFromFile(selectedIndex);
+
+					   // Удаление из ListBox
+					   listBoxItems->Items->RemoveAt(selectedIndex);
+
+					   // Обновляем label после удаления
+					   UpdateInventoryLabel();
+				   }
+			   }
+
+			   void RemoveItemFromFile(int index) {
+				   array<String^>^ lines = File::ReadAllLines(TEMP_FILE);
+				   List<String^>^ inventoryItems =
+					   gcnew List<String^>(lines[7]->Split(','));
+
+				   if (index >= 0 && index < inventoryItems->Count) {
+					   inventoryItems->RemoveAt(index);
+
+					   lines[7] = String::Join(",", inventoryItems->ToArray());
+					   File::WriteAllLines(TEMP_FILE, lines);
+				   }
+			   }
+
+			   void UnequipItem(int equipmentIndex) {
+				   array<String^>^ lines = File::ReadAllLines(TEMP_FILE);
+				   List<String^>^ inventoryItems =
+					   gcnew List<String^>(lines[7]->Split(','));
+				   List<String^>^ equipmentItems =
+					   gcnew List<String^>(lines[8]->Split(','));
+
+				   // Проверяем место в инвентаре
+				   if (inventoryItems->Count >= MAX_INVENTORY_SLOTS) {
+					   MessageBox::Show("Инвентарь полон!");
+					   return;
+				   }
+
+				   if (equipmentItems[equipmentIndex] != "None") {
+					   int currentItemId = Int32::Parse(equipmentItems[equipmentIndex]);
+
+					   // Возвращаем предмет в инвентарь
+					   inventoryItems->Add(currentItemId.ToString());
+					   equipmentItems[equipmentIndex] = "None";
+
+					   // Обновляем файл
+					   lines[7] = String::Join(",", inventoryItems->ToArray());
+					   lines[8] = String::Join(",", equipmentItems->ToArray());
+					   File::WriteAllLines(TEMP_FILE, lines);
+
+					   // Обновляем интерфейс
+					   UpdateEquipmentButtons(equipmentItems->ToArray());
+					   LoadPlayerInventory();
+					   UpdateInventoryLabel(); // Обновляем label после снятия
+				   }
+			   }
+
+			   // Методы для кнопок снятия экипировки
+			   void CreateUnequipMethods() {
+				   buttonWeapon->Click += gcnew EventHandler(this, &Inventory::OnWeaponUnequip);
+				   buttonHelmet->Click += gcnew EventHandler(this, &Inventory::OnHelmetUnequip);
+				   buttonCuirass->Click += gcnew EventHandler(this, &Inventory::OnCuirassUnequip);
+				   buttonGloves->Click += gcnew EventHandler(this, &Inventory::OnGlovesUnequip);
+				   buttonGreaves->Click += gcnew EventHandler(this, &Inventory::OnGreavesUnequip);
+				   buttonBoots->Click += gcnew EventHandler(this, &Inventory::OnBootsUnequip);
+				   buttonNecklace->Click += gcnew EventHandler(this, &Inventory::OnNecklaceUnequip);
+				   buttonRing->Click += gcnew EventHandler(this, &Inventory::OnRingUnequip);
+			   }
+
+			   void OnWeaponUnequip(Object^ sender, EventArgs^ e) {
+				   UnequipItem(0); // Индекс оружия
+				   buttonWeapon->Text = "None";
+			   }
+
+			   void OnHelmetUnequip(Object^ sender, EventArgs^ e) {
+				   UnequipItem(1); // Индекс шлема
+				   buttonHelmet->Text = "None";
+			   }
+
+			   void OnCuirassUnequip(Object^ sender, EventArgs^ e) {
+				   UnequipItem(1); // Индекс шлема
+				   buttonHelmet->Text = "None";
+			   }
+
+			   void OnGlovesUnequip(Object^ sender, EventArgs^ e) {
+				   UnequipItem(1); // Индекс шлема
+				   buttonHelmet->Text = "None";
+			   }
+
+			   void OnGreavesUnequip(Object^ sender, EventArgs^ e) {
+				   UnequipItem(1); // Индекс шлема
+				   buttonHelmet->Text = "None";
+			   }
+
+			   void OnBootsUnequip(Object^ sender, EventArgs^ e) {
+				   UnequipItem(1); // Индекс шлема
+				   buttonHelmet->Text = "None";
+			   }
+
+			   void OnNecklaceUnequip(Object^ sender, EventArgs^ e) {
+				   UnequipItem(1); // Индекс шлема
+				   buttonHelmet->Text = "None";
+			   }
+
+			   void OnRingUnequip(Object^ sender, EventArgs^ e) {
+				   UnequipItem(1); // Индекс шлема
+				   buttonHelmet->Text = "None";
+			   }
+
+			   // Расширенная обработка клика по элементам ListBox
+			   void SetupListBoxHandlers() {
+				   listBoxItems->MouseClick +=
+					   gcnew MouseEventHandler(this, &Inventory::ListBoxMouseClickHandler);
+			   }
+
+			   bool CheckItemEquipPossibility(int itemID) {
+				   array<String^>^ itemLines = File::ReadAllLines(ITEMS_FILE);
+
+				   for each (String ^ line in itemLines) {
+					   array<String^>^ parts = line->Split(',');
+
+					   if (parts->Length >= 4 &&
+						   Int32::Parse(parts[0]->Trim()) == itemID) {
+
+						   // Проверяем возможность экипировки
+						   return Int32::Parse(parts[3]->Trim()) == 0;
+					   }
+				   }
+
+				   return false;
+			   }
+
+			   // Безопасное закрытие формы
+			   void SetupExitButton() {
+				   buttonExit->Click +=
+					   gcnew EventHandler(this, &Inventory::SafeFormClose);
+			   }
+
+			   void SafeFormClose(Object^ sender, EventArgs^ e) {
+				   try {
+					   // Можно добавить дополнительную логику перед закрытием
+					   SaveInventoryState();
+					   this->Close();
+				   }
+				   catch (Exception^ ex) {
+					   MessageBox::Show("Ошибка при закрытии: " + ex->Message);
+				   }
+			   }
+
+			   void SaveInventoryState() {
+				   try {
+					   array<String^>^ lines = File::ReadAllLines(TEMP_FILE);
+
+					   // Обновляем инвентарь
+					   List<String^>^ inventoryItems =
+						   CollectCurrentInventoryItems();
+
+					   // Обновляем экипировку
+					   List<String^>^ equipmentItems =
+						   CollectCurrentEquipmentItems();
+
+					   // Перезаписываем соответствующие строки
+					   lines[7] = String::Join(",", inventoryItems->ToArray());
+					   lines[8] = String::Join(",", equipmentItems->ToArray());
+
+					   File::WriteAllLines(TEMP_FILE, lines);
+				   }
+				   catch (Exception^ ex) {
+					   MessageBox::Show("Ошибка сохранения состояния: " + ex->Message);
+				   }
+			   }
+
+			   List<String^>^ CollectCurrentInventoryItems() {
+				   List<String^>^ items = gcnew List<String^>();
+
+				   for each (ItemData ^ item in listBoxItems->Items) {
+					   items->Add(item->ID.ToString());
+				   }
+
+				   return items;
+			   }
+
+			   List<String^>^ CollectCurrentEquipmentItems() {
+				   List<Button^>^ equipmentButtons = GetEquipmentButtons();
+
+				   List<String^>^ equipmentItems = gcnew List<String^>();
+
+				   for each (Button ^ button in equipmentButtons) {
+					   if (button->Text == "None") {
+						   equipmentItems->Add("None");
+					   }
+					   else {
+						   int itemId = FindItemIdByName(button->Text);
+						   equipmentItems->Add(itemId.ToString());
+					   }
+				   }
+
+				   return equipmentItems;
+			   }
+
+			   int FindItemIdByName(String^ itemName) {
+				   array<String^>^ itemLines = File::ReadAllLines(ITEMS_FILE);
+
+				   for each (String ^ line in itemLines) {
+					   array<String^>^ parts = line->Split(',');
+
+					   if (parts->Length >= 3 &&
+						   parts[2]->Trim() == itemName) {
+						   return Int32::Parse(parts[0]->Trim());
+					   }
+				   }
+
+				   return -1;
+			   }
+
+			   static String^ GetFilePath(String^ filename) {
+				   String^ exePath = System::Reflection::Assembly::GetExecutingAssembly()->Location;
+				   String^ exeDirectory = System::IO::Path::GetDirectoryName(exePath);
+				   return System::IO::Path::Combine(exeDirectory, filename);
+			   }
+
+			   void UpdateInventoryLabel() {
+				   int currentItems = listBoxItems->Items->Count;
+				   labelInvent->Text = String::Format("{0}/{1}",
+					   currentItems,  // Занятое место
+					   MAX_INVENTORY_SLOTS);  // Максимальное число предметов
+			   }
 	};
 }

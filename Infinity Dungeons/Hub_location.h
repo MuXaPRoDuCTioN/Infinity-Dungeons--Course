@@ -2,6 +2,7 @@
 #include "Inventory.h"
 #include "Main_Menu.h"
 #include "Dungeon.h"
+#include "ShopForm.h"
 
 namespace InfinityDungeons {
 
@@ -46,9 +47,10 @@ namespace InfinityDungeons {
 			}
 		}
 	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ buttonToShop;
 	protected:
-	private: System::Windows::Forms::Button^ button2;
-	private: System::Windows::Forms::Button^ button3;
+
+
 	private: System::Windows::Forms::Button^ buttonToDungeon;
 
 	private: System::Windows::Forms::Button^ buttonInventory;
@@ -69,8 +71,7 @@ namespace InfinityDungeons {
 		void InitializeComponent(void)
 		{
 			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->buttonToShop = (gcnew System::Windows::Forms::Button());
 			this->buttonToDungeon = (gcnew System::Windows::Forms::Button());
 			this->buttonInventory = (gcnew System::Windows::Forms::Button());
 			this->buttonExit = (gcnew System::Windows::Forms::Button());
@@ -78,34 +79,26 @@ namespace InfinityDungeons {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(98, 84);
+			this->button1->Location = System::Drawing::Point(79, 206);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(120, 60);
 			this->button1->TabIndex = 0;
 			this->button1->Text = L"Task board";
 			this->button1->UseVisualStyleBackColor = true;
 			// 
-			// button2
+			// buttonToShop
 			// 
-			this->button2->Location = System::Drawing::Point(474, 84);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(120, 60);
-			this->button2->TabIndex = 1;
-			this->button2->Text = L"Shop";
-			this->button2->UseVisualStyleBackColor = true;
-			// 
-			// button3
-			// 
-			this->button3->Location = System::Drawing::Point(98, 376);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(120, 60);
-			this->button3->TabIndex = 2;
-			this->button3->Text = L"Magick shop";
-			this->button3->UseVisualStyleBackColor = true;
+			this->buttonToShop->Location = System::Drawing::Point(281, 206);
+			this->buttonToShop->Name = L"buttonToShop";
+			this->buttonToShop->Size = System::Drawing::Size(120, 60);
+			this->buttonToShop->TabIndex = 1;
+			this->buttonToShop->Text = L"Shop";
+			this->buttonToShop->UseVisualStyleBackColor = true;
+			this->buttonToShop->Click += gcnew System::EventHandler(this, &Hub_location::buttonToShop_Click);
 			// 
 			// buttonToDungeon
 			// 
-			this->buttonToDungeon->Location = System::Drawing::Point(474, 376);
+			this->buttonToDungeon->Location = System::Drawing::Point(485, 206);
 			this->buttonToDungeon->Name = L"buttonToDungeon";
 			this->buttonToDungeon->Size = System::Drawing::Size(120, 60);
 			this->buttonToDungeon->TabIndex = 3;
@@ -141,8 +134,7 @@ namespace InfinityDungeons {
 			this->Controls->Add(this->buttonExit);
 			this->Controls->Add(this->buttonInventory);
 			this->Controls->Add(this->buttonToDungeon);
-			this->Controls->Add(this->button3);
-			this->Controls->Add(this->button2);
+			this->Controls->Add(this->buttonToShop);
 			this->Controls->Add(this->button1);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Name = L"Hub_location";
@@ -217,6 +209,24 @@ namespace InfinityDungeons {
 		{
 			// Код, который выполнится после закрытия дочерней формы
 			buttonToDungeon->Enabled = true;
+			this->Show();
+			parentForm->Show();
+		}
+
+		private: System::Void buttonToShop_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			ShopForm^ Shop = gcnew ShopForm;
+			buttonToShop->Enabled = false;
+			Shop->FormClosed += gcnew FormClosedEventHandler(this, &Hub_location::Shop_Closed);
+			Shop->Show();
+			this->Hide();
+			parentForm->Hide();
+		}
+
+		private: Void Shop_Closed(Object^ sender, FormClosedEventArgs^ e)
+		{
+			// Код, который выполнится после закрытия дочерней формы
+			buttonToShop->Enabled = true;
 			this->Show();
 			parentForm->Show();
 		}

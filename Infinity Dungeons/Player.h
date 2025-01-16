@@ -51,20 +51,26 @@ public:
 
     // Перемещение игрока
     bool Move(array<Tile^, 2>^ dungeonMap, int newX, int newY) {
-        // Проверяем границы карты
-        if (newX < 0 || newX >= dungeonMap->GetLength(0) ||
-            newY < 0 || newY >= dungeonMap->GetLength(1)) {
-            return false;
-        }
+        // Проверяем, что новая позиция - соседняя
+        bool isAdjacentCell =
+            (Math::Abs(X - newX) <= 1 && Y == newY) ||
+            (Math::Abs(Y - newY) <= 1 && X == newX);
 
-        // Можно ходить только по path, room и start
-        if (dungeonMap[newX, newY]->isPath ||
-            dungeonMap[newX, newY]->isRoom ||
-            dungeonMap[newX, newY]->isStart) {
+        // Проверяем, что новая позиция допустима
+        bool isValidMove =
+            newX >= 0 && newX < dungeonMap->GetLength(0) &&
+            newY >= 0 && newY < dungeonMap->GetLength(1) &&
+            (dungeonMap[newX, newY]->isPath ||
+                dungeonMap[newX, newY]->isRoom ||
+                dungeonMap[newX, newY]->isStart);
+
+        // Перемещаем только если соседняя клетка и допустимая
+        if (isAdjacentCell && isValidMove) {
             X = newX;
             Y = newY;
             return true;
         }
+
         return false;
     }
 

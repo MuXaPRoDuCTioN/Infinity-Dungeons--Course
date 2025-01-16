@@ -1,12 +1,5 @@
-﻿  Dungeon.cpp
-  The contents of <filesystem> are available only with C++17 or later.
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\DungeonGenerator.h(314,38): warning C4677: GetDungeonMap: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(39,69): warning C4677: CanMoveTo: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(53,64): warning C4677: Move: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
-  Hub_location.cpp
+﻿  Hub_location.cpp
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Inventory.h(39,8): warning C4101: MAX_INVENTORY_SLOTS: неиспользованная локальная переменная
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(551,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(561,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(562,28): warning C4244: =: преобразование "double" в "int", возможна потеря данных
@@ -19,12 +12,15 @@ D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(39,69): w
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(53,64): warning C4677: Move: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
+  Inventory.cpp
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Inventory.h(39,8): warning C4101: MAX_INVENTORY_SLOTS: неиспользованная локальная переменная
   Main_Menu.cpp
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(551,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(561,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(562,28): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(563,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(715,22): warning C4101: e: неиспользованная локальная переменная
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Inventory.h(39,8): warning C4101: MAX_INVENTORY_SLOTS: неиспользованная локальная переменная
   The contents of <filesystem> are available only with C++17 or later.
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\DungeonGenerator.h(314,38): warning C4677: GetDungeonMap: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
@@ -33,9 +29,5 @@ D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(53,64): warning C4677: Move: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
   Создание кода...
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Inventory.h(674): warning C4715: InfinityDungeons::Inventory::LoadItemName: значение возвращается не при всех путях выполнения
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Inventory.h(724): warning C4715: InfinityDungeons::Inventory::FindID: значение возвращается не при всех путях выполнения
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Inventory.h(674): warning C4715: InfinityDungeons::Inventory::LoadItemName: значение возвращается не при всех путях выполнения
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Inventory.h(724): warning C4715: InfinityDungeons::Inventory::FindID: значение возвращается не при всех путях выполнения
   Dungeon.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
   Infinity Dungeons.vcxproj -> D:\Visual studio code\C++\Infinity Dungeons\Debug\Infinity Dungeons.exe

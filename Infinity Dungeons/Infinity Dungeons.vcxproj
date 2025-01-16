@@ -125,6 +125,7 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Main_Menu.cpp" />
     <ClCompile Include="New_Game.cpp" />
+    <ClCompile Include="ShopForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dungeon.h">
@@ -146,6 +147,9 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ShopForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Tile.h" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="New_Game.resx">
       <DependentUpon>New_Game.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ShopForm.resx">
+      <DependentUpon>ShopForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
