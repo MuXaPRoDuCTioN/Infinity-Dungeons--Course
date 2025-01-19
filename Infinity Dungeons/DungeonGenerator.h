@@ -16,17 +16,17 @@ using namespace System::Collections::Generic;
 
 public ref class DungeonGenerator {
 private:
-    // Размеры тайлов
+    // Р Р°Р·РјРµСЂС‹ С‚Р°Р№Р»РѕРІ
     const int TILE_SIZE = 32;
-    Random^ random; // Добавляем приватное поле для генератора случайных чисел
+    Random^ random; // Р”РѕР±Р°РІР»СЏРµРј РїСЂРёРІР°С‚РЅРѕРµ РїРѕР»Рµ РґР»СЏ РіРµРЅРµСЂР°С‚РѕСЂР° СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР»
 
-    // 2D массив тайлов
+    // 2D РјР°СЃСЃРёРІ С‚Р°Р№Р»РѕРІ
     array<Tile^, 2>^ dungeonMap;
 
     int mapWidth = 20;
     int mapHeight = 20;
 
-    // Случайное направление коридора
+    // РЎР»СѓС‡Р°Р№РЅРѕРµ РЅР°РїСЂР°РІР»РµРЅРёРµ РєРѕСЂРёРґРѕСЂР°
     enum class Direction {
         Right,
         Left,
@@ -34,25 +34,25 @@ private:
         Down
     };
 
-    // Добавим флаг для стартовой точки
+    // Р”РѕР±Р°РІРёРј С„Р»Р°Рі РґР»СЏ СЃС‚Р°СЂС‚РѕРІРѕР№ С‚РѕС‡РєРё
     void CreateStart(int x, int y) {
         dungeonMap[x, y]->isStart = true;
     }
 
-    // Генерация подземелья
+    // Р“РµРЅРµСЂР°С†РёСЏ РїРѕРґР·РµРјРµР»СЊСЏ
     void GenerateDungeon() {
-        // Создание массива
+        // РЎРѕР·РґР°РЅРёРµ РјР°СЃСЃРёРІР°
         dungeonMap = gcnew array<Tile^, 2>(mapWidth, mapHeight);
         random = gcnew Random;
 
-        // Инициализация карты пустыми тайлами
+        // РРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РєР°СЂС‚С‹ РїСѓСЃС‚С‹РјРё С‚Р°Р№Р»Р°РјРё
         for (int x = 0; x < mapWidth; x++) {
             for (int y = 0; y < mapHeight; y++) {
                 dungeonMap[x, y] = gcnew Tile();
             }
         }
 
-        // Оставляем место под стены (отступ 3 блока от края)
+        // РћСЃС‚Р°РІР»СЏРµРј РјРµСЃС‚Рѕ РїРѕРґ СЃС‚РµРЅС‹ (РѕС‚СЃС‚СѓРї 3 Р±Р»РѕРєР° РѕС‚ РєСЂР°СЏ)
         int startX = random->Next(3, mapWidth / 4);
         int startY = random->Next(3, mapHeight / 4);
         dungeonMap[startX, startY]->isStart = true;
@@ -69,27 +69,27 @@ private:
 
         int pathCount = random->Next(4, 9);
         for (int path = 0; path < pathCount; path++) {
-            // Проверка близости к краям
+            // РџСЂРѕРІРµСЂРєР° Р±Р»РёР·РѕСЃС‚Рё Рє РєСЂР°СЏРј
             bool canContinueDirection = CanContinueInCurrentDirection(
                 currentX, currentY, currentDirection, 3
             );
 
             if (path > 1 && !canContinueDirection) {
-                // Выбираем противоположное или перпендикулярное направление
+                // Р’С‹Р±РёСЂР°РµРј РїСЂРѕС‚РёРІРѕРїРѕР»РѕР¶РЅРѕРµ РёР»Рё РїРµСЂРїРµРЅРґРёРєСѓР»СЏСЂРЅРѕРµ РЅР°РїСЂР°РІР»РµРЅРёРµ
                 currentDirection = GetAlternativeDirection(currentDirection);
             }
             else if (path > 1) {
-                // Исключаем повторение последнего направления
+                // РСЃРєР»СЋС‡Р°РµРј РїРѕРІС‚РѕСЂРµРЅРёРµ РїРѕСЃР»РµРґРЅРµРіРѕ РЅР°РїСЂР°РІР»РµРЅРёСЏ
                 array<Direction>^ possibleDirections = GetPossibleDirections(lastDirection);
                 currentDirection = possibleDirections[random->Next(possibleDirections->Length)];
             }
 
             int corridorLength = random->Next(3, 7);
 
-            // Создание коридора
+            // РЎРѕР·РґР°РЅРёРµ РєРѕСЂРёРґРѕСЂР°
             CreateCorridor(currentX, currentY, corridorLength, currentDirection);
 
-            // Обновление текущей позиции
+            // РћР±РЅРѕРІР»РµРЅРёРµ С‚РµРєСѓС‰РµР№ РїРѕР·РёС†РёРё
             switch (currentDirection) {
             case Direction::Right: currentX += corridorLength; break;
             case Direction::Left: currentX -= corridorLength; break;
@@ -97,7 +97,7 @@ private:
             case Direction::Down: currentY += corridorLength; break;
             }
 
-            // Создание комнаты на повороте
+            // РЎРѕР·РґР°РЅРёРµ РєРѕРјРЅР°С‚С‹ РЅР° РїРѕРІРѕСЂРѕС‚Рµ
             if (currentDirection != lastDirection) {
                 CreateRoom(currentX, currentY);
             }
@@ -108,7 +108,7 @@ private:
         GenerateWalls();
     }
 
-    // Проверка возможности продолжения в текущем направлении
+    // РџСЂРѕРІРµСЂРєР° РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ РІ С‚РµРєСѓС‰РµРј РЅР°РїСЂР°РІР»РµРЅРёРё
     bool CanContinueInCurrentDirection(int currentX, int currentY, Direction direction, int safetyMargin) {
         switch (direction) {
         case Direction::Right:
@@ -124,7 +124,7 @@ private:
         }
     }
 
-    // Получение альтернативного направления
+    // РџРѕР»СѓС‡РµРЅРёРµ Р°Р»СЊС‚РµСЂРЅР°С‚РёРІРЅРѕРіРѕ РЅР°РїСЂР°РІР»РµРЅРёСЏ
     Direction GetAlternativeDirection(Direction currentDirection) {
         switch (currentDirection) {
         case Direction::Right: return Direction::Left;
@@ -135,7 +135,7 @@ private:
         }
     }
 
-    // Получение возможных направлений
+    // РџРѕР»СѓС‡РµРЅРёРµ РІРѕР·РјРѕР¶РЅС‹С… РЅР°РїСЂР°РІР»РµРЅРёР№
     array<Direction>^ GetPossibleDirections(Direction lastDirection) {
         List<Direction>^ directions = gcnew List<Direction>();
         for each (Direction dir in (array<Direction>^)Enum::GetValues(Direction::typeid)) {
@@ -190,7 +190,7 @@ private:
         }
     }
 
-    // Создание комнаты с размером до 4*4
+    // РЎРѕР·РґР°РЅРёРµ РєРѕРјРЅР°С‚С‹ СЃ СЂР°Р·РјРµСЂРѕРј РґРѕ 4*4
     void CreateRoom(int centerX, int centerY) {
         int roomWidth = random->Next(2, 5);
         int roomHeight = random->Next(2, 5);
@@ -208,7 +208,7 @@ private:
         }
     }
 
-    // Поворот направления на 90 градусов
+    // РџРѕРІРѕСЂРѕС‚ РЅР°РїСЂР°РІР»РµРЅРёСЏ РЅР° 90 РіСЂР°РґСѓСЃРѕРІ
     Direction RotateDirection(Direction current) {
         switch (current) {
         case Direction::Right: return Direction::Down;
@@ -219,23 +219,23 @@ private:
         }
     }
 
-    // Улучшенный метод генерации стен
-    // Генерация стен
-    // Генерация стен (упрощена)
+    // РЈР»СѓС‡С€РµРЅРЅС‹Р№ РјРµС‚РѕРґ РіРµРЅРµСЂР°С†РёРё СЃС‚РµРЅ
+    // Р“РµРЅРµСЂР°С†РёСЏ СЃС‚РµРЅ
+    // Р“РµРЅРµСЂР°С†РёСЏ СЃС‚РµРЅ (СѓРїСЂРѕС‰РµРЅР°)
     void GenerateWalls() {
         for (int x = 0; x < mapWidth; x++) {
             for (int y = 0; y < mapHeight; y++) {
-                // Проверка краев карты
+                // РџСЂРѕРІРµСЂРєР° РєСЂР°РµРІ РєР°СЂС‚С‹
                 if (x == 0 || x == mapWidth - 1 || y == 0 || y == mapHeight - 1) {
                     if (dungeonMap[x, y]->isPath ||
                         dungeonMap[x, y]->isRoom ||
                         dungeonMap[x, y]->isStart) {
-                        // Если на краю есть что-то кроме пустоты - делаем стену
+                        // Р•СЃР»Рё РЅР° РєСЂР°СЋ РµСЃС‚СЊ С‡С‚Рѕ-С‚Рѕ РєСЂРѕРјРµ РїСѓСЃС‚РѕС‚С‹ - РґРµР»Р°РµРј СЃС‚РµРЅСѓ
                         dungeonMap[x, y]->isWall = true;
                     }
                 }
 
-                // Стандартная логика генерации стен
+                // РЎС‚Р°РЅРґР°СЂС‚РЅР°СЏ Р»РѕРіРёРєР° РіРµРЅРµСЂР°С†РёРё СЃС‚РµРЅ
                 if (dungeonMap[x, y]->isPath ||
                     dungeonMap[x, y]->isRoom ||
                     dungeonMap[x, y]->isStart) {
@@ -261,7 +261,7 @@ private:
     }
 
 public:
-    // Отрисовка подземелья
+    // РћС‚СЂРёСЃРѕРІРєР° РїРѕРґР·РµРјРµР»СЊСЏ
     Bitmap^ RenderDungeon() {
         GenerateDungeon();
         GenerateWalls();
@@ -272,7 +272,7 @@ public:
         );
         Graphics^ g = Graphics::FromImage(dungeonBitmap);
 
-        // Загрузка спрайтов
+        // Р—Р°РіСЂСѓР·РєР° СЃРїСЂР°Р№С‚РѕРІ
         String^ baseDirectory = AppDomain::CurrentDomain->BaseDirectory;
         Bitmap^ emptySprite = gcnew Bitmap(
             System::IO::Path::Combine(baseDirectory, "Sprites", "empty.png")
@@ -290,7 +290,7 @@ public:
             System::IO::Path::Combine(baseDirectory, "Sprites", "wall.png")
         );
 
-        // Отрисовка тайлов
+        // РћС‚СЂРёСЃРѕРІРєР° С‚Р°Р№Р»РѕРІ
         for (int x = 0; x < dungeonMap->GetLength(0); x++) {
             for (int y = 0; y < dungeonMap->GetLength(1); y++) {
                 Bitmap^ currentSprite = emptySprite;

@@ -1,9 +1,16 @@
-25
-25
 45
-215
-197
-30
-D:\Visual studio code\C++\Infinity Dungeons\Debug\PlayerSprites\Test1.png
-1005,1003
-1001,None,None,None,None,None,None,None
+25
+25
+235
+167
+37
+D:\Visual studio code\C++\Infinity Dungeons\Debug\PlayerSprites\Test2.png
+1001,1003,1005
+None,None,None,None,None,None,None,None
+100
+None
+1
+10
+0
+0
+500

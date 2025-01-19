@@ -1,8 +1,8 @@
 #pragma once
-// Структура для хранения информации о тайле
+// РЎС‚СЂСѓРєС‚СѓСЂР° РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ С‚Р°Р№Р»Рµ
 ref struct Tile {
     bool isPath;
     bool isRoom;
     bool isStart;
-    bool isWall; // Новое поле
+    bool isWall; // РќРѕРІРѕРµ РїРѕР»Рµ
 };

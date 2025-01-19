@@ -1,33 +1,44 @@
 ﻿  Hub_location.cpp
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Inventory.h(39,8): warning C4101: MAX_INVENTORY_SLOTS: неиспользованная локальная переменная
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(551,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(561,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(562,28): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(563,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(715,22): warning C4101: e: неиспользованная локальная переменная
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Inventory.h(43,8): warning C4101: MAX_INVENTORY_SLOTS: неиспользованная локальная переменная
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(609,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(619,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(620,28): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(621,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
   The contents of <filesystem> are available only with C++17 or later.
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(77,69): warning C4677: CanMoveTo: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(91,64): warning C4677: Move: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(162,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(171,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(172,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(173,37): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Enemy.h(113,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Enemy.h(116,29): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\DungeonGenerator.h(314,38): warning C4677: GetDungeonMap: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(39,69): warning C4677: CanMoveTo: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(53,64): warning C4677: Move: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
-  Inventory.cpp
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Inventory.h(39,8): warning C4101: MAX_INVENTORY_SLOTS: неиспользованная локальная переменная
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\TasksForm.h(285,1): warning C4965: неявная упаковка целого числа 0; используйте nullptr или явное приведение типов
   Main_Menu.cpp
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(551,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(561,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(562,28): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(563,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(715,22): warning C4101: e: неиспользованная локальная переменная
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Inventory.h(39,8): warning C4101: MAX_INVENTORY_SLOTS: неиспользованная локальная переменная
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(609,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(619,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(620,28): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\New_Game.h(621,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Inventory.h(43,8): warning C4101: MAX_INVENTORY_SLOTS: неиспользованная локальная переменная
   The contents of <filesystem> are available only with C++17 or later.
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(77,69): warning C4677: CanMoveTo: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(91,64): warning C4677: Move: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(162,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(171,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(172,30): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(173,37): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Enemy.h(113,32): warning C4244: =: преобразование "double" в "int", возможна потеря данных
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Enemy.h(116,29): warning C4244: =: преобразование "double" в "int", возможна потеря данных
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\DungeonGenerator.h(314,38): warning C4677: GetDungeonMap: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(39,69): warning C4677: CanMoveTo: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Player.h(53,64): warning C4677: Move: сигнатура члена, не являющегося частным, содержит частный тип сборки "Tile"
-D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Tile.h(3): message : см. объявление "Tile"
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\TasksForm.h(285,1): warning C4965: неявная упаковка целого числа 0; используйте nullptr или явное приведение типов
+  ShopForm.cpp
   Создание кода...
   Dungeon.obj : обнаружен модуль MSIL; для MSIL последовательная компоновка отключена; выполняется полная компоновка
   Infinity Dungeons.vcxproj -> D:\Visual studio code\C++\Infinity Dungeons\Debug\Infinity Dungeons.exe

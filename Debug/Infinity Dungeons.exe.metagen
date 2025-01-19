@@ -1,0 +1,112 @@
+  InfinityDungeons.Dungeon.resources - Embedded, ContainedInManifestFile, 
+  InfinityDungeons.Hub_location.resources - Embedded, ContainedInManifestFile, 
+  InfinityDungeons.Inventory.resources - Embedded, ContainedInManifestFile, 
+  InfinityDungeons.Main_Menu.resources - Embedded, ContainedInManifestFile, 
+  InfinityDungeons.New_Game.resources - Embedded, ContainedInManifestFile, 
+  InfinityDungeons.ShopForm.resources - Embedded, ContainedInManifestFile, 
+  InfinityDungeons.SkillPointDistributionForm.resources - Embedded, ContainedInManifestFile, 
+  InfinityDungeons.TasksForm.resources - Embedded, ContainedInManifestFile, 
+ImageRuntimeVersion: v4.0.30319
+Assembly Infinity Dungeons, Version=0.0.*, Culture=Инвариантный язык (Инвариантная страна): 
+	hash=SHA1, flags=PublicKey
+Assembly mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a: 
+	hash=None, flags=None
+Assembly System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Assembly System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089: 
+	hash=None, flags=None
+Class Player: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Int32, Int32, System.Windows.Forms.Form): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 X : Public
+    Int32 Y : Public
+    Int32 Health : Public
+    Int32 MaxHealth : Public
+    Int32 Damage : Public
+    Int32 Defense : Public
+    Int32 InventorySlots : Public
+    System.Collections.Generic.List`1[System.String] Inventory : Public
+    Int32 Level : Public
+    Int32 Experience : Public
+    Int32 ExperienceToNextLevel : Public
+    Int32 Gold : Public
+    System.String CurrentQuest : Public
+    System.Drawing.Bitmap playerSprite : Public
+    System.Windows.Forms.Label healthLabel : Public
+    Int32 Strength : Public
+    Int32 Intelligence : Public
+    Int32 Agility : Public
+    Int32 SkillPoints : Public
+    Int32 Mana : Public
+    Int32 MaxMana : Public
+  Methods:
+    CanMoveTo(Tile[,], Int32, Int32): PrivateScope, Public, HideBySig
+    Move(Tile[,], Int32, Int32): PrivateScope, Public, HideBySig
+    TakeDamage(Int32): PrivateScope, Public, HideBySig
+    SavePlayerStats(): PrivateScope, Public, HideBySig
+    GetFilePath(String): PrivateScope, Public, Static, HideBySig
+    RecalculateStats(): PrivateScope, Public, HideBySig
+    DistributeSkillPoints(Int32, Int32, Int32): PrivateScope, Public, HideBySig
+Class Enemy: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(Int32, Int32, System.Windows.Forms.Form): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    Int32 X : Public
+    Int32 Y : Public
+    Int32 Health : Public
+    Int32 MaxHealth : Public
+    Int32 Damage : Public
+    Int32 MinPlayerLevel : Public
+    Int32 ExperienceReward : Public
+    Int32 GoldReward : Public
+    System.String ItemReward : Public
+    System.Drawing.Bitmap enemySprite : Public
+    System.Random random : Public
+    System.String Name : Public
+    System.String Type : Public
+  Methods:
+    Attack(): PrivateScope, Public, HideBySig
+    TakeDamage(Int32): PrivateScope, Public, HideBySig
+    GetPlayerLevel(): PrivateScope, Public, HideBySig
+    GetFilePath(String): PrivateScope, Public, Static, HideBySig
+    RandomizeEnemy(): PrivateScope, Public, HideBySig
+Class DungeonGenerator: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    RenderDungeon(): PrivateScope, Public, HideBySig
+    GetDungeonMap(): PrivateScope, Public, HideBySig
+Class InfinityDungeons.SkillPointDistributionForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(Player): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class InfinityDungeons.Dungeon: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class InfinityDungeons.Inventory: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class InfinityDungeons.New_Game: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class InfinityDungeons.Main_Menu: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Methods:
+    SetSaveEnabled(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SetLoadEnabled(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+    SetNewEnabled(Boolean(HasFieldMarshal)): PrivateScope, Public, HideBySig
+Class InfinityDungeons.ShopForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class InfinityDungeons.TasksForm: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+Class InfinityDungeons.Hub_location: AutoLayout, AnsiClass, Class, Public, BeforeFieldInit
+  :System.Windows.Forms.Form
+    Void .ctor(InfinityDungeons.Main_Menu): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
+  Fields:
+    InfinityDungeons.Main_Menu parentForm : Public

@@ -138,231 +138,289 @@ namespace InfinityDungeons {
 			// 
 			// buttonNextSprite
 			// 
+			this->buttonNextSprite->BackColor = System::Drawing::Color::Chocolate;
+			this->buttonNextSprite->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->buttonNextSprite->Location = System::Drawing::Point(201, 132);
 			this->buttonNextSprite->Name = L"buttonNextSprite";
 			this->buttonNextSprite->Size = System::Drawing::Size(25, 23);
 			this->buttonNextSprite->TabIndex = 1;
 			this->buttonNextSprite->Text = L">";
-			this->buttonNextSprite->UseVisualStyleBackColor = true;
+			this->buttonNextSprite->UseVisualStyleBackColor = false;
 			this->buttonNextSprite->Click += gcnew System::EventHandler(this, &New_Game::buttonNextSprite_Click);
 			// 
 			// buttonPreviousSprite
 			// 
+			this->buttonPreviousSprite->BackColor = System::Drawing::Color::Chocolate;
+			this->buttonPreviousSprite->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->buttonPreviousSprite->Location = System::Drawing::Point(23, 132);
 			this->buttonPreviousSprite->Name = L"buttonPreviousSprite";
 			this->buttonPreviousSprite->Size = System::Drawing::Size(25, 23);
 			this->buttonPreviousSprite->TabIndex = 1;
 			this->buttonPreviousSprite->Text = L"<";
-			this->buttonPreviousSprite->UseVisualStyleBackColor = true;
+			this->buttonPreviousSprite->UseVisualStyleBackColor = false;
 			this->buttonPreviousSprite->Click += gcnew System::EventHandler(this, &New_Game::buttonPreviousSprite_Click);
 			// 
 			// labelStrength
 			// 
 			this->labelStrength->AutoSize = true;
-			this->labelStrength->Location = System::Drawing::Point(341, 52);
+			this->labelStrength->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelStrength->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelStrength->Location = System::Drawing::Point(321, 50);
 			this->labelStrength->Name = L"labelStrength";
-			this->labelStrength->Size = System::Drawing::Size(35, 13);
+			this->labelStrength->Size = System::Drawing::Size(46, 17);
 			this->labelStrength->TabIndex = 2;
 			this->labelStrength->Text = L"label1";
 			// 
 			// btnStrengthPlus1
 			// 
-			this->btnStrengthPlus1->Location = System::Drawing::Point(382, 47);
+			this->btnStrengthPlus1->BackColor = System::Drawing::Color::Chocolate;
+			this->btnStrengthPlus1->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnStrengthPlus1->Location = System::Drawing::Point(373, 47);
 			this->btnStrengthPlus1->Name = L"btnStrengthPlus1";
 			this->btnStrengthPlus1->Size = System::Drawing::Size(27, 23);
 			this->btnStrengthPlus1->TabIndex = 3;
 			this->btnStrengthPlus1->Text = L"+1";
-			this->btnStrengthPlus1->UseVisualStyleBackColor = true;
+			this->btnStrengthPlus1->UseVisualStyleBackColor = false;
 			this->btnStrengthPlus1->Click += gcnew System::EventHandler(this, &New_Game::btnStrengthPlus1_Click);
 			// 
 			// btnStrengthPlus5
 			// 
-			this->btnStrengthPlus5->Location = System::Drawing::Point(415, 47);
+			this->btnStrengthPlus5->BackColor = System::Drawing::Color::Chocolate;
+			this->btnStrengthPlus5->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnStrengthPlus5->Location = System::Drawing::Point(406, 47);
 			this->btnStrengthPlus5->Name = L"btnStrengthPlus5";
 			this->btnStrengthPlus5->Size = System::Drawing::Size(27, 23);
 			this->btnStrengthPlus5->TabIndex = 3;
 			this->btnStrengthPlus5->Text = L"+5";
-			this->btnStrengthPlus5->UseVisualStyleBackColor = true;
+			this->btnStrengthPlus5->UseVisualStyleBackColor = false;
 			this->btnStrengthPlus5->Click += gcnew System::EventHandler(this, &New_Game::btnStrengthPlus5_Click);
 			// 
 			// btnStrengthMinus1
 			// 
-			this->btnStrengthMinus1->Location = System::Drawing::Point(308, 47);
+			this->btnStrengthMinus1->BackColor = System::Drawing::Color::Chocolate;
+			this->btnStrengthMinus1->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnStrengthMinus1->Location = System::Drawing::Point(288, 47);
 			this->btnStrengthMinus1->Name = L"btnStrengthMinus1";
 			this->btnStrengthMinus1->Size = System::Drawing::Size(27, 23);
 			this->btnStrengthMinus1->TabIndex = 3;
 			this->btnStrengthMinus1->Text = L"-1";
-			this->btnStrengthMinus1->UseVisualStyleBackColor = true;
+			this->btnStrengthMinus1->UseVisualStyleBackColor = false;
 			this->btnStrengthMinus1->Click += gcnew System::EventHandler(this, &New_Game::btnStrengthMinus1_Click);
 			// 
 			// btnStrengthMinus5
 			// 
-			this->btnStrengthMinus5->Location = System::Drawing::Point(275, 47);
+			this->btnStrengthMinus5->BackColor = System::Drawing::Color::Chocolate;
+			this->btnStrengthMinus5->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnStrengthMinus5->Location = System::Drawing::Point(255, 47);
 			this->btnStrengthMinus5->Name = L"btnStrengthMinus5";
 			this->btnStrengthMinus5->Size = System::Drawing::Size(27, 23);
 			this->btnStrengthMinus5->TabIndex = 3;
 			this->btnStrengthMinus5->Text = L"-5";
-			this->btnStrengthMinus5->UseVisualStyleBackColor = true;
+			this->btnStrengthMinus5->UseVisualStyleBackColor = false;
 			this->btnStrengthMinus5->Click += gcnew System::EventHandler(this, &New_Game::btnStrengthMinus5_Click);
 			// 
 			// labelIntelligence
 			// 
 			this->labelIntelligence->AutoSize = true;
-			this->labelIntelligence->Location = System::Drawing::Point(341, 93);
+			this->labelIntelligence->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelIntelligence->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelIntelligence->Location = System::Drawing::Point(321, 93);
 			this->labelIntelligence->Name = L"labelIntelligence";
-			this->labelIntelligence->Size = System::Drawing::Size(35, 13);
+			this->labelIntelligence->Size = System::Drawing::Size(46, 17);
 			this->labelIntelligence->TabIndex = 4;
 			this->labelIntelligence->Text = L"label1";
 			// 
 			// labelAgility
 			// 
 			this->labelAgility->AutoSize = true;
-			this->labelAgility->Location = System::Drawing::Point(341, 132);
+			this->labelAgility->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelAgility->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelAgility->Location = System::Drawing::Point(321, 132);
 			this->labelAgility->Name = L"labelAgility";
-			this->labelAgility->Size = System::Drawing::Size(35, 13);
+			this->labelAgility->Size = System::Drawing::Size(46, 17);
 			this->labelAgility->TabIndex = 5;
 			this->labelAgility->Text = L"label1";
 			// 
 			// labelTotalPoints
 			// 
 			this->labelTotalPoints->AutoSize = true;
-			this->labelTotalPoints->Location = System::Drawing::Point(341, 175);
+			this->labelTotalPoints->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelTotalPoints->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelTotalPoints->Location = System::Drawing::Point(321, 174);
 			this->labelTotalPoints->Name = L"labelTotalPoints";
-			this->labelTotalPoints->Size = System::Drawing::Size(35, 13);
+			this->labelTotalPoints->Size = System::Drawing::Size(46, 17);
 			this->labelTotalPoints->TabIndex = 6;
 			this->labelTotalPoints->Text = L"label1";
 			// 
 			// btnIntelligencePlus1
 			// 
-			this->btnIntelligencePlus1->Location = System::Drawing::Point(382, 88);
+			this->btnIntelligencePlus1->BackColor = System::Drawing::Color::Chocolate;
+			this->btnIntelligencePlus1->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnIntelligencePlus1->Location = System::Drawing::Point(373, 90);
 			this->btnIntelligencePlus1->Name = L"btnIntelligencePlus1";
 			this->btnIntelligencePlus1->Size = System::Drawing::Size(27, 23);
 			this->btnIntelligencePlus1->TabIndex = 3;
 			this->btnIntelligencePlus1->Text = L"+1";
-			this->btnIntelligencePlus1->UseVisualStyleBackColor = true;
+			this->btnIntelligencePlus1->UseVisualStyleBackColor = false;
 			this->btnIntelligencePlus1->Click += gcnew System::EventHandler(this, &New_Game::btnIntelligencePlus1_Click);
 			// 
 			// btnIntelligencePlus5
 			// 
-			this->btnIntelligencePlus5->Location = System::Drawing::Point(415, 88);
+			this->btnIntelligencePlus5->BackColor = System::Drawing::Color::Chocolate;
+			this->btnIntelligencePlus5->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnIntelligencePlus5->Location = System::Drawing::Point(406, 90);
 			this->btnIntelligencePlus5->Name = L"btnIntelligencePlus5";
 			this->btnIntelligencePlus5->Size = System::Drawing::Size(27, 23);
 			this->btnIntelligencePlus5->TabIndex = 3;
 			this->btnIntelligencePlus5->Text = L"+5";
-			this->btnIntelligencePlus5->UseVisualStyleBackColor = true;
+			this->btnIntelligencePlus5->UseVisualStyleBackColor = false;
 			this->btnIntelligencePlus5->Click += gcnew System::EventHandler(this, &New_Game::btnIntelligencePlus5_Click);
 			// 
 			// btnIntelligenceMinus1
 			// 
-			this->btnIntelligenceMinus1->Location = System::Drawing::Point(308, 88);
+			this->btnIntelligenceMinus1->BackColor = System::Drawing::Color::Chocolate;
+			this->btnIntelligenceMinus1->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnIntelligenceMinus1->Location = System::Drawing::Point(288, 90);
 			this->btnIntelligenceMinus1->Name = L"btnIntelligenceMinus1";
 			this->btnIntelligenceMinus1->Size = System::Drawing::Size(27, 23);
 			this->btnIntelligenceMinus1->TabIndex = 3;
 			this->btnIntelligenceMinus1->Text = L"-1";
-			this->btnIntelligenceMinus1->UseVisualStyleBackColor = true;
+			this->btnIntelligenceMinus1->UseVisualStyleBackColor = false;
 			this->btnIntelligenceMinus1->Click += gcnew System::EventHandler(this, &New_Game::btnIntelligenceMinus1_Click);
 			// 
 			// btnIntelligenceMinus5
 			// 
-			this->btnIntelligenceMinus5->Location = System::Drawing::Point(275, 88);
+			this->btnIntelligenceMinus5->BackColor = System::Drawing::Color::Chocolate;
+			this->btnIntelligenceMinus5->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnIntelligenceMinus5->Location = System::Drawing::Point(255, 90);
 			this->btnIntelligenceMinus5->Name = L"btnIntelligenceMinus5";
 			this->btnIntelligenceMinus5->Size = System::Drawing::Size(27, 23);
 			this->btnIntelligenceMinus5->TabIndex = 3;
 			this->btnIntelligenceMinus5->Text = L"-5";
-			this->btnIntelligenceMinus5->UseVisualStyleBackColor = true;
+			this->btnIntelligenceMinus5->UseVisualStyleBackColor = false;
 			this->btnIntelligenceMinus5->Click += gcnew System::EventHandler(this, &New_Game::btnIntelligenceMinus5_Click);
 			// 
 			// btnAgilityMinus5
 			// 
-			this->btnAgilityMinus5->Location = System::Drawing::Point(275, 127);
+			this->btnAgilityMinus5->BackColor = System::Drawing::Color::Chocolate;
+			this->btnAgilityMinus5->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnAgilityMinus5->Location = System::Drawing::Point(255, 127);
 			this->btnAgilityMinus5->Name = L"btnAgilityMinus5";
 			this->btnAgilityMinus5->Size = System::Drawing::Size(27, 23);
 			this->btnAgilityMinus5->TabIndex = 3;
 			this->btnAgilityMinus5->Text = L"-5";
-			this->btnAgilityMinus5->UseVisualStyleBackColor = true;
+			this->btnAgilityMinus5->UseVisualStyleBackColor = false;
 			this->btnAgilityMinus5->Click += gcnew System::EventHandler(this, &New_Game::btnAgilityMinus5_Click);
 			// 
 			// btnAgilityMinus1
 			// 
-			this->btnAgilityMinus1->Location = System::Drawing::Point(308, 127);
+			this->btnAgilityMinus1->BackColor = System::Drawing::Color::Chocolate;
+			this->btnAgilityMinus1->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnAgilityMinus1->Location = System::Drawing::Point(288, 127);
 			this->btnAgilityMinus1->Name = L"btnAgilityMinus1";
 			this->btnAgilityMinus1->Size = System::Drawing::Size(27, 23);
 			this->btnAgilityMinus1->TabIndex = 3;
 			this->btnAgilityMinus1->Text = L"-1";
-			this->btnAgilityMinus1->UseVisualStyleBackColor = true;
+			this->btnAgilityMinus1->UseVisualStyleBackColor = false;
 			this->btnAgilityMinus1->Click += gcnew System::EventHandler(this, &New_Game::btnAgilityMinus1_Click);
 			// 
 			// btnAgilityPlus1
 			// 
-			this->btnAgilityPlus1->Location = System::Drawing::Point(382, 127);
+			this->btnAgilityPlus1->BackColor = System::Drawing::Color::Chocolate;
+			this->btnAgilityPlus1->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnAgilityPlus1->Location = System::Drawing::Point(373, 127);
 			this->btnAgilityPlus1->Name = L"btnAgilityPlus1";
 			this->btnAgilityPlus1->Size = System::Drawing::Size(27, 23);
 			this->btnAgilityPlus1->TabIndex = 3;
 			this->btnAgilityPlus1->Text = L"+1";
-			this->btnAgilityPlus1->UseVisualStyleBackColor = true;
+			this->btnAgilityPlus1->UseVisualStyleBackColor = false;
 			this->btnAgilityPlus1->Click += gcnew System::EventHandler(this, &New_Game::btnAgilityPlus1_Click);
 			// 
 			// btnAgilityPlus5
 			// 
-			this->btnAgilityPlus5->Location = System::Drawing::Point(415, 127);
+			this->btnAgilityPlus5->BackColor = System::Drawing::Color::Chocolate;
+			this->btnAgilityPlus5->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->btnAgilityPlus5->Location = System::Drawing::Point(406, 127);
 			this->btnAgilityPlus5->Name = L"btnAgilityPlus5";
 			this->btnAgilityPlus5->Size = System::Drawing::Size(27, 23);
 			this->btnAgilityPlus5->TabIndex = 3;
 			this->btnAgilityPlus5->Text = L"+5";
-			this->btnAgilityPlus5->UseVisualStyleBackColor = true;
+			this->btnAgilityPlus5->UseVisualStyleBackColor = false;
 			this->btnAgilityPlus5->Click += gcnew System::EventHandler(this, &New_Game::btnAgilityPlus5_Click);
 			// 
 			// labelHealth
 			// 
 			this->labelHealth->AutoSize = true;
+			this->labelHealth->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelHealth->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->labelHealth->Location = System::Drawing::Point(252, 229);
 			this->labelHealth->Name = L"labelHealth";
-			this->labelHealth->Size = System::Drawing::Size(35, 13);
+			this->labelHealth->Size = System::Drawing::Size(46, 17);
 			this->labelHealth->TabIndex = 7;
 			this->labelHealth->Text = L"label1";
 			// 
 			// labelMana
 			// 
 			this->labelMana->AutoSize = true;
-			this->labelMana->Location = System::Drawing::Point(341, 229);
+			this->labelMana->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelMana->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelMana->Location = System::Drawing::Point(321, 229);
 			this->labelMana->Name = L"labelMana";
-			this->labelMana->Size = System::Drawing::Size(35, 13);
+			this->labelMana->Size = System::Drawing::Size(46, 17);
 			this->labelMana->TabIndex = 7;
 			this->labelMana->Text = L"label1";
 			// 
 			// labelInventorySlots
 			// 
 			this->labelInventorySlots->AutoSize = true;
-			this->labelInventorySlots->Location = System::Drawing::Point(412, 229);
+			this->labelInventorySlots->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->labelInventorySlots->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelInventorySlots->Location = System::Drawing::Point(389, 229);
 			this->labelInventorySlots->Name = L"labelInventorySlots";
-			this->labelInventorySlots->Size = System::Drawing::Size(35, 13);
+			this->labelInventorySlots->Size = System::Drawing::Size(46, 17);
 			this->labelInventorySlots->TabIndex = 7;
 			this->labelInventorySlots->Text = L"label1";
 			// 
 			// buttonSave
 			// 
-			this->buttonSave->Location = System::Drawing::Point(382, 275);
+			this->buttonSave->BackColor = System::Drawing::Color::Chocolate;
+			this->buttonSave->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonSave->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->buttonSave->Location = System::Drawing::Point(373, 275);
 			this->buttonSave->Name = L"buttonSave";
-			this->buttonSave->Size = System::Drawing::Size(75, 23);
+			this->buttonSave->Size = System::Drawing::Size(84, 33);
 			this->buttonSave->TabIndex = 8;
-			this->buttonSave->Text = L"Save";
-			this->buttonSave->UseVisualStyleBackColor = true;
+			this->buttonSave->Text = L"Сохранить";
+			this->buttonSave->UseVisualStyleBackColor = false;
 			this->buttonSave->Click += gcnew System::EventHandler(this, &New_Game::buttonSave_Click);
 			// 
 			// buttonBack
 			// 
+			this->buttonBack->BackColor = System::Drawing::Color::Chocolate;
+			this->buttonBack->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonBack->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->buttonBack->Location = System::Drawing::Point(12, 275);
 			this->buttonBack->Name = L"buttonBack";
-			this->buttonBack->Size = System::Drawing::Size(75, 23);
+			this->buttonBack->Size = System::Drawing::Size(84, 33);
 			this->buttonBack->TabIndex = 9;
-			this->buttonBack->Text = L"Back";
-			this->buttonBack->UseVisualStyleBackColor = true;
+			this->buttonBack->Text = L"Назад";
+			this->buttonBack->UseVisualStyleBackColor = false;
 			this->buttonBack->Click += gcnew System::EventHandler(this, &New_Game::buttonBack_Click);
 			// 
 			// New_Game
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::Color::Sienna;
 			this->ClientSize = System::Drawing::Size(480, 320);
 			this->Controls->Add(this->buttonBack);
 			this->Controls->Add(this->buttonSave);
@@ -692,30 +750,41 @@ namespace InfinityDungeons {
 		}
 
 		// Метод сохранения в текстовый файл
-		bool SaveToFile() {
-			try {
-				// Создаем строки для записи
-				array<String^>^ lines = {
-					strengthPoints.ToString(),
-					intelligencePoints.ToString(),
-					agilityPoints.ToString(),
-					healthPoints.ToString(),
-					manaPoints.ToString(),
-					inventorySlots.ToString(),
-					spriteFilePath,
-					// Сериализуем ID предметов
-					String::Join(",", "1001,1003,1005"),
-					String::Join(",", "None,None,None,None,None,None,None,None")
-				};
+		// Измените метод SaveToFile():
+			   bool SaveToFile() {
+				   try {
+					   String^ tempFilePath = GetFilePath("temp.txt");
 
-				// Записываем в файл
-				System::IO::File::WriteAllLines("temp.txt", lines);
-				return true;
-			}
-			catch (Exception^ e) {
-				return false;
-			}
-		}
+					   // Создаем строки для записи
+					   array<String^>^ lines = {
+						   strengthPoints.ToString(),
+						   intelligencePoints.ToString(),
+						   agilityPoints.ToString(),
+						   healthPoints.ToString(),
+						   manaPoints.ToString(),
+						   inventorySlots.ToString(),
+						   spriteFilePath,
+						   // Сериализуем ID предметов
+						   String::Join(",", "1001,1003,1005"),
+						   String::Join(",", "None,None,None,None,None,None,None,None"),
+						   "100",
+						   "None",
+						   "1",
+						   "10",
+						   "0",
+						   "0",
+						   "500"
+					   };
+
+					   // Записываем в файл рядом с exe
+					   System::IO::File::WriteAllLines(tempFilePath, lines);
+					   return true;
+				   }
+				   catch (Exception^ e) {
+					   MessageBox::Show("Ошибка сохранения: " + e->Message);
+					   return false;
+				   }
+			   }
 
 		private: System::Void buttonBack_Click(System::Object^ sender, System::EventArgs^ e) 
 		{
@@ -728,5 +797,12 @@ namespace InfinityDungeons {
 			this->DialogResult = System::Windows::Forms::DialogResult::OK;
 			this->Close();
 		}
+
+			   // Добавьте этот статический метод в класс New_Game
+			   static String^ GetFilePath(String^ filename) {
+				   String^ exePath = System::Reflection::Assembly::GetExecutingAssembly()->Location;
+				   String^ exeDirectory = System::IO::Path::GetDirectoryName(exePath);
+				   return System::IO::Path::Combine(exeDirectory, filename);
+			   }
 	};
 }

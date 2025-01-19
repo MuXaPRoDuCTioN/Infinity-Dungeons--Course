@@ -12,25 +12,25 @@ namespace InfinityDungeons
 	using namespace System::Drawing;
 	using namespace System::Collections::Generic;
 	using namespace System::Windows::Forms;
-	// Создаем класс для хранения элементов с ID и названием
+	// РЎРѕР·РґР°РµРј РєР»Р°СЃСЃ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ СЃ ID Рё РЅР°Р·РІР°РЅРёРµРј
 	ref class ItemData {
 	public:
 		int ID;
 		String^ Name;
 		int Price;
-		int EquipmentType; // Тип экипировки
-		bool CanEquip;     // Можно ли экипировать
+		int EquipmentType; // РўРёРї СЌРєРёРїРёСЂРѕРІРєРё
+		bool CanEquip;     // РњРѕР¶РЅРѕ Р»Рё СЌРєРёРїРёСЂРѕРІР°С‚СЊ
 
-		// Конструктор
+		// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 		ItemData(int id, String^ name) {
 			ID = id;
 			Name = name;
 		}
 
-		// Конструктор по умолчанию
+		// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 		ItemData() : ID(0), Name(""), Price(0) {}
 
-		// Конструктор с параметрами
+		// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё
 		ItemData(int id, String^ name, int price)
 			: ID(id), Name(name), Price(price) {}
 
@@ -41,12 +41,12 @@ namespace InfinityDungeons
 			EquipmentType(equipType),
 			CanEquip(canEquip) {}
 
-		// Переопределяем метод ToString() для отображения только названия
+		// РџРµСЂРµРѕРїСЂРµРґРµР»СЏРµРј РјРµС‚РѕРґ ToString() РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ С‚РѕР»СЊРєРѕ РЅР°Р·РІР°РЅРёСЏ
 		virtual String^ ToString() override {
 			return Name;
 		}		
 		
-		// Метод для получения полной информации о предмете
+		// РњРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РїРѕР»РЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРё Рѕ РїСЂРµРґРјРµС‚Рµ
 		String^ GetFullInfo() {
 			return String::Format(
 				"ID: {0}, Name: {1}, Price: {2}, Type: {3}, Equipable: {4}",

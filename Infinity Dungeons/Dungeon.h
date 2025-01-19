@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Tile.h"
+#include "SkillPointDistributionForm.h"
 
 namespace InfinityDungeons {
 
@@ -13,8 +14,12 @@ namespace InfinityDungeons {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
+	// РљРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ Windows API
+	#define WM_NCLBUTTONDOWN 0x00A1
+	#define HTCAPTION 2
+
 	/// <summary>
-	/// Сводка для Dungeon
+	/// РЎРІРѕРґРєР° РґР»СЏ Dungeon
 	/// </summary>
 	public ref class Dungeon : public System::Windows::Forms::Form
 	{
@@ -26,8 +31,13 @@ namespace InfinityDungeons {
 		Bitmap^ dungeonMap;
 		List<Enemy^>^ enemies;
 		Random^ random;
+		array<String^>^ currentQuestData;
 	private: System::Windows::Forms::Label^ playerHealthLabel;
 	private: System::Windows::Forms::Label^ enemyHealthLabel;
+	private: System::Windows::Forms::Label^ questProgressLabel;
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Button^ button1;
+
 
 
 		   ProgressBar^ playerHealthBar;
@@ -36,16 +46,16 @@ namespace InfinityDungeons {
 		Dungeon(void)
 		{
 			InitializeComponent();
-			// В конструкторе формы
-			this->DoubleBuffered = true; // Уменьшает мерцание
+			// Р’ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРµ С„РѕСЂРјС‹
+			this->DoubleBuffered = true; // РЈРјРµРЅСЊС€Р°РµС‚ РјРµСЂС†Р°РЅРёРµ
 			//
-			//TODO: добавьте код конструктора
+			//TODO: РґРѕР±Р°РІСЊС‚Рµ РєРѕРґ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~Dungeon()
 		{
@@ -58,20 +68,23 @@ namespace InfinityDungeons {
 	protected:
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->playerHealthLabel = (gcnew System::Windows::Forms::Label());
 			this->enemyHealthLabel = (gcnew System::Windows::Forms::Label());
+			this->questProgressLabel = (gcnew System::Windows::Forms::Label());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->button1 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -87,32 +100,82 @@ namespace InfinityDungeons {
 			// playerHealthLabel
 			// 
 			this->playerHealthLabel->AutoSize = true;
-			this->playerHealthLabel->Location = System::Drawing::Point(678, 28);
+			this->playerHealthLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->playerHealthLabel->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->playerHealthLabel->Location = System::Drawing::Point(688, 69);
 			this->playerHealthLabel->Name = L"playerHealthLabel";
-			this->playerHealthLabel->Size = System::Drawing::Size(35, 13);
+			this->playerHealthLabel->Size = System::Drawing::Size(58, 22);
 			this->playerHealthLabel->TabIndex = 1;
 			this->playerHealthLabel->Text = L"label1";
 			// 
 			// enemyHealthLabel
 			// 
 			this->enemyHealthLabel->AutoSize = true;
-			this->enemyHealthLabel->Location = System::Drawing::Point(678, 107);
+			this->enemyHealthLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->enemyHealthLabel->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->enemyHealthLabel->Location = System::Drawing::Point(646, 102);
 			this->enemyHealthLabel->Name = L"enemyHealthLabel";
-			this->enemyHealthLabel->Size = System::Drawing::Size(35, 13);
+			this->enemyHealthLabel->Size = System::Drawing::Size(58, 22);
 			this->enemyHealthLabel->TabIndex = 2;
 			this->enemyHealthLabel->Text = L"label2";
+			this->enemyHealthLabel->Visible = false;
+			// 
+			// questProgressLabel
+			// 
+			this->questProgressLabel->AutoSize = true;
+			this->questProgressLabel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->questProgressLabel->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->questProgressLabel->Location = System::Drawing::Point(646, 170);
+			this->questProgressLabel->Name = L"questProgressLabel";
+			this->questProgressLabel->Size = System::Drawing::Size(58, 22);
+			this->questProgressLabel->TabIndex = 3;
+			this->questProgressLabel->Text = L"label1";
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 13, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label1->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->label1->Location = System::Drawing::Point(642, 69);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(40, 22);
+			this->label1->TabIndex = 4;
+			this->label1->Text = L"HP:";
+			// 
+			// button1
+			// 
+			this->button1->BackColor = System::Drawing::Color::Chocolate;
+			this->button1->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->button1->Location = System::Drawing::Point(836, 12);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(31, 23);
+			this->button1->TabIndex = 5;
+			this->button1->Text = L"X";
+			this->button1->UseVisualStyleBackColor = false;
+			this->button1->Click += gcnew System::EventHandler(this, &Dungeon::button1_Click);
 			// 
 			// Dungeon
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(827, 641);
+			this->BackColor = System::Drawing::Color::Sienna;
+			this->ClientSize = System::Drawing::Size(879, 641);
+			this->Controls->Add(this->button1);
+			this->Controls->Add(this->label1);
+			this->Controls->Add(this->questProgressLabel);
 			this->Controls->Add(this->enemyHealthLabel);
 			this->Controls->Add(this->playerHealthLabel);
 			this->Controls->Add(this->pictureBox1);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Name = L"Dungeon";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Dungeon";
 			this->Load += gcnew System::EventHandler(this, &Dungeon::Dungeon_Load);
+			this->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Dungeon::Dungeon_MouseDown);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
@@ -125,10 +188,10 @@ namespace InfinityDungeons {
 			Bitmap^ dungeonMap = generator->RenderDungeon();
 			pictureBox1->Image = dungeonMap;
 
-			// Сохраняем текущую карту
+			// РЎРѕС…СЂР°РЅСЏРµРј С‚РµРєСѓС‰СѓСЋ РєР°СЂС‚Сѓ
 			currentDungeonMap = generator->GetDungeonMap();
 
-			// Находим стартовую позицию для игрока
+			// РќР°С…РѕРґРёРј СЃС‚Р°СЂС‚РѕРІСѓСЋ РїРѕР·РёС†РёСЋ РґР»СЏ РёРіСЂРѕРєР°
 			int startX = 0, startY = 0;
 			for (int x = 0; x < currentDungeonMap->GetLength(0); x++) {
 				for (int y = 0; y < currentDungeonMap->GetLength(1); y++) {
@@ -140,31 +203,31 @@ namespace InfinityDungeons {
 				}
 			}
 
-			// Создаем игрока
-			// Создаем игрока с передачей healthBar
+			// РЎРѕР·РґР°РµРј РёРіСЂРѕРєР°
+			// РЎРѕР·РґР°РµРј РёРіСЂРѕРєР° СЃ РїРµСЂРµРґР°С‡РµР№ healthBar
 			player = gcnew Player(startX, startY, this);
 
-			// Генерация врагов
+			// Р“РµРЅРµСЂР°С†РёСЏ РІСЂР°РіРѕРІ
 			random = gcnew Random;
-			// Улучшенная генерация врагов
+			// РЈР»СѓС‡С€РµРЅРЅР°СЏ РіРµРЅРµСЂР°С†РёСЏ РІСЂР°РіРѕРІ
 			enemies = gcnew List<Enemy^>();
 			int enemyCount = random->Next(3, 7);
 
 			for (int i = 0; i < enemyCount; i++) {
 				Enemy^ newEnemy = nullptr;
-				int maxAttempts = 200; // Увеличиваем количество попыток
+				int maxAttempts = 200; // РЈРІРµР»РёС‡РёРІР°РµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РїРѕРїС‹С‚РѕРє
 
 				while (maxAttempts > 0 && newEnemy == nullptr) {
 					int x = random->Next(currentDungeonMap->GetLength(0));
 					int y = random->Next(currentDungeonMap->GetLength(1));
 
-					// Более гибкая проверка спавна
+					// Р‘РѕР»РµРµ РіРёР±РєР°СЏ РїСЂРѕРІРµСЂРєР° СЃРїР°РІРЅР°
 					if ((currentDungeonMap[x, y]->isPath ||
 						currentDungeonMap[x, y]->isRoom) &&
 						!currentDungeonMap[x, y]->isStart &&
 						!currentDungeonMap[x, y]->isWall) {
 
-						// Дополнительная проверка расстояния
+						// Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ РїСЂРѕРІРµСЂРєР° СЂР°СЃСЃС‚РѕСЏРЅРёСЏ
 						bool tooCloseToPlayer =
 							Math::Abs(x - player->X) <= 2 &&
 							Math::Abs(y - player->Y) <= 2;
@@ -188,8 +251,11 @@ namespace InfinityDungeons {
 				}
 			}
 
+			// РџСЂРѕРІРµСЂРєР° Рё РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ РєРІРµСЃС‚Р°
+			CheckAndDisplayQuest();
+
 			UpdatePlayerHealthLabel();
-			// Отрисовываем карту с игроком
+			// РћС‚СЂРёСЃРѕРІС‹РІР°РµРј РєР°СЂС‚Сѓ СЃ РёРіСЂРѕРєРѕРј
 			RenderDungeonWithPlayer();
 		}
 
@@ -198,35 +264,72 @@ namespace InfinityDungeons {
 			int clickedX = e->X / tileSize;
 			int clickedY = e->Y / tileSize;
 
-			// Находим врага в позиции клика
+			// РќР°С…РѕРґРёРј РІСЂР°РіР° РІ РїРѕР·РёС†РёРё РєР»РёРєР°
 			Enemy^ enemyAtPosition = FindEnemyAtPosition(clickedX, clickedY);
 
 			if (enemyAtPosition != nullptr) {
-				// Атака врага
-				int playerDamage = random->Next(20, 40);
+				// Р Р°СЃСЃС‡РµС‚ СѓСЂРѕРЅР° СЃ СѓС‡РµС‚РѕРј Р·Р°С‰РёС‚С‹
+				int playerDamage = player->Damage;
 				int enemyRemainingHealth = enemyAtPosition->TakeDamage(playerDamage);
 
-				// Обновляем label врага
+				// РћР±РЅРѕРІР»СЏРµРј label РІСЂР°РіР°
 				UpdateEnemyHealthLabel(enemyAtPosition);
 
-				// Ответная атака врага
+				// РћС‚РІРµС‚РЅР°СЏ Р°С‚Р°РєР° РІСЂР°РіР°
 				if (enemyRemainingHealth > 0) {
-					int enemyDamage = random->Next(10, 30);
+					int enemyDamage = Math::Max(1, enemyAtPosition->Damage - player->Defense);
 					int playerRemainingHealth = player->TakeDamage(enemyDamage);
 
-					// Обновляем label игрока
+					// РћР±РЅРѕРІР»СЏРµРј label РёРіСЂРѕРєР°
 					UpdatePlayerHealthLabel();
 				}
 
-				// Удаление убитого врага
+				// РЈР±РёР№СЃС‚РІРѕ РІСЂР°РіР°
 				if (enemyRemainingHealth <= 0) {
+					// РќР°С‡РёСЃР»РµРЅРёРµ РѕРїС‹С‚Р°
+					player->Experience += enemyAtPosition->ExperienceReward;
+
+					// РќР°С‡РёСЃР»РµРЅРёРµ Р·РѕР»РѕС‚Р°
+					player->Gold += enemyAtPosition->GoldReward;
+
+					// РџСЂРѕРІРµСЂРєР° РЅР° РїРѕРІС‹С€РµРЅРёРµ СѓСЂРѕРІРЅСЏ
+					if (player->Experience >= player->ExperienceToNextLevel) {
+						player->Level++;
+						player->Experience -= player->ExperienceToNextLevel;
+						player->ExperienceToNextLevel *= 2; // РЈСЃР»РѕР¶РЅРµРЅРёРµ РїСЂРѕРєР°С‡РєРё
+
+						// Р”РѕР±Р°РІР»РµРЅРёРµ РѕС‡РєРѕРІ РЅР°РІС‹РєРѕРІ
+						player->SkillPoints += 5;
+
+						SkillPointDistributionForm^ distributionForm =
+							gcnew SkillPointDistributionForm(player);
+						distributionForm->ShowDialog();
+
+						// РЈРІРµР»РёС‡РµРЅРёРµ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє РїСЂРё РїРѕРІС‹С€РµРЅРёРё СѓСЂРѕРІРЅСЏ
+						player->RecalculateStats();
+
+						UpdatePlayerHealthLabel();
+					}
+
+					// Р”РѕР±Р°РІР»РµРЅРёРµ РїСЂРµРґРјРµС‚Р° РІ РёРЅРІРµРЅС‚Р°СЂСЊ
+					if (!String::IsNullOrEmpty(enemyAtPosition->ItemReward) &&
+						enemyAtPosition->ItemReward != "None" &&
+						player->Inventory->Count < player->InventorySlots) {
+						player->Inventory->Add(enemyAtPosition->ItemReward);
+					}
+
+					UpdateQuestProgress(enemyAtPosition);
+
+					// РЎРѕС…СЂР°РЅСЏРµРј СЃС‚Р°С‚С‹ РёРіСЂРѕРєР°
+					player->SavePlayerStats();
+
 					enemies->Remove(enemyAtPosition);
 				}
 
 				RenderDungeonWithPlayer();
 			}
 			else {
-				// Стандартное перемещение, если не враг
+				// РЎС‚Р°РЅРґР°СЂС‚РЅРѕРµ РїРµСЂРµРјРµС‰РµРЅРёРµ, РµСЃР»Рё РЅРµ РІСЂР°Рі
 				if (player->Move(currentDungeonMap, clickedX, clickedY)) {
 					RenderDungeonWithPlayer();
 					CheckEnemyProximity();
@@ -243,10 +346,10 @@ namespace InfinityDungeons {
 			return nullptr;
 		}
 
-		// Ход врагов
+		// РҐРѕРґ РІСЂР°РіРѕРІ
 		void EnemyTurn() {
 			for each (Enemy^ enemy in enemies) {
-				// Если враг рядом с игроком - атакует
+				// Р•СЃР»Рё РІСЂР°Рі СЂСЏРґРѕРј СЃ РёРіСЂРѕРєРѕРј - Р°С‚Р°РєСѓРµС‚
 				if (Math::Abs(enemy->X - player->X) <= 1 && 
 					Math::Abs(enemy->Y - player->Y) <= 1) {
 					int enemyDamage = enemy->Attack();
@@ -257,14 +360,14 @@ namespace InfinityDungeons {
 		}
 
 		void RenderDungeonWithPlayer() {
-			// Создаем новую bitmap с нуля
+			// РЎРѕР·РґР°РµРј РЅРѕРІСѓСЋ bitmap СЃ РЅСѓР»СЏ
 			Bitmap^ dungeonBitmap = gcnew Bitmap(
 				pictureBox1->Width, 
 				pictureBox1->Height
 			);
 			Graphics^ g = Graphics::FromImage(dungeonBitmap);
 
-			// Размер тайла
+			// Р Р°Р·РјРµСЂ С‚Р°Р№Р»Р°
 			int tileSize = 32;
 
 			String^ baseDirectory = AppDomain::CurrentDomain->BaseDirectory;
@@ -285,7 +388,7 @@ namespace InfinityDungeons {
 				System::IO::Path::Combine(baseDirectory, "Sprites", "start.png")
 			);
 
-			// Перерисовываем все тайлы
+			// РџРµСЂРµСЂРёСЃРѕРІС‹РІР°РµРј РІСЃРµ С‚Р°Р№Р»С‹
 			for (int x = 0; x < currentDungeonMap->GetLength(0); x++) {
 				for (int y = 0; y < currentDungeonMap->GetLength(1); y++) {
 					Bitmap^ currentSprite = emptySprite;
@@ -305,7 +408,7 @@ namespace InfinityDungeons {
 				}
 			}
 
-			// Отрисовка врагов
+			// РћС‚СЂРёСЃРѕРІРєР° РІСЂР°РіРѕРІ
 			for each (Enemy ^ enemy in enemies) {
 				g->DrawImage(enemy->enemySprite,
 					enemy->X * tileSize,
@@ -313,7 +416,7 @@ namespace InfinityDungeons {
 				);
 			}
 
-			// Рисуем игрока поверх
+			// Р РёСЃСѓРµРј РёРіСЂРѕРєР° РїРѕРІРµСЂС…
 			g->DrawImage(player->playerSprite, 
 				player->X * tileSize, 
 				player->Y * tileSize
@@ -338,7 +441,7 @@ namespace InfinityDungeons {
 				}
 			}
 
-			// Показ/скрытие label врага
+			// РџРѕРєР°Р·/СЃРєСЂС‹С‚РёРµ label РІСЂР°РіР°
 			if (nearestEnemy != nullptr) {
 				enemyHealthLabel->Visible = true;
 				UpdateEnemyHealthLabel(nearestEnemy);
@@ -366,5 +469,78 @@ namespace InfinityDungeons {
 						enemy->MaxHealth);
 			}
 		}
-	};
+
+		static String^ GetFilePath(String^ filename)
+		{
+			String^ exePath = System::Reflection::Assembly::GetExecutingAssembly()->Location;
+			String^ exeDirectory = System::IO::Path::GetDirectoryName(exePath);
+			return System::IO::Path::Combine(exeDirectory, filename);
+		}
+
+		void CheckAndDisplayQuest() {
+			if (player->CurrentQuest != "None") {
+				array<String^>^ questData = player->CurrentQuest->Split(',');
+
+				questProgressLabel->Text =
+					String::Format("РљРІРµСЃС‚: СѓР±РёС‚СЊ {0} {1}\n{2}/{3}",
+						questData[1],  // РљРѕР»РёС‡РµСЃС‚РІРѕ СѓР±РёР№СЃС‚РІ
+						questData[0],  // РўРёРї РІСЂР°РіР°
+						questData[2],  // РўРµРєСѓС‰РёР№ РїСЂРѕРіСЂРµСЃСЃ
+						questData[1]   // Р’СЃРµРіРѕ С‚СЂРµР±СѓРµС‚СЃСЏ
+					);
+				questProgressLabel->Visible = true;
+			}
+			else {
+				questProgressLabel->Text = "РќРµС‚ Р°РєС‚РёРІРЅРѕРіРѕ РєРІРµСЃС‚Р°";
+				questProgressLabel->Visible = true;
+			}
+		}
+
+		void UpdateQuestProgress(Enemy^ defeatedEnemy) {
+			if (player->CurrentQuest != "None") {
+				array<String^>^ questData = player->CurrentQuest->Split(',');
+
+				if (defeatedEnemy->Type == questData[0]) {
+					int currentKills = Int32::Parse(questData[2]);
+					int requiredKills = Int32::Parse(questData[1]);
+
+					currentKills++;
+					questData[2] = currentKills.ToString();
+
+					// РћР±РЅРѕРІР»СЏРµРј РєРІРµСЃС‚
+					player->CurrentQuest = String::Join(",", questData);
+
+					// РћР±РЅРѕРІР»СЏРµРј РѕС‚РѕР±СЂР°Р¶РµРЅРёРµ
+					CheckAndDisplayQuest();
+
+					if (currentKills >= requiredKills) {
+						int reward = Int32::Parse(questData[3]);
+						player->Gold += reward;
+
+						MessageBox::Show(String::Format("РљРІРµСЃС‚ РІС‹РїРѕР»РЅРµРЅ! РќР°РіСЂР°РґР°: {0} Р·РѕР»РѕС‚Р°", reward));
+
+						// РЎР±СЂРѕСЃ РєРІРµСЃС‚Р°
+						player->CurrentQuest = "None";
+						CheckAndDisplayQuest();
+					}
+				}
+			}
+		}
+
+		// РРјРїРѕСЂС‚РёСЂСѓРµРј Windows API С„СѓРЅРєС†РёР№
+		[System::Runtime::InteropServices::DllImport("user32.dll")]
+		static bool ReleaseCapture();
+
+		[System::Runtime::InteropServices::DllImport("user32.dll")]
+		static IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+	private: System::Void Dungeon_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+		// РћС‚РїСЂР°РІР»СЏРµРј СЃРёСЃС‚РµРјРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РЅР°С‡Р°Р»Рµ РїРµСЂРµРјРµС‰РµРЅРёСЏ РѕРєРЅР°
+		ReleaseCapture();
+		SendMessage(this->Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+	}
+private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Close();
+}
+};
 }

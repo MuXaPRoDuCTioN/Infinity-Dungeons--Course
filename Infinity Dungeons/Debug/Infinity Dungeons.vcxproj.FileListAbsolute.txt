@@ -6,3 +6,5 @@ D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\InfinityDung
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\InfinityDungeons.Inventory.resources
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\InfinityDungeons.Dungeon.resources
 D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\InfinityDungeons.ShopForm.resources
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\InfinityDungeons.TasksForm.resources
+D:\Visual studio code\C++\Infinity Dungeons\Infinity Dungeons\Debug\InfinityDungeons.SkillPointDistributionForm.resources

@@ -14,19 +14,19 @@ namespace InfinityDungeons {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	// Константы для Windows API
+	// РљРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ Windows API
 	#define WM_NCLBUTTONDOWN 0x00A1
 	#define HTCAPTION 2
 
 	/// <summary>
-	/// Сводка для ShopForm
+	/// РЎРІРѕРґРєР° РґР»СЏ ShopForm
 	/// </summary>
 	public ref class ShopForm : public System::Windows::Forms::Form
 	{
 	private:
 		List<ItemData^>^ allItems;
 		int maxInventorySize;
-		int playerGold; // Для хранения золота
+		int playerGold; // Р”Р»СЏ С…СЂР°РЅРµРЅРёСЏ Р·РѕР»РѕС‚Р°
 	private: System::Windows::Forms::Button^ buttonExit;
 	private: System::Windows::Forms::Label^ labelInventorySpace;
 	private: System::Windows::Forms::Label^ labelPlayerGold;
@@ -39,13 +39,13 @@ namespace InfinityDungeons {
 		{
 			InitializeComponent();
 			//
-			//TODO: добавьте код конструктора
+			//TODO: РґРѕР±Р°РІСЊС‚Рµ РєРѕРґ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~ShopForm()
 		{
@@ -60,14 +60,14 @@ namespace InfinityDungeons {
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -96,29 +96,37 @@ namespace InfinityDungeons {
 			// 
 			// buttonExit
 			// 
+			this->buttonExit->BackColor = System::Drawing::Color::Chocolate;
+			this->buttonExit->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->buttonExit->Location = System::Drawing::Point(314, 12);
 			this->buttonExit->Name = L"buttonExit";
 			this->buttonExit->Size = System::Drawing::Size(28, 23);
 			this->buttonExit->TabIndex = 2;
 			this->buttonExit->Text = L"X";
-			this->buttonExit->UseVisualStyleBackColor = true;
+			this->buttonExit->UseVisualStyleBackColor = false;
 			this->buttonExit->Click += gcnew System::EventHandler(this, &ShopForm::buttonExit_Click);
 			// 
 			// labelInventorySpace
 			// 
 			this->labelInventorySpace->AutoSize = true;
+			this->labelInventorySpace->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->labelInventorySpace->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->labelInventorySpace->Location = System::Drawing::Point(12, 242);
 			this->labelInventorySpace->Name = L"labelInventorySpace";
-			this->labelInventorySpace->Size = System::Drawing::Size(35, 13);
+			this->labelInventorySpace->Size = System::Drawing::Size(46, 17);
 			this->labelInventorySpace->TabIndex = 3;
 			this->labelInventorySpace->Text = L"label1";
 			// 
 			// labelPlayerGold
 			// 
 			this->labelPlayerGold->AutoSize = true;
+			this->labelPlayerGold->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelPlayerGold->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->labelPlayerGold->Location = System::Drawing::Point(12, 267);
 			this->labelPlayerGold->Name = L"labelPlayerGold";
-			this->labelPlayerGold->Size = System::Drawing::Size(35, 13);
+			this->labelPlayerGold->Size = System::Drawing::Size(46, 17);
 			this->labelPlayerGold->TabIndex = 4;
 			this->labelPlayerGold->Text = L"label1";
 			// 
@@ -126,6 +134,7 @@ namespace InfinityDungeons {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::Color::Sienna;
 			this->ClientSize = System::Drawing::Size(354, 298);
 			this->Controls->Add(this->labelPlayerGold);
 			this->Controls->Add(this->labelInventorySpace);
@@ -143,7 +152,7 @@ namespace InfinityDungeons {
 
 		}
 #pragma endregion
-		// Импортируем Windows API функций
+		// РРјРїРѕСЂС‚РёСЂСѓРµРј Windows API С„СѓРЅРєС†РёР№
 		[System::Runtime::InteropServices::DllImport("user32.dll")]
 		static bool ReleaseCapture();
 
@@ -152,7 +161,7 @@ namespace InfinityDungeons {
 
 		Void ShopForm_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 		{
-			// Отправляем системное сообщение о начале перемещения окна
+			// РћС‚РїСЂР°РІР»СЏРµРј СЃРёСЃС‚РµРјРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РЅР°С‡Р°Р»Рµ РїРµСЂРµРјРµС‰РµРЅРёСЏ РѕРєРЅР°
 			ReleaseCapture();
 			SendMessage(this->Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
 		}
@@ -161,7 +170,7 @@ namespace InfinityDungeons {
 			allItems = gcnew System::Collections::Generic::List<ItemData^>();
 
 			try {
-				array<String^>^ lines = System::IO::File::ReadAllLines(GetFilePath("Items.txt"), System::Text::Encoding::Default);
+				array<String^>^ lines = System::IO::File::ReadAllLines(GetFilePath("Items.txt"));
 
 				for each (String ^ line in lines) {
 					array<String^>^ parts = line->Split(',');
@@ -179,7 +188,7 @@ namespace InfinityDungeons {
 				}
 			}
 			catch (Exception^ ex) {
-				MessageBox::Show("Ошибка при загрузке файла: " + ex->Message);
+				MessageBox::Show("РћС€РёР±РєР° РїСЂРё Р·Р°РіСЂСѓР·РєРµ С„Р°Р№Р»Р°: " + ex->Message);
 			}
 		}
 
@@ -195,12 +204,12 @@ namespace InfinityDungeons {
 			try {
 				array<String^>^ lines = System::IO::File::ReadAllLines(GetFilePath("temp.txt"));
 
-				// Максимальный размер инвентаря из 6-й строки
+				// РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РёРЅРІРµРЅС‚Р°СЂСЏ РёР· 6-Р№ СЃС‚СЂРѕРєРё
 				if (lines->Length >= 6) {
 					maxInventorySize = Convert::ToInt32(lines[5]->Trim());
 				}
 
-				// ID предметов из 7-й строки
+				// ID РїСЂРµРґРјРµС‚РѕРІ РёР· 7-Р№ СЃС‚СЂРѕРєРё
 				if (lines->Length >= 7) {
 					array<String^>^ itemIds = lines[7]->Split(',');
 
@@ -209,7 +218,7 @@ namespace InfinityDungeons {
 					}
 				}
 
-				// Золото из 10-й строки
+				// Р—РѕР»РѕС‚Рѕ РёР· 10-Р№ СЃС‚СЂРѕРєРё
 				if (lines->Length >= 9) {
 					playerGold = Convert::ToInt32(lines[9]->Trim());
 				}
@@ -218,23 +227,23 @@ namespace InfinityDungeons {
 				UpdatePlayerGoldLabel();
 			}
 			catch (Exception^ ex) {
-				MessageBox::Show("Ошибка при загрузке инвентаря: " + ex->Message);
+				MessageBox::Show("РћС€РёР±РєР° РїСЂРё Р·Р°РіСЂСѓР·РєРµ РёРЅРІРµРЅС‚Р°СЂСЏ: " + ex->Message);
 			}
 		}
 
-		// Метод обновления label остается прежним
+		// РњРµС‚РѕРґ РѕР±РЅРѕРІР»РµРЅРёСЏ label РѕСЃС‚Р°РµС‚СЃСЏ РїСЂРµР¶РЅРёРј
 		void UpdateInventorySpaceLabel() {
 			if (labelInventorySpace != nullptr) {
 				int freeSpace = maxInventorySize - playerInventory->Count;
-				labelInventorySpace->Text = String::Format("Свободно мест: {0}/{1}",
+				labelInventorySpace->Text = String::Format("РЎРІРѕР±РѕРґРЅРѕ РјРµСЃС‚: {0}/{1}",
 					freeSpace, maxInventorySize);
 			}
 		}
 
-		// Обновление label с золотом
+		// РћР±РЅРѕРІР»РµРЅРёРµ label СЃ Р·РѕР»РѕС‚РѕРј
 		void UpdatePlayerGoldLabel() {
 			if (labelPlayerGold != nullptr) {
-				labelPlayerGold->Text = "Золото: " + playerGold;
+				labelPlayerGold->Text = "Р—РѕР»РѕС‚Рѕ: " + playerGold;
 			}
 		}
 
@@ -244,7 +253,7 @@ namespace InfinityDungeons {
 			}
 
 			Random^ random = gcnew Random();
-			listBoxBuyItems->BeginUpdate(); // Начинаем обновление
+			listBoxBuyItems->BeginUpdate(); // РќР°С‡РёРЅР°РµРј РѕР±РЅРѕРІР»РµРЅРёРµ
 			listBoxBuyItems->Items->Clear();
 
 			for (int i = 0; i < 10; i++) {
@@ -254,8 +263,8 @@ namespace InfinityDungeons {
 				listBoxBuyItems->Items->Add(item->Name);
 			}
 
-			listBoxBuyItems->EndUpdate(); // Завершаем обновление
-			listBoxBuyItems->Refresh(); // Принудительная перерисовка
+			listBoxBuyItems->EndUpdate(); // Р—Р°РІРµСЂС€Р°РµРј РѕР±РЅРѕРІР»РµРЅРёРµ
+			listBoxBuyItems->Refresh(); // РџСЂРёРЅСѓРґРёС‚РµР»СЊРЅР°СЏ РїРµСЂРµСЂРёСЃРѕРІРєР°
 		}
 
 		ItemData^ FindItemByName(String^ name) {
@@ -288,35 +297,35 @@ namespace InfinityDungeons {
 			}
 		}
 
-		// Объявляем контекстное меню
+		// РћР±СЉСЏРІР»СЏРµРј РєРѕРЅС‚РµРєСЃС‚РЅРѕРµ РјРµРЅСЋ
 		System::Windows::Forms::ContextMenuStrip^ buyContextMenu;
 		System::Windows::Forms::ContextMenuStrip^ sellContextMenu;
 
 		void CreateBuyContextMenu() {
-			// Контекстное меню для покупки
+			// РљРѕРЅС‚РµРєСЃС‚РЅРѕРµ РјРµРЅСЋ РґР»СЏ РїРѕРєСѓРїРєРё
 			buyContextMenu = gcnew System::Windows::Forms::ContextMenuStrip();
 
-			ToolStripMenuItem^ buyItem = gcnew ToolStripMenuItem("Купить");
+			ToolStripMenuItem^ buyItem = gcnew ToolStripMenuItem("РљСѓРїРёС‚СЊ");
 			buyItem->Click += gcnew EventHandler(this, &ShopForm::BuyItem_Click);
 
-			ToolStripMenuItem^ buyPriceItem = gcnew ToolStripMenuItem("Цена");
+			ToolStripMenuItem^ buyPriceItem = gcnew ToolStripMenuItem("Р¦РµРЅР°");
 			buyPriceItem->Click += gcnew EventHandler(this, &ShopForm::ShowBuyItemPrice_Click);
 
 			buyContextMenu->Items->Add(buyItem);
 			buyContextMenu->Items->Add(buyPriceItem);
 			listBoxBuyItems->ContextMenuStrip = buyContextMenu;
 
-			// Контекстное меню для продажи (аналогично)
+			// РљРѕРЅС‚РµРєСЃС‚РЅРѕРµ РјРµРЅСЋ РґР»СЏ РїСЂРѕРґР°Р¶Рё (Р°РЅР°Р»РѕРіРёС‡РЅРѕ)
 			
 		}
 
 		void CreateSellContextMenu() {
 			sellContextMenu = gcnew System::Windows::Forms::ContextMenuStrip();
 
-			ToolStripMenuItem^ sellItem = gcnew ToolStripMenuItem("Продать");
+			ToolStripMenuItem^ sellItem = gcnew ToolStripMenuItem("РџСЂРѕРґР°С‚СЊ");
 			sellItem->Click += gcnew EventHandler(this, &ShopForm::SellItem_Click);
 
-			ToolStripMenuItem^ sellPriceItem = gcnew ToolStripMenuItem("Цена");
+			ToolStripMenuItem^ sellPriceItem = gcnew ToolStripMenuItem("Р¦РµРЅР°");
 			sellPriceItem->Click += gcnew EventHandler(this, &ShopForm::ShowSellItemPrice_Click);
 
 			sellContextMenu->Items->Add(sellItem);
@@ -324,12 +333,12 @@ namespace InfinityDungeons {
 			listBoxSellItems->ContextMenuStrip = sellContextMenu;
 		}
 
-		// Метод покупки с учетом цены
+		// РњРµС‚РѕРґ РїРѕРєСѓРїРєРё СЃ СѓС‡РµС‚РѕРј С†РµРЅС‹
 		void BuyItem_Click(Object^ sender, EventArgs^ e) {
 			if (listBoxBuyItems->SelectedIndex != -1) {
-				// Проверка вместимости инвентаря
+				// РџСЂРѕРІРµСЂРєР° РІРјРµСЃС‚РёРјРѕСЃС‚Рё РёРЅРІРµРЅС‚Р°СЂСЏ
 				if (playerInventory->Count >= maxInventorySize) {
-					MessageBox::Show("Инвентарь полон! Невозможно купить предмет.");
+					MessageBox::Show("РРЅРІРµРЅС‚Р°СЂСЊ РїРѕР»РѕРЅ! РќРµРІРѕР·РјРѕР¶РЅРѕ РєСѓРїРёС‚СЊ РїСЂРµРґРјРµС‚.");
 					return;
 				}
 
@@ -337,13 +346,13 @@ namespace InfinityDungeons {
 				ItemData^ item = FindItemByName(selectedItemName);
 
 				if (item != nullptr) {
-					// Проверка хватает ли золота
+					// РџСЂРѕРІРµСЂРєР° С…РІР°С‚Р°РµС‚ Р»Рё Р·РѕР»РѕС‚Р°
 					if (playerGold < item->Price) {
-						MessageBox::Show("Недостаточно золота для покупки!");
+						MessageBox::Show("РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ Р·РѕР»РѕС‚Р° РґР»СЏ РїРѕРєСѓРїРєРё!");
 						return;
 					}
 
-					// Списываем золото
+					// РЎРїРёСЃС‹РІР°РµРј Р·РѕР»РѕС‚Рѕ
 					playerGold -= item->Price;
 
 					listBoxSellItems->Items->Add(item->Name);
@@ -362,20 +371,20 @@ namespace InfinityDungeons {
 				ItemData^ item = FindItemByName(selectedItemName);
 
 				if (item != nullptr) {
-					MessageBox::Show("Цена: " + item->Price + " монет");
+					MessageBox::Show("Р¦РµРЅР°: " + item->Price + " РјРѕРЅРµС‚");
 				}
 			}
 		}
 
-		// Метод продажи с учетом цены
+		// РњРµС‚РѕРґ РїСЂРѕРґР°Р¶Рё СЃ СѓС‡РµС‚РѕРј С†РµРЅС‹
 		void SellItem_Click(Object^ sender, EventArgs^ e) {
 			if (listBoxSellItems->SelectedIndex != -1) {
 				String^ selectedItemName = listBoxSellItems->SelectedItem->ToString();
 				ItemData^ item = FindItemByName(selectedItemName);
 
 				if (item != nullptr) {
-					// Начисляем золото при продаже (можно сделать с коэффициентом)
-					playerGold += item->Price / 2; // Продаем за половину стоимости
+					// РќР°С‡РёСЃР»СЏРµРј Р·РѕР»РѕС‚Рѕ РїСЂРё РїСЂРѕРґР°Р¶Рµ (РјРѕР¶РЅРѕ СЃРґРµР»Р°С‚СЊ СЃ РєРѕСЌС„С„РёС†РёРµРЅС‚РѕРј)
+					playerGold += item->Price / 2; // РџСЂРѕРґР°РµРј Р·Р° РїРѕР»РѕРІРёРЅСѓ СЃС‚РѕРёРјРѕСЃС‚Рё
 
 					listBoxBuyItems->Items->Add(item->Name);
 					listBoxSellItems->Items->RemoveAt(listBoxSellItems->SelectedIndex);
@@ -394,21 +403,21 @@ namespace InfinityDungeons {
 				ItemData^ item = FindItemByName(selectedItemName);
 
 				if (item != nullptr) {
-					MessageBox::Show("Цена продажи: " + item->Price + " монет");
+					MessageBox::Show("Р¦РµРЅР° РїСЂРѕРґР°Р¶Рё: " + item->Price + " РјРѕРЅРµС‚");
 				}
 			}
 		}
 
 		Void ShopForm_Load(System::Object^ sender, System::EventArgs^ e) {
-			// Находим label по имени (убедитесь, что имя совпадает)
+			// РќР°С…РѕРґРёРј label РїРѕ РёРјРµРЅРё (СѓР±РµРґРёС‚РµСЃСЊ, С‡С‚Рѕ РёРјСЏ СЃРѕРІРїР°РґР°РµС‚)
 			labelInventorySpace = dynamic_cast<Label^>(this->Controls->Find("labelInventorySpace", true)[0]);
-			// Находим label для золота
+			// РќР°С…РѕРґРёРј label РґР»СЏ Р·РѕР»РѕС‚Р°
 			labelPlayerGold = dynamic_cast<Label^>(this->Controls->Find("labelPlayerGold", true)[0]);
 
 			LoadItemsFromFile();
 			LoadPlayerInventory();
 
-			// Генерация после инициализации компонентов
+			// Р“РµРЅРµСЂР°С†РёСЏ РїРѕСЃР»Рµ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РєРѕРјРїРѕРЅРµРЅС‚РѕРІ
 			if (listBoxBuyItems != nullptr) {
 				GenerateBuyItems();
 			}
@@ -420,48 +429,48 @@ namespace InfinityDungeons {
 
 	private: System::Void buttonExit_Click(System::Object^ sender, System::EventArgs^ e) {
 		try {
-			// Читаем существующие строки
+			// Р§РёС‚Р°РµРј СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ СЃС‚СЂРѕРєРё
 			array<String^>^ existingLines = System::IO::File::ReadAllLines(GetFilePath("temp.txt"), System::Text::Encoding::Default);
 
-			// Создаем новый массив строк
+			// РЎРѕР·РґР°РµРј РЅРѕРІС‹Р№ РјР°СЃСЃРёРІ СЃС‚СЂРѕРє
 			array<String^>^ updatedLines = gcnew array<String^>(existingLines->Length);
 
-			// Копируем первые 6 строк без изменений
+			// РљРѕРїРёСЂСѓРµРј РїРµСЂРІС‹Рµ 6 СЃС‚СЂРѕРє Р±РµР· РёР·РјРµРЅРµРЅРёР№
 			for (int i = 0; i < 7; i++) {
 				updatedLines[i] = existingLines[i];
 			}
 
-			// 8-я строка - ID предметов инвентаря
+			// 8-СЏ СЃС‚СЂРѕРєР° - ID РїСЂРµРґРјРµС‚РѕРІ РёРЅРІРµРЅС‚Р°СЂСЏ
 			array<String^>^ itemIdStrings = gcnew array<String^>(playerInventory->Count);
 			for (int i = 0; i < playerInventory->Count; i++) {
 				itemIdStrings[i] = ConvertIntToString(playerInventory[i]);
 			}
 			updatedLines[7] = String::Join(",", itemIdStrings);
 
-			// Заполняем оставшиеся строки из оригинального файла
+			// Р—Р°РїРѕР»РЅСЏРµРј РѕСЃС‚Р°РІС€РёРµСЃСЏ СЃС‚СЂРѕРєРё РёР· РѕСЂРёРіРёРЅР°Р»СЊРЅРѕРіРѕ С„Р°Р№Р»Р°
 			for (int i = 8; i < 9; i++) {
 				updatedLines[i] = existingLines[i];
 			}
 
-			// 10-я строка - обновленное количество золота
+			// 10-СЏ СЃС‚СЂРѕРєР° - РѕР±РЅРѕРІР»РµРЅРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ Р·РѕР»РѕС‚Р°
 			updatedLines[9] = playerGold.ToString();
 
-			// Оставшиеся строки (если есть)
+			// РћСЃС‚Р°РІС€РёРµСЃСЏ СЃС‚СЂРѕРєРё (РµСЃР»Рё РµСЃС‚СЊ)
 			for (int i = 10; i < existingLines->Length; i++) {
 				updatedLines[i] = existingLines[i];
 			}
 
-			// Сохраняем обновленные данные
+			// РЎРѕС…СЂР°РЅСЏРµРј РѕР±РЅРѕРІР»РµРЅРЅС‹Рµ РґР°РЅРЅС‹Рµ
 			System::IO::File::WriteAllLines(GetFilePath("temp.txt"), updatedLines, System::Text::Encoding::Default);
 		}
 		catch (Exception^ ex) {
-			MessageBox::Show("Ошибка при сохранении данных: " + ex->Message);
+			MessageBox::Show("РћС€РёР±РєР° РїСЂРё СЃРѕС…СЂР°РЅРµРЅРёРё РґР°РЅРЅС‹С…: " + ex->Message);
 		}
 
 		this->Close();
 	}
 
-		   // Метод для преобразования ID в строку
+		   // РњРµС‚РѕРґ РґР»СЏ РїСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёСЏ ID РІ СЃС‚СЂРѕРєСѓ
 		   String^ ConvertIntToString(int id) {
 			   return id.ToString();
 		   }

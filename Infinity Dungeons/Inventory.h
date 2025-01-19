@@ -16,20 +16,24 @@ namespace InfinityDungeons
 	using namespace System::Collections::Generic;
 	using namespace System::Windows::Forms;
 
-	// Константы для Windows API
+	// РљРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ Windows API
 	#define WM_NCLBUTTONDOWN 0x00A1
 	#define HTCAPTION 2
 
 	/// <summary>
-	/// Сводка для Inventory
+	/// РЎРІРѕРґРєР° РґР»СЏ Inventory
 	/// </summary>
 	public ref class Inventory : public System::Windows::Forms::Form
 	{
 	private:
-		// Константы
+		// РљРѕРЅСЃС‚Р°РЅС‚С‹
 		static String^ ITEMS_FILE = "Items.txt";
 		static String^ TEMP_FILE = "temp.txt";
-		int MAX_INVENTORY_SLOTS;
+	private: System::Windows::Forms::Label^ lblDMG;
+	private: System::Windows::Forms::Label^ labelDMG;
+	private: System::Windows::Forms::Label^ lblDFN;
+	private: System::Windows::Forms::Label^ labelDFN;
+		   int MAX_INVENTORY_SLOTS;
 
 	public:
 		Inventory(void)
@@ -47,12 +51,13 @@ namespace InfinityDungeons
 			SetupExitButton();
 			InitializeContextMenu();
 			CreateUnequipMethods();
-			UpdateInventoryLabel(); // Устанавливаем initial label
+			UpdateInventoryLabel(); // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј initial label
+			RecalculatePlayerStats();
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~Inventory()
 		{
@@ -86,14 +91,14 @@ namespace InfinityDungeons
 	private: System::Windows::Forms::Label^ lblInv;
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -120,6 +125,10 @@ namespace InfinityDungeons
 			this->lblHP = (gcnew System::Windows::Forms::Label());
 			this->lblMP = (gcnew System::Windows::Forms::Label());
 			this->lblInv = (gcnew System::Windows::Forms::Label());
+			this->lblDMG = (gcnew System::Windows::Forms::Label());
+			this->labelDMG = (gcnew System::Windows::Forms::Label());
+			this->lblDFN = (gcnew System::Windows::Forms::Label());
+			this->labelDFN = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBoxPlayer))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -134,54 +143,72 @@ namespace InfinityDungeons
 			// labelStrength
 			// 
 			this->labelStrength->AutoSize = true;
-			this->labelStrength->Location = System::Drawing::Point(466, 42);
+			this->labelStrength->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelStrength->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelStrength->Location = System::Drawing::Point(491, 42);
 			this->labelStrength->Name = L"labelStrength";
-			this->labelStrength->Size = System::Drawing::Size(35, 13);
+			this->labelStrength->Size = System::Drawing::Size(46, 17);
 			this->labelStrength->TabIndex = 1;
 			this->labelStrength->Text = L"label1";
 			// 
 			// labelIntelligence
 			// 
 			this->labelIntelligence->AutoSize = true;
-			this->labelIntelligence->Location = System::Drawing::Point(466, 73);
+			this->labelIntelligence->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelIntelligence->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelIntelligence->Location = System::Drawing::Point(491, 73);
 			this->labelIntelligence->Name = L"labelIntelligence";
-			this->labelIntelligence->Size = System::Drawing::Size(35, 13);
+			this->labelIntelligence->Size = System::Drawing::Size(46, 17);
 			this->labelIntelligence->TabIndex = 2;
 			this->labelIntelligence->Text = L"label2";
 			// 
 			// labelAgility
 			// 
 			this->labelAgility->AutoSize = true;
-			this->labelAgility->Location = System::Drawing::Point(466, 102);
+			this->labelAgility->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelAgility->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelAgility->Location = System::Drawing::Point(491, 102);
 			this->labelAgility->Name = L"labelAgility";
-			this->labelAgility->Size = System::Drawing::Size(35, 13);
+			this->labelAgility->Size = System::Drawing::Size(46, 17);
 			this->labelAgility->TabIndex = 3;
 			this->labelAgility->Text = L"label3";
 			// 
 			// labelHP
 			// 
 			this->labelHP->AutoSize = true;
-			this->labelHP->Location = System::Drawing::Point(466, 178);
+			this->labelHP->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelHP->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelHP->Location = System::Drawing::Point(491, 129);
 			this->labelHP->Name = L"labelHP";
-			this->labelHP->Size = System::Drawing::Size(35, 13);
+			this->labelHP->Size = System::Drawing::Size(46, 17);
 			this->labelHP->TabIndex = 4;
 			this->labelHP->Text = L"label4";
 			// 
 			// labelMP
 			// 
 			this->labelMP->AutoSize = true;
-			this->labelMP->Location = System::Drawing::Point(466, 201);
+			this->labelMP->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelMP->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelMP->Location = System::Drawing::Point(491, 151);
 			this->labelMP->Name = L"labelMP";
-			this->labelMP->Size = System::Drawing::Size(35, 13);
+			this->labelMP->Size = System::Drawing::Size(46, 17);
 			this->labelMP->TabIndex = 5;
 			this->labelMP->Text = L"label5";
 			// 
 			// labelInvent
 			// 
 			this->labelInvent->AutoSize = true;
-			this->labelInvent->Location = System::Drawing::Point(466, 228);
+			this->labelInvent->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelInvent->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelInvent->Location = System::Drawing::Point(491, 178);
 			this->labelInvent->Name = L"labelInvent";
-			this->labelInvent->Size = System::Drawing::Size(35, 13);
+			this->labelInvent->Size = System::Drawing::Size(46, 17);
 			this->labelInvent->TabIndex = 6;
 			this->labelInvent->Text = L"label6";
 			// 
@@ -202,6 +229,7 @@ namespace InfinityDungeons
 			this->buttonHelmet->TabIndex = 8;
 			this->buttonHelmet->Text = L"buttonHelmet";
 			this->buttonHelmet->UseVisualStyleBackColor = true;
+			this->buttonHelmet->Click += gcnew System::EventHandler(this, &Inventory::OnHelmetUnequip);
 			// 
 			// buttonCuirass
 			// 
@@ -211,6 +239,7 @@ namespace InfinityDungeons
 			this->buttonCuirass->TabIndex = 8;
 			this->buttonCuirass->Text = L"buttonCuirass";
 			this->buttonCuirass->UseVisualStyleBackColor = true;
+			this->buttonCuirass->Click += gcnew System::EventHandler(this, &Inventory::OnCuirassUnequip);
 			// 
 			// buttonGreaves
 			// 
@@ -220,6 +249,7 @@ namespace InfinityDungeons
 			this->buttonGreaves->TabIndex = 8;
 			this->buttonGreaves->Text = L"buttonGreaves";
 			this->buttonGreaves->UseVisualStyleBackColor = true;
+			this->buttonGreaves->Click += gcnew System::EventHandler(this, &Inventory::OnGreavesUnequip);
 			// 
 			// buttonBoots
 			// 
@@ -229,6 +259,7 @@ namespace InfinityDungeons
 			this->buttonBoots->TabIndex = 8;
 			this->buttonBoots->Text = L"buttonBoots";
 			this->buttonBoots->UseVisualStyleBackColor = true;
+			this->buttonBoots->Click += gcnew System::EventHandler(this, &Inventory::OnBootsUnequip);
 			// 
 			// buttonGloves
 			// 
@@ -238,6 +269,7 @@ namespace InfinityDungeons
 			this->buttonGloves->TabIndex = 8;
 			this->buttonGloves->Text = L"buttonGloves";
 			this->buttonGloves->UseVisualStyleBackColor = true;
+			this->buttonGloves->Click += gcnew System::EventHandler(this, &Inventory::OnGlovesUnequip);
 			// 
 			// buttonRing
 			// 
@@ -247,6 +279,7 @@ namespace InfinityDungeons
 			this->buttonRing->TabIndex = 8;
 			this->buttonRing->Text = L"buttonRing";
 			this->buttonRing->UseVisualStyleBackColor = true;
+			this->buttonRing->Click += gcnew System::EventHandler(this, &Inventory::OnRingUnequip);
 			// 
 			// buttonNecklace
 			// 
@@ -256,6 +289,7 @@ namespace InfinityDungeons
 			this->buttonNecklace->TabIndex = 8;
 			this->buttonNecklace->Text = L"buttonNecklace";
 			this->buttonNecklace->UseVisualStyleBackColor = true;
+			this->buttonNecklace->Click += gcnew System::EventHandler(this, &Inventory::OnNecklaceUnequip);
 			// 
 			// buttonWeapon
 			// 
@@ -265,75 +299,149 @@ namespace InfinityDungeons
 			this->buttonWeapon->TabIndex = 9;
 			this->buttonWeapon->Text = L"buttonWeapon";
 			this->buttonWeapon->UseVisualStyleBackColor = true;
+			this->buttonWeapon->Click += gcnew System::EventHandler(this, &Inventory::OnWeaponUnequip);
 			// 
 			// buttonExit
 			// 
-			this->buttonExit->Location = System::Drawing::Point(698, 13);
+			this->buttonExit->BackColor = System::Drawing::Color::Chocolate;
+			this->buttonExit->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->buttonExit->Location = System::Drawing::Point(703, 12);
 			this->buttonExit->Name = L"buttonExit";
-			this->buttonExit->Size = System::Drawing::Size(23, 23);
+			this->buttonExit->Size = System::Drawing::Size(26, 23);
 			this->buttonExit->TabIndex = 10;
 			this->buttonExit->Text = L"X";
-			this->buttonExit->UseVisualStyleBackColor = true;
+			this->buttonExit->UseVisualStyleBackColor = false;
 			// 
 			// lblStrength
 			// 
 			this->lblStrength->AutoSize = true;
+			this->lblStrength->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblStrength->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->lblStrength->Location = System::Drawing::Point(398, 42);
 			this->lblStrength->Name = L"lblStrength";
-			this->lblStrength->Size = System::Drawing::Size(53, 13);
+			this->lblStrength->Size = System::Drawing::Size(70, 17);
 			this->lblStrength->TabIndex = 11;
 			this->lblStrength->Text = L"Strength: ";
 			// 
 			// lblIntelligence
 			// 
 			this->lblIntelligence->AutoSize = true;
+			this->lblIntelligence->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblIntelligence->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->lblIntelligence->Location = System::Drawing::Point(398, 73);
 			this->lblIntelligence->Name = L"lblIntelligence";
-			this->lblIntelligence->Size = System::Drawing::Size(67, 13);
+			this->lblIntelligence->Size = System::Drawing::Size(87, 17);
 			this->lblIntelligence->TabIndex = 12;
 			this->lblIntelligence->Text = L"Intelligence: ";
 			// 
 			// lblAgility
 			// 
 			this->lblAgility->AutoSize = true;
+			this->lblAgility->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblAgility->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->lblAgility->Location = System::Drawing::Point(398, 102);
 			this->lblAgility->Name = L"lblAgility";
-			this->lblAgility->Size = System::Drawing::Size(40, 13);
+			this->lblAgility->Size = System::Drawing::Size(53, 17);
 			this->lblAgility->TabIndex = 13;
 			this->lblAgility->Text = L"Agility: ";
 			// 
 			// lblHP
 			// 
 			this->lblHP->AutoSize = true;
-			this->lblHP->Location = System::Drawing::Point(398, 178);
+			this->lblHP->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblHP->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->lblHP->Location = System::Drawing::Point(398, 129);
 			this->lblHP->Name = L"lblHP";
-			this->lblHP->Size = System::Drawing::Size(28, 13);
+			this->lblHP->Size = System::Drawing::Size(35, 17);
 			this->lblHP->TabIndex = 14;
 			this->lblHP->Text = L"HP: ";
 			// 
 			// lblMP
 			// 
 			this->lblMP->AutoSize = true;
-			this->lblMP->Location = System::Drawing::Point(398, 201);
+			this->lblMP->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblMP->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->lblMP->Location = System::Drawing::Point(398, 151);
 			this->lblMP->Name = L"lblMP";
-			this->lblMP->Size = System::Drawing::Size(29, 13);
+			this->lblMP->Size = System::Drawing::Size(36, 17);
 			this->lblMP->TabIndex = 15;
 			this->lblMP->Text = L"MP: ";
 			// 
 			// lblInv
 			// 
 			this->lblInv->AutoSize = true;
-			this->lblInv->Location = System::Drawing::Point(398, 228);
+			this->lblInv->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblInv->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->lblInv->Location = System::Drawing::Point(399, 178);
 			this->lblInv->Name = L"lblInv";
-			this->lblInv->Size = System::Drawing::Size(28, 13);
+			this->lblInv->Size = System::Drawing::Size(34, 17);
 			this->lblInv->TabIndex = 16;
 			this->lblInv->Text = L"Inv: ";
+			// 
+			// lblDMG
+			// 
+			this->lblDMG->AutoSize = true;
+			this->lblDMG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblDMG->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->lblDMG->Location = System::Drawing::Point(398, 201);
+			this->lblDMG->Name = L"lblDMG";
+			this->lblDMG->Size = System::Drawing::Size(44, 17);
+			this->lblDMG->TabIndex = 17;
+			this->lblDMG->Text = L"DMG:";
+			// 
+			// labelDMG
+			// 
+			this->labelDMG->AutoSize = true;
+			this->labelDMG->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelDMG->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelDMG->Location = System::Drawing::Point(491, 201);
+			this->labelDMG->Name = L"labelDMG";
+			this->labelDMG->Size = System::Drawing::Size(46, 17);
+			this->labelDMG->TabIndex = 18;
+			this->labelDMG->Text = L"label1";
+			// 
+			// lblDFN
+			// 
+			this->lblDFN->AutoSize = true;
+			this->lblDFN->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->lblDFN->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->lblDFN->Location = System::Drawing::Point(398, 228);
+			this->lblDFN->Name = L"lblDFN";
+			this->lblDFN->Size = System::Drawing::Size(40, 17);
+			this->lblDFN->TabIndex = 19;
+			this->lblDFN->Text = L"DFN:";
+			// 
+			// labelDFN
+			// 
+			this->labelDFN->AutoSize = true;
+			this->labelDFN->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->labelDFN->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->labelDFN->Location = System::Drawing::Point(491, 228);
+			this->labelDFN->Name = L"labelDFN";
+			this->labelDFN->Size = System::Drawing::Size(46, 17);
+			this->labelDFN->TabIndex = 20;
+			this->labelDFN->Text = L"label1";
 			// 
 			// Inventory
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(741, 350);
+			this->BackColor = System::Drawing::Color::Sienna;
+			this->ClientSize = System::Drawing::Size(741, 276);
+			this->Controls->Add(this->labelDFN);
+			this->Controls->Add(this->lblDFN);
+			this->Controls->Add(this->labelDMG);
+			this->Controls->Add(this->lblDMG);
 			this->Controls->Add(this->lblInv);
 			this->Controls->Add(this->lblMP);
 			this->Controls->Add(this->lblHP);
@@ -368,7 +476,7 @@ namespace InfinityDungeons
 
 		}
 #pragma endregion
-		// Импортируем Windows API функций
+		// РРјРїРѕСЂС‚РёСЂСѓРµРј Windows API С„СѓРЅРєС†РёР№
 		[System::Runtime::InteropServices::DllImport("user32.dll")]
 		static bool ReleaseCapture();
 
@@ -376,33 +484,33 @@ namespace InfinityDungeons
 		static IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
 		private:
-			// Объявляем контекстное меню
+			// РћР±СЉСЏРІР»СЏРµРј РєРѕРЅС‚РµРєСЃС‚РЅРѕРµ РјРµРЅСЋ
 			System::Windows::Forms::ContextMenuStrip^ itemContextMenu;		
 
 		private: System::Void Inventory_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
 		{
-			// Отправляем системное сообщение о начале перемещения окна
+			// РћС‚РїСЂР°РІР»СЏРµРј СЃРёСЃС‚РµРјРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РЅР°С‡Р°Р»Рµ РїРµСЂРµРјРµС‰РµРЅРёСЏ РѕРєРЅР°
 			ReleaseCapture();
 			SendMessage(this->Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
 		}
 			   String^ ReadSpecificLine(String^ filename, int lineNumber) {
 				   try {
-					   // Читаем все строки файла
+					   // Р§РёС‚Р°РµРј РІСЃРµ СЃС‚СЂРѕРєРё С„Р°Р№Р»Р°
 					   array<String^>^ lines = File::ReadAllLines(filename);
 
-					   // Проверяем, существует ли указанная строка
+					   // РџСЂРѕРІРµСЂСЏРµРј, СЃСѓС‰РµСЃС‚РІСѓРµС‚ Р»Рё СѓРєР°Р·Р°РЅРЅР°СЏ СЃС‚СЂРѕРєР°
 					   if (lineNumber > 0 && lineNumber <= lines->Length) {
-						   // Возвращаем строку (с учетом, что нумерация начинается с 1)
+						   // Р’РѕР·РІСЂР°С‰Р°РµРј СЃС‚СЂРѕРєСѓ (СЃ СѓС‡РµС‚РѕРј, С‡С‚Рѕ РЅСѓРјРµСЂР°С†РёСЏ РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃ 1)
 						   return lines[lineNumber - 1]->Trim();
 					   }
 					   else {
-						   // Возвращаем пустую строку, если строка не найдена
+						   // Р’РѕР·РІСЂР°С‰Р°РµРј РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ, РµСЃР»Рё СЃС‚СЂРѕРєР° РЅРµ РЅР°Р№РґРµРЅР°
 						   return String::Empty;
 					   }
 				   }
 				   catch (Exception^ ex) {
-					   // В случае ошибки выводим сообщение и возвращаем пустую строку
-					   MessageBox::Show("Ошибка чтения файла: " + ex->Message);
+					   // Р’ СЃР»СѓС‡Р°Рµ РѕС€РёР±РєРё РІС‹РІРѕРґРёРј СЃРѕРѕР±С‰РµРЅРёРµ Рё РІРѕР·РІСЂР°С‰Р°РµРј РїСѓСЃС‚СѓСЋ СЃС‚СЂРѕРєСѓ
+					   MessageBox::Show("РћС€РёР±РєР° С‡С‚РµРЅРёСЏ С„Р°Р№Р»Р°: " + ex->Message);
 					   return String::Empty;
 				   }
 			   }
@@ -415,7 +523,7 @@ namespace InfinityDungeons
 					   }
 				   }
 				   catch (Exception^ ex) {
-					   MessageBox::Show("Ошибка загрузки изображения: " + ex->Message);
+					   MessageBox::Show("РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РёР·РѕР±СЂР°Р¶РµРЅРёСЏ: " + ex->Message);
 				   }
 			   }
 
@@ -430,29 +538,29 @@ namespace InfinityDungeons
 					   labelMP->Text = statsLines[4];
 					   labelInvent->Text = statsLines[5];
 
-					   // Парсим максимальный размер инвентаря из 6 строки
+					   // РџР°СЂСЃРёРј РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РёРЅРІРµРЅС‚Р°СЂСЏ РёР· 6 СЃС‚СЂРѕРєРё
 					   if (Int32::TryParse(statsLines[5]->Trim(), MAX_INVENTORY_SLOTS)) {
-						   // Обновляем label с учетом текущего количества предметов
+						   // РћР±РЅРѕРІР»СЏРµРј label СЃ СѓС‡РµС‚РѕРј С‚РµРєСѓС‰РµРіРѕ РєРѕР»РёС‡РµСЃС‚РІР° РїСЂРµРґРјРµС‚РѕРІ
 						   UpdateInventoryLabel();
 					   }
 					   else {
-						   // Значение по умолчанию, если парсинг не удался
+						   // Р—РЅР°С‡РµРЅРёРµ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ, РµСЃР»Рё РїР°СЂСЃРёРЅРі РЅРµ СѓРґР°Р»СЃСЏ
 						   MAX_INVENTORY_SLOTS = 20;
 					   }
 				   }
 				   catch (Exception^ ex) {
-					   MessageBox::Show("Ошибка загрузки статов: " + ex->Message);
+					   MessageBox::Show("РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё СЃС‚Р°С‚РѕРІ: " + ex->Message);
 				   }
 			   }
 		
 			   void LoadPlayerInventory() {
 				   try {
-					   // Логика загрузки инвентаря
+					   // Р›РѕРіРёРєР° Р·Р°РіСЂСѓР·РєРё РёРЅРІРµРЅС‚Р°СЂСЏ
 					   List<int>^ inventoryIDs = ParseInventoryIDs(TEMP_FILE);
 					   PopulateInventoryListBox(inventoryIDs);
 				   }
 				   catch (Exception^ ex) {
-					   MessageBox::Show("Ошибка загрузки инвентаря: " + ex->Message);
+					   MessageBox::Show("РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РёРЅРІРµРЅС‚Р°СЂСЏ: " + ex->Message);
 				   }
 			   }
 
@@ -495,11 +603,29 @@ namespace InfinityDungeons
 				   try {
 					   array<String^>^ lines = File::ReadAllLines(TEMP_FILE);
 					   array<String^>^ equipmentIDs = lines[8]->Split(',');
+					   String^ spritesPath = GetFilePath("Sprites\\");
 
-					   UpdateEquipmentButtons(equipmentIDs);
+					   List<Button^>^ buttons = GetEquipmentButtons();
+
+					   for (int i = 0; i < equipmentIDs->Length; i++) {
+						   if (equipmentIDs[i] != "None") {
+							   int itemId = Int32::Parse(equipmentIDs[i]);
+							   String^ itemSprite = GetItemSpriteById(itemId);
+
+							   if (!String::IsNullOrEmpty(itemSprite)) {
+								   buttons[i]->Image = Image::FromFile(spritesPath + itemSprite);
+								   buttons[i]->Text = "";
+							   }
+						   }
+						   else {
+							   // Р•СЃР»Рё "None", С‚Рѕ СЃС‚Р°РІРёРј РєР°СЂС‚РёРЅРєСѓ None.png
+							   buttons[i]->Image = Image::FromFile(spritesPath + "None.png");
+							   buttons[i]->Text = "";
+						   }
+					   }
 				   }
 				   catch (Exception^ ex) {
-					   MessageBox::Show("Ошибка загрузки экипировки: " + ex->Message);
+					   MessageBox::Show("РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё СЌРєРёРїРёСЂРѕРІРєРё: " + ex->Message);
 				   }
 			   }
 
@@ -518,13 +644,40 @@ namespace InfinityDungeons
 
 			   void UpdateEquipmentButtons(array<String^>^ equipmentIDs) {
 				   List<Button^>^ buttons = GetEquipmentButtons();
+				   String^ spritesPath = GetFilePath("Sprites\\");
 
 				   for (int i = 0; i < buttons->Count; i++) {
-					   if (equipmentIDs[i] == "None")
-						   buttons[i]->Text = "None";
-					   else
-						   buttons[i]->Text = GetItemNameById(Int32::Parse(equipmentIDs[i]));
+					   if (equipmentIDs[i] == "None") {
+						   // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РєР°СЂС‚РёРЅРєСѓ None.png
+						   buttons[i]->Image = Image::FromFile(spritesPath + "None.png");
+						   buttons[i]->Text = "";
+					   }
+					   else {
+						   int itemId = Int32::Parse(equipmentIDs[i]);
+						   String^ itemSprite = GetItemSpriteById(itemId);
+
+						   if (!String::IsNullOrEmpty(itemSprite)) {
+							   buttons[i]->Image = Image::FromFile(spritesPath + itemSprite);
+							   buttons[i]->Text = "";
+						   }
+					   }
 				   }
+			   }
+
+			   // РќРѕРІС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РёРјРµРЅРё СЃРїСЂР°Р№С‚Р°
+			   String^ GetItemSpriteById(int itemId) {
+				   array<String^>^ itemLines = File::ReadAllLines(ITEMS_FILE);
+
+				   for each (String ^ line in itemLines) {
+					   array<String^>^ parts = line->Split(',');
+
+					   if (parts->Length >= 7 &&
+						   Int32::Parse(parts[0]->Trim()) == itemId) {
+						   return parts[6]->Trim(); // 7 СЃС‚РѕР»Р±РµС† - РёРјСЏ СЃРїСЂР°Р№С‚Р°
+					   }
+				   }
+
+				   return "None.png";
 			   }
 
 			   String^ GetItemNameById(int itemID) {
@@ -546,76 +699,76 @@ namespace InfinityDungeons
 			   void InitializeContextMenu() {
 				   itemContextMenu = gcnew System::Windows::Forms::ContextMenuStrip();
 
-				   // Создаем пункт "Экипировать" с именем
+				   // РЎРѕР·РґР°РµРј РїСѓРЅРєС‚ "Р­РєРёРїРёСЂРѕРІР°С‚СЊ" СЃ РёРјРµРЅРµРј
 				   ToolStripMenuItem^ equipItem =
-					   gcnew ToolStripMenuItem("Экипировать");
-				   equipItem->Name = "EquipItem"; // Важно задать имя
+					   gcnew ToolStripMenuItem("Р­РєРёРїРёСЂРѕРІР°С‚СЊ");
+				   equipItem->Name = "EquipItem"; // Р’Р°Р¶РЅРѕ Р·Р°РґР°С‚СЊ РёРјСЏ
 
 				   equipItem->Click +=
 					   gcnew EventHandler(this, &Inventory::OnEquipItem);
 
-				   // Добавляем пункты меню
+				   // Р”РѕР±Р°РІР»СЏРµРј РїСѓРЅРєС‚С‹ РјРµРЅСЋ
 				   itemContextMenu->Items->Add(equipItem);
 				   itemContextMenu->Items->Add(
-					   "Редактировать",
+					   "РћСЃРјРѕС‚СЂРµС‚СЊ",
 					   nullptr,
-					   gcnew EventHandler(this, &Inventory::OnEditItem)
+					   gcnew EventHandler(this, &Inventory::OnInspectItem)
 				   );
 				   itemContextMenu->Items->Add(
-					   "Удалить",
+					   "РЈРґР°Р»РёС‚СЊ",
 					   nullptr,
 					   gcnew EventHandler(this, &Inventory::OnDeleteItem)
 				   );
 
-				   // Назначаем контекстное меню ListBox
+				   // РќР°Р·РЅР°С‡Р°РµРј РєРѕРЅС‚РµРєСЃС‚РЅРѕРµ РјРµРЅСЋ ListBox
 				   listBoxItems->ContextMenuStrip = itemContextMenu;
 
-				   // Добавляем пункты только для экипируемых предметов
+				   // Р”РѕР±Р°РІР»СЏРµРј РїСѓРЅРєС‚С‹ С‚РѕР»СЊРєРѕ РґР»СЏ СЌРєРёРїРёСЂСѓРµРјС‹С… РїСЂРµРґРјРµС‚РѕРІ
 				   listBoxItems->MouseClick +=
 					   gcnew MouseEventHandler(this, &Inventory::UpdateContextMenu);
 			   }
 
 			   void UpdateContextMenu(Object^ sender, MouseEventArgs^ e) {
-				   // Очищаем существующее меню
+				   // РћС‡РёС‰Р°РµРј СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРµ РјРµРЅСЋ
 				   itemContextMenu->Items->Clear();
 
 				   ItemData^ selectedItem =
 					   dynamic_cast<ItemData^>(listBoxItems->SelectedItem);
 
 				   if (selectedItem != nullptr && CanEquipItem(selectedItem->ID)) {
-					   // Добавляем пункты только для экипируемых предметов
+					   // Р”РѕР±Р°РІР»СЏРµРј РїСѓРЅРєС‚С‹ С‚РѕР»СЊРєРѕ РґР»СЏ СЌРєРёРїРёСЂСѓРµРјС‹С… РїСЂРµРґРјРµС‚РѕРІ
 					   ToolStripMenuItem^ equipItem =
-						   gcnew ToolStripMenuItem("Экипировать");
+						   gcnew ToolStripMenuItem("Р­РєРёРїРёСЂРѕРІР°С‚СЊ");
 					   equipItem->Click +=
 						   gcnew EventHandler(this, &Inventory::OnEquipItem);
 
 					   itemContextMenu->Items->Add(equipItem);
 					   itemContextMenu->Items->Add(
-						   "Редактировать",
+						   "РћСЃРјРѕС‚СЂРµС‚СЊ",
 						   nullptr,
-						   gcnew EventHandler(this, &Inventory::OnEditItem)
+						   gcnew EventHandler(this, &Inventory::OnInspectItem)
 					   );
 					   itemContextMenu->Items->Add(
-						   "Удалить",
+						   "РЈРґР°Р»РёС‚СЊ",
 						   nullptr,
 						   gcnew EventHandler(this, &Inventory::OnDeleteItem)
 					   );
 				   }
 				   else if (selectedItem != nullptr) {
-					   // Для неэкипируемых - только редактирование и удаление
+					   // Р”Р»СЏ РЅРµСЌРєРёРїРёСЂСѓРµРјС‹С… - С‚РѕР»СЊРєРѕ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёРµ Рё СѓРґР°Р»РµРЅРёРµ
 					   itemContextMenu->Items->Add(
-						   "Редактировать",
+						   "РћСЃРјРѕС‚СЂРµС‚СЊ",
 						   nullptr,
-						   gcnew EventHandler(this, &Inventory::OnEditItem)
+						   gcnew EventHandler(this, &Inventory::OnInspectItem)
 					   );
 					   itemContextMenu->Items->Add(
-						   "Удалить",
+						   "РЈРґР°Р»РёС‚СЊ",
 						   nullptr,
 						   gcnew EventHandler(this, &Inventory::OnDeleteItem)
 					   );
 				   }
 
-				   // Назначаем контекстное меню
+				   // РќР°Р·РЅР°С‡Р°РµРј РєРѕРЅС‚РµРєСЃС‚РЅРѕРµ РјРµРЅСЋ
 				   listBoxItems->ContextMenuStrip = itemContextMenu;
 			   }
 
@@ -641,7 +794,7 @@ namespace InfinityDungeons
 				   bool canEquip = CanEquipItem(itemID);
 
 				   if (itemContextMenu->Items->Count > 0) {
-					   // Находим пункт "Экипировать"
+					   // РќР°С…РѕРґРёРј РїСѓРЅРєС‚ "Р­РєРёРїРёСЂРѕРІР°С‚СЊ"
 					   ToolStripMenuItem^ equipItem =
 						   dynamic_cast<ToolStripMenuItem^>(
 							   itemContextMenu->Items->Find("EquipItem", true)
@@ -661,7 +814,7 @@ namespace InfinityDungeons
 
 					   if (parts->Length >= 4 &&
 						   Int32::Parse(parts[0]->Trim()) == itemID) {
-						   return Int32::Parse(parts[1]->Trim()); // Возвращаем значение 2 столбца
+						   return Int32::Parse(parts[1]->Trim()); // Р’РѕР·РІСЂР°С‰Р°РµРј Р·РЅР°С‡РµРЅРёРµ 2 СЃС‚РѕР»Р±С†Р°
 					   }
 				   }
 				   return -1;
@@ -679,7 +832,7 @@ namespace InfinityDungeons
 
 					   if (parts->Length >= 4 &&
 						   Int32::Parse(parts[0]->Trim()) == itemID &&
-						   Int32::Parse(parts[3]->Trim()) == 1) {  // Проверка на 1 во 4 столбце
+						   Int32::Parse(parts[3]->Trim()) == 1) {  // РџСЂРѕРІРµСЂРєР° РЅР° 1 РІРѕ 4 СЃС‚РѕР»Р±С†Рµ
 						   return true;
 					   }
 				   }
@@ -696,30 +849,31 @@ namespace InfinityDungeons
 				   List<String^>^ equipmentItems =
 					   gcnew List<String^>(lines[8]->Split(','));
 
-				   // Если слот занят, возвращаем текущий предмет в инвентарь
+				   // Р•СЃР»Рё СЃР»РѕС‚ Р·Р°РЅСЏС‚, РІРѕР·РІСЂР°С‰Р°РµРј С‚РµРєСѓС‰РёР№ РїСЂРµРґРјРµС‚ РІ РёРЅРІРµРЅС‚Р°СЂСЊ
 				   if (equipmentItems[slotIndex] != "None") {
 					   int currentItemId = Int32::Parse(equipmentItems[slotIndex]);
 					   inventoryItems->Add(currentItemId.ToString());
 				   }
 
-				   // Экипируем новый предмет
+				   // Р­РєРёРїРёСЂСѓРµРј РЅРѕРІС‹Р№ РїСЂРµРґРјРµС‚
 				   equipmentItems[slotIndex] = item->ID.ToString();
 
-				   // Удаляем предмет из инвентаря
+				   // РЈРґР°Р»СЏРµРј РїСЂРµРґРјРµС‚ РёР· РёРЅРІРµРЅС‚Р°СЂСЏ
 				   int inventoryIndex = inventoryItems->IndexOf(item->ID.ToString());
 				   if (inventoryIndex != -1) {
 					   inventoryItems->RemoveAt(inventoryIndex);
 				   }
 
-				   // Обновляем файл
+				   // РћР±РЅРѕРІР»СЏРµРј С„Р°Р№Р»
 				   lines[7] = String::Join(",", inventoryItems->ToArray());
 				   lines[8] = String::Join(",", equipmentItems->ToArray());
 				   File::WriteAllLines(TEMP_FILE, lines);
 
-				   // Обновляем интерфейс
+				   // РћР±РЅРѕРІР»СЏРµРј РёРЅС‚РµСЂС„РµР№СЃ
 				   UpdateEquipmentButtons(equipmentItems->ToArray());
 				   LoadPlayerInventory();
-				   UpdateInventoryLabel(); // Обновляем label после экипирования
+				   UpdateInventoryLabel(); // РћР±РЅРѕРІР»СЏРµРј label РїРѕСЃР»Рµ СЌРєРёРїРёСЂРѕРІР°РЅРёСЏ
+				   RecalculatePlayerStats(); // РџРµСЂРµСЃС‡РёС‚С‹РІР°РµРј СЃС‚Р°С‚С‹
 			   }
 
 			   int FindItemTypeIndex(int itemID) {
@@ -736,23 +890,100 @@ namespace InfinityDungeons
 				   return -1;
 			   }
 
-			   void OnEditItem(Object^ sender, EventArgs^ e) {
+			   void OnInspectItem(Object^ sender, EventArgs^ e) {
 				   ItemData^ selectedItem = GetSelectedInventoryItem();
 				   if (selectedItem != nullptr) {
-					   MessageBox::Show("Редактирование: " + selectedItem->Name);
+					   array<String^>^ itemLines = File::ReadAllLines(ITEMS_FILE);
+
+					   for each (String ^ itemLine in itemLines) {
+						   array<String^>^ itemParts = itemLine->Split(',');
+
+						   if (Int32::Parse(itemParts[0]) == selectedItem->ID) {
+							   String^ itemName = itemParts[2];
+							   int itemType = Int32::Parse(itemParts[1]);
+							   int itemPrice = Int32::Parse(itemParts[4]);
+							   int specialValue = Int32::Parse(itemParts[5]);
+
+							   // РћРїСЂРµРґРµР»СЏРµРј С‚РёРї РїСЂРµРґРјРµС‚Р°
+							   String^ itemTypeText;
+							   switch (itemType) {
+							   case 0: itemTypeText = "РћСЂСѓР¶РёРµ"; break;
+							   case 1: itemTypeText = "РЁР»РµРј"; break;
+							   case 2: itemTypeText = "РљРёСЂР°СЃР°"; break;
+							   case 3: itemTypeText = "РџРµСЂС‡Р°С‚РєРё"; break;
+							   case 4: itemTypeText = "РџРѕРЅРѕР¶Рё"; break;
+							   case 5: itemTypeText = "Р‘РѕС‚РёРЅРєРё"; break;
+							   case 6: itemTypeText = "РћР¶РµСЂРµР»СЊРµ"; break;
+							   case 7: itemTypeText = "РљРѕР»СЊС†Рѕ"; break;
+							   default: itemTypeText = "Р Р°Р·РЅРѕРµ"; break;
+							   }
+
+							   // РћРїСЂРµРґРµР»СЏРµРј Р±РѕРЅСѓСЃ РїСЂРё РЅРѕС€РµРЅРёРё
+							   String^ itemBonus;
+							   if (specialValue == 0) {
+								   itemBonus = "РћР±С‹С‡РЅС‹Р№ РїСЂРµРґРјРµС‚";
+							   }
+							   else {
+								   switch (itemType) {
+								   case 0: itemBonus = "РЈСЂРѕРЅ: " + specialValue; break;
+								   case 1:
+								   case 2:
+								   case 3:
+								   case 4:
+								   case 5: itemBonus = "Р‘СЂРѕРЅСЏ: " + specialValue; break;
+								   case 6: itemBonus = "Р—РґРѕСЂРѕРІСЊРµ: +" + specialValue; break;
+								   case 7: itemBonus = "Р”РѕРї. СѓСЂРѕРЅ: +" + specialValue; break;
+								   }
+							   }
+
+							   // РЎРѕР·РґР°РµРј РѕРєРЅРѕ СЃ РёРЅС„РѕСЂРјР°С†РёРµР№
+							   Form^ inspectForm = gcnew Form();
+							   inspectForm->Text = "РћСЃРјРѕС‚СЂ РїСЂРµРґРјРµС‚Р°";
+							   inspectForm->Size = System::Drawing::Size(300, 200);
+							   inspectForm->StartPosition = FormStartPosition::CenterScreen;
+
+							   Label^ nameLabel = gcnew Label();
+							   nameLabel->Text = "РќР°Р·РІР°РЅРёРµ: " + itemName;
+							   nameLabel->Location = Point(10, 20);
+							   nameLabel->AutoSize = true;
+
+							   Label^ typeLabel = gcnew Label();
+							   typeLabel->Text = "РўРёРї: " + itemTypeText;
+							   typeLabel->Location = Point(10, 50);
+							   typeLabel->AutoSize = true;
+
+							   Label^ priceLabel = gcnew Label();
+							   priceLabel->Text = "Р¦РµРЅР°: " + itemPrice + " Р·РѕР»РѕС‚Р°";
+							   priceLabel->Location = Point(10, 80);
+							   priceLabel->AutoSize = true;
+
+							   Label^ bonusLabel = gcnew Label();
+							   bonusLabel->Text = "Р‘РѕРЅСѓСЃ: " + itemBonus;
+							   bonusLabel->Location = Point(10, 110);
+							   bonusLabel->AutoSize = true;
+
+							   inspectForm->Controls->Add(nameLabel);
+							   inspectForm->Controls->Add(typeLabel);
+							   inspectForm->Controls->Add(priceLabel);
+							   inspectForm->Controls->Add(bonusLabel);
+
+							   inspectForm->ShowDialog();
+							   break;
+						   }
+					   }
 				   }
 			   }
 
 			   void OnDeleteItem(Object^ sender, EventArgs^ e) {
 				   int selectedIndex = listBoxItems->SelectedIndex;
 				   if (selectedIndex != -1) {
-					   // Удаление из файла
+					   // РЈРґР°Р»РµРЅРёРµ РёР· С„Р°Р№Р»Р°
 					   RemoveItemFromFile(selectedIndex);
 
-					   // Удаление из ListBox
+					   // РЈРґР°Р»РµРЅРёРµ РёР· ListBox
 					   listBoxItems->Items->RemoveAt(selectedIndex);
 
-					   // Обновляем label после удаления
+					   // РћР±РЅРѕРІР»СЏРµРј label РїРѕСЃР»Рµ СѓРґР°Р»РµРЅРёСЏ
 					   UpdateInventoryLabel();
 				   }
 			   }
@@ -777,32 +1008,33 @@ namespace InfinityDungeons
 				   List<String^>^ equipmentItems =
 					   gcnew List<String^>(lines[8]->Split(','));
 
-				   // Проверяем место в инвентаре
+				   // РџСЂРѕРІРµСЂСЏРµРј РјРµСЃС‚Рѕ РІ РёРЅРІРµРЅС‚Р°СЂРµ
 				   if (inventoryItems->Count >= MAX_INVENTORY_SLOTS) {
-					   MessageBox::Show("Инвентарь полон!");
+					   MessageBox::Show("РРЅРІРµРЅС‚Р°СЂСЊ РїРѕР»РѕРЅ!");
 					   return;
 				   }
 
 				   if (equipmentItems[equipmentIndex] != "None") {
 					   int currentItemId = Int32::Parse(equipmentItems[equipmentIndex]);
 
-					   // Возвращаем предмет в инвентарь
+					   // Р’РѕР·РІСЂР°С‰Р°РµРј РїСЂРµРґРјРµС‚ РІ РёРЅРІРµРЅС‚Р°СЂСЊ
 					   inventoryItems->Add(currentItemId.ToString());
 					   equipmentItems[equipmentIndex] = "None";
 
-					   // Обновляем файл
+					   // РћР±РЅРѕРІР»СЏРµРј С„Р°Р№Р»
 					   lines[7] = String::Join(",", inventoryItems->ToArray());
 					   lines[8] = String::Join(",", equipmentItems->ToArray());
 					   File::WriteAllLines(TEMP_FILE, lines);
 
-					   // Обновляем интерфейс
+					   // РћР±РЅРѕРІР»СЏРµРј РёРЅС‚РµСЂС„РµР№СЃ
 					   UpdateEquipmentButtons(equipmentItems->ToArray());
 					   LoadPlayerInventory();
-					   UpdateInventoryLabel(); // Обновляем label после снятия
+					   UpdateInventoryLabel(); // РћР±РЅРѕРІР»СЏРµРј label РїРѕСЃР»Рµ СЃРЅСЏС‚РёСЏ
 				   }
+
+				   RecalculatePlayerStats();
 			   }
 
-			   // Методы для кнопок снятия экипировки
 			   void CreateUnequipMethods() {
 				   buttonWeapon->Click += gcnew EventHandler(this, &Inventory::OnWeaponUnequip);
 				   buttonHelmet->Click += gcnew EventHandler(this, &Inventory::OnHelmetUnequip);
@@ -815,46 +1047,55 @@ namespace InfinityDungeons
 			   }
 
 			   void OnWeaponUnequip(Object^ sender, EventArgs^ e) {
-				   UnequipItem(0); // Индекс оружия
-				   buttonWeapon->Text = "None";
+				   UnequipItem(0); // РРЅРґРµРєСЃ РѕСЂСѓР¶РёСЏ
+				   buttonWeapon->Image = Image::FromFile(GetFilePath("Sprites\\None.png"));
+				   buttonWeapon->Text = "";
 			   }
 
 			   void OnHelmetUnequip(Object^ sender, EventArgs^ e) {
-				   UnequipItem(1); // Индекс шлема
-				   buttonHelmet->Text = "None";
+				   UnequipItem(1); // РРЅРґРµРєСЃ С€Р»РµРјР°
+				   buttonHelmet->Image = Image::FromFile(GetFilePath("Sprites\\None.png"));
+				   buttonHelmet->Text = "";
 			   }
 
 			   void OnCuirassUnequip(Object^ sender, EventArgs^ e) {
-				   UnequipItem(1); // Индекс шлема
-				   buttonHelmet->Text = "None";
+				   UnequipItem(2); // РРЅРґРµРєСЃ РєРёСЂР°СЃС‹
+				   buttonCuirass->Image = Image::FromFile(GetFilePath("Sprites\\None.png"));
+				   buttonCuirass->Text = "";
 			   }
 
 			   void OnGlovesUnequip(Object^ sender, EventArgs^ e) {
-				   UnequipItem(1); // Индекс шлема
-				   buttonHelmet->Text = "None";
+				   UnequipItem(3); // РРЅРґРµРєСЃ РїРµСЂС‡Р°С‚РѕРє
+				   buttonGloves->Image = Image::FromFile(GetFilePath("Sprites\\None.png"));
+				   buttonGloves->Text = "";
 			   }
 
 			   void OnGreavesUnequip(Object^ sender, EventArgs^ e) {
-				   UnequipItem(1); // Индекс шлема
-				   buttonHelmet->Text = "None";
+				   UnequipItem(4); // РРЅРґРµРєСЃ РїРѕРЅРѕР¶РµР№
+				   buttonGreaves->Image = Image::FromFile(GetFilePath("Sprites\\None.png"));
+				   buttonGreaves->Text = "";
 			   }
 
 			   void OnBootsUnequip(Object^ sender, EventArgs^ e) {
-				   UnequipItem(1); // Индекс шлема
-				   buttonHelmet->Text = "None";
+				   UnequipItem(5); // РРЅРґРµРєСЃ Р±РѕС‚РёРЅРѕРє
+				   buttonBoots->Image = Image::FromFile(GetFilePath("Sprites\\None.png"));
+				   buttonBoots->Text = "";
 			   }
 
 			   void OnNecklaceUnequip(Object^ sender, EventArgs^ e) {
-				   UnequipItem(1); // Индекс шлема
-				   buttonHelmet->Text = "None";
+				   UnequipItem(6); // РРЅРґРµРєСЃ РѕР¶РµСЂРµР»СЊСЏ
+				   buttonNecklace->Image = Image::FromFile(GetFilePath("Sprites\\None.png"));
+				   buttonNecklace->Text = "";
 			   }
 
 			   void OnRingUnequip(Object^ sender, EventArgs^ e) {
-				   UnequipItem(1); // Индекс шлема
-				   buttonHelmet->Text = "None";
+				   UnequipItem(7); // РРЅРґРµРєСЃ РєРѕР»СЊС†Р°
+				   buttonRing->Image = Image::FromFile(GetFilePath("Sprites\\None.png"));
+				   buttonRing->Text = "";
 			   }
 
-			   // Расширенная обработка клика по элементам ListBox
+
+			   // Р Р°СЃС€РёСЂРµРЅРЅР°СЏ РѕР±СЂР°Р±РѕС‚РєР° РєР»РёРєР° РїРѕ СЌР»РµРјРµРЅС‚Р°Рј ListBox
 			   void SetupListBoxHandlers() {
 				   listBoxItems->MouseClick +=
 					   gcnew MouseEventHandler(this, &Inventory::ListBoxMouseClickHandler);
@@ -869,7 +1110,7 @@ namespace InfinityDungeons
 					   if (parts->Length >= 4 &&
 						   Int32::Parse(parts[0]->Trim()) == itemID) {
 
-						   // Проверяем возможность экипировки
+						   // РџСЂРѕРІРµСЂСЏРµРј РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊ СЌРєРёРїРёСЂРѕРІРєРё
 						   return Int32::Parse(parts[3]->Trim()) == 0;
 					   }
 				   }
@@ -877,7 +1118,7 @@ namespace InfinityDungeons
 				   return false;
 			   }
 
-			   // Безопасное закрытие формы
+			   // Р‘РµР·РѕРїР°СЃРЅРѕРµ Р·Р°РєСЂС‹С‚РёРµ С„РѕСЂРјС‹
 			   void SetupExitButton() {
 				   buttonExit->Click +=
 					   gcnew EventHandler(this, &Inventory::SafeFormClose);
@@ -885,12 +1126,12 @@ namespace InfinityDungeons
 
 			   void SafeFormClose(Object^ sender, EventArgs^ e) {
 				   try {
-					   // Можно добавить дополнительную логику перед закрытием
+					   // РњРѕР¶РЅРѕ РґРѕР±Р°РІРёС‚СЊ РґРѕРїРѕР»РЅРёС‚РµР»СЊРЅСѓСЋ Р»РѕРіРёРєСѓ РїРµСЂРµРґ Р·Р°РєСЂС‹С‚РёРµРј
 					   SaveInventoryState();
 					   this->Close();
 				   }
 				   catch (Exception^ ex) {
-					   MessageBox::Show("Ошибка при закрытии: " + ex->Message);
+					   MessageBox::Show("РћС€РёР±РєР° РїСЂРё Р·Р°РєСЂС‹С‚РёРё: " + ex->Message);
 				   }
 			   }
 
@@ -898,22 +1139,22 @@ namespace InfinityDungeons
 				   try {
 					   array<String^>^ lines = File::ReadAllLines(TEMP_FILE);
 
-					   // Обновляем инвентарь
+					   // РћР±РЅРѕРІР»СЏРµРј РёРЅРІРµРЅС‚Р°СЂСЊ
 					   List<String^>^ inventoryItems =
 						   CollectCurrentInventoryItems();
 
-					   // Обновляем экипировку
+					   // РћР±РЅРѕРІР»СЏРµРј СЌРєРёРїРёСЂРѕРІРєСѓ
 					   List<String^>^ equipmentItems =
 						   CollectCurrentEquipmentItems();
 
-					   // Перезаписываем соответствующие строки
+					   // РџРµСЂРµР·Р°РїРёСЃС‹РІР°РµРј СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёРµ СЃС‚СЂРѕРєРё
 					   lines[7] = String::Join(",", inventoryItems->ToArray());
 					   lines[8] = String::Join(",", equipmentItems->ToArray());
 
 					   File::WriteAllLines(TEMP_FILE, lines);
 				   }
 				   catch (Exception^ ex) {
-					   MessageBox::Show("Ошибка сохранения состояния: " + ex->Message);
+					   MessageBox::Show("РћС€РёР±РєР° СЃРѕС…СЂР°РЅРµРЅРёСЏ СЃРѕСЃС‚РѕСЏРЅРёСЏ: " + ex->Message);
 				   }
 			   }
 
@@ -969,8 +1210,75 @@ namespace InfinityDungeons
 			   void UpdateInventoryLabel() {
 				   int currentItems = listBoxItems->Items->Count;
 				   labelInvent->Text = String::Format("{0}/{1}",
-					   currentItems,  // Занятое место
-					   MAX_INVENTORY_SLOTS);  // Максимальное число предметов
+					   currentItems,  // Р—Р°РЅСЏС‚РѕРµ РјРµСЃС‚Рѕ
+					   MAX_INVENTORY_SLOTS);  // РњР°РєСЃРёРјР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ РїСЂРµРґРјРµС‚РѕРІ
+			   }
+
+			   void RecalculatePlayerStats() {
+				   array<String^>^ lines = File::ReadAllLines(TEMP_FILE);
+				   array<String^>^ equipmentLines = lines[8]->Split(',');
+				   array<String^>^ itemLines = File::ReadAllLines(ITEMS_FILE);
+
+				   int baseDamage = 10;  // РЎС‚Р°РЅРґР°СЂС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ СѓСЂРѕРЅР°
+				   int baseArmor = 0;    // Р‘Р°Р·РѕРІР°СЏ Р±СЂРѕРЅСЏ
+				   int additionalHealth = 0;  // Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕРµ Р·РґРѕСЂРѕРІСЊРµ
+				   int additionalDamage = 0;  // Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅС‹Р№ СѓСЂРѕРЅ
+
+				   // РќР°С‡Р°Р»СЊРЅРѕРµ Р·РґРѕСЂРѕРІСЊРµ РёР· С„Р°Р№Р»Р°
+				   int baseHealth = Int32::Parse(lines[3]);
+
+				   // РџРµСЂРµР±РёСЂР°РµРј РІСЃРµ СЃР»РѕС‚С‹ СЌРєРёРїРёСЂРѕРІРєРё
+				   for (int i = 0; i < equipmentLines->Length; i++) {
+					   if (equipmentLines[i] != "None") {
+						   int itemId = Int32::Parse(equipmentLines[i]);
+
+						   // РќР°С…РѕРґРёРј РїСЂРµРґРјРµС‚ РІ Items.txt
+						   for each (String ^ itemLine in itemLines) {
+							   array<String^>^ itemParts = itemLine->Split(',');
+
+							   if (Int32::Parse(itemParts[0]) == itemId) {
+								   int itemType = Int32::Parse(itemParts[1]);
+								   int specialValue = Int32::Parse(itemParts[5]);
+
+								   switch (itemType) {
+								   case 0:  // РћСЂСѓР¶РёРµ
+									   baseDamage = specialValue;
+									   break;
+								   case 1:  // РЁР»РµРј
+								   case 2:  // РљРёСЂР°СЃР°
+								   case 3:  // РџРµСЂС‡Р°С‚РєРё
+								   case 4:  // РџРѕРЅРѕР¶Рё
+								   case 5:  // Р‘РѕС‚РёРЅРєРё
+									   baseArmor += specialValue;
+									   break;
+								   case 6:  // РћР¶РµСЂРµР»СЊРµ
+									   additionalHealth += specialValue;
+									   break;
+								   case 7:  // РљРѕР»СЊС†Рѕ
+									   additionalDamage += specialValue;
+									   break;
+								   }
+								   break;
+							   }
+						   }
+					   }
+				   }
+
+				   // РџРµСЂРµСЃС‡РёС‚С‹РІР°РµРј С„РёРЅР°Р»СЊРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ
+				   int finalDamage = baseDamage + additionalDamage;
+				   int finalHealth = baseHealth + additionalHealth;
+
+				   // РћР±РЅРѕРІР»СЏРµРј temp.txt
+				   lines[12] = finalDamage.ToString();   // РЈСЂРѕРЅ (13 СЃС‚СЂРѕРєР°)
+				   lines[3] = finalHealth.ToString();    // Р—РґРѕСЂРѕРІСЊРµ (4 СЃС‚СЂРѕРєР°)
+				   lines[13] = baseArmor.ToString();     // Р—Р°С‰РёС‚Р° (14 СЃС‚СЂРѕРєР°)
+
+				   File::WriteAllLines(TEMP_FILE, lines);
+
+				   // РћР±РЅРѕРІР»СЏРµРј labels
+				   labelHP->Text = finalHealth.ToString();            // Р—РґРѕСЂРѕРІСЊРµ
+				   labelDMG->Text = finalDamage.ToString();
+				   labelDFN->Text = baseArmor.ToString();
 			   }
 	};
 }

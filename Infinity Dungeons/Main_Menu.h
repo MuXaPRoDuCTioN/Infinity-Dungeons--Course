@@ -11,12 +11,12 @@ namespace InfinityDungeons {
 	using namespace System::Drawing;
 	
 
-	// Константы для Windows API
+	// РљРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ Windows API
 	#define WM_NCLBUTTONDOWN 0x00A1
 	#define HTCAPTION 2
 
 	/// <summary>
-	/// Сводка для Main_Menu
+	/// РЎРІРѕРґРєР° РґР»СЏ Main_Menu
 	/// </summary>
 	public ref class Main_Menu : public System::Windows::Forms::Form
 	{
@@ -25,13 +25,13 @@ namespace InfinityDungeons {
 		{
 			InitializeComponent();
 			//
-			//TODO: добавьте код конструктора
+			//TODO: РґРѕР±Р°РІСЊС‚Рµ РєРѕРґ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°
 			//
 		}
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~Main_Menu()
 		{
@@ -44,20 +44,21 @@ namespace InfinityDungeons {
 	private: System::Windows::Forms::Button^ To_Save_Game;
 	private: System::Windows::Forms::Button^ To_Load_Game;
 	private: System::Windows::Forms::Button^ To_Exit;
+	private: System::Windows::Forms::Label^ label1;
 	protected:
 
 	protected:
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
@@ -66,48 +67,78 @@ namespace InfinityDungeons {
 			this->To_Save_Game = (gcnew System::Windows::Forms::Button());
 			this->To_Load_Game = (gcnew System::Windows::Forms::Button());
 			this->To_Exit = (gcnew System::Windows::Forms::Button());
+			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->SuspendLayout();
 			// 
 			// To_New_Game
 			// 
+			this->To_New_Game->BackColor = System::Drawing::Color::Chocolate;
+			this->To_New_Game->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->To_New_Game->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->To_New_Game->Location = System::Drawing::Point(214, 140);
 			this->To_New_Game->Name = L"To_New_Game";
 			this->To_New_Game->Size = System::Drawing::Size(214, 60);
 			this->To_New_Game->TabIndex = 0;
-			this->To_New_Game->Text = L"New Game";
-			this->To_New_Game->UseVisualStyleBackColor = true;
+			this->To_New_Game->Text = L"РќРѕРІР°СЏ РёРіСЂР°";
+			this->To_New_Game->UseVisualStyleBackColor = false;
 			this->To_New_Game->Click += gcnew System::EventHandler(this, &Main_Menu::To_New_Game_Click);
 			// 
 			// To_Save_Game
 			// 
+			this->To_Save_Game->BackColor = System::Drawing::Color::Chocolate;
 			this->To_Save_Game->Enabled = false;
+			this->To_Save_Game->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->To_Save_Game->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->To_Save_Game->Location = System::Drawing::Point(214, 206);
 			this->To_Save_Game->Name = L"To_Save_Game";
 			this->To_Save_Game->Size = System::Drawing::Size(214, 60);
 			this->To_Save_Game->TabIndex = 0;
-			this->To_Save_Game->Text = L"Save Game";
-			this->To_Save_Game->UseVisualStyleBackColor = true;
+			this->To_Save_Game->Text = L"РЎРѕС…СЂР°РЅРёС‚СЊ РёРіСЂСѓ";
+			this->To_Save_Game->UseVisualStyleBackColor = false;
 			this->To_Save_Game->Click += gcnew System::EventHandler(this, &Main_Menu::To_Save_Game_Click);
 			// 
 			// To_Load_Game
 			// 
+			this->To_Load_Game->BackColor = System::Drawing::Color::Chocolate;
+			this->To_Load_Game->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->To_Load_Game->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->To_Load_Game->Location = System::Drawing::Point(214, 272);
 			this->To_Load_Game->Name = L"To_Load_Game";
 			this->To_Load_Game->Size = System::Drawing::Size(214, 60);
 			this->To_Load_Game->TabIndex = 0;
-			this->To_Load_Game->Text = L"Load Game";
-			this->To_Load_Game->UseVisualStyleBackColor = true;
+			this->To_Load_Game->Text = L"Р—Р°РіСЂСѓР·Р°С‚СЊ РёРіСЂСѓ";
+			this->To_Load_Game->UseVisualStyleBackColor = false;
 			this->To_Load_Game->Click += gcnew System::EventHandler(this, &Main_Menu::To_Load_Game_Click);
 			// 
 			// To_Exit
 			// 
+			this->To_Exit->BackColor = System::Drawing::Color::Chocolate;
+			this->To_Exit->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->To_Exit->ForeColor = System::Drawing::SystemColors::ControlLightLight;
 			this->To_Exit->Location = System::Drawing::Point(214, 338);
 			this->To_Exit->Name = L"To_Exit";
 			this->To_Exit->Size = System::Drawing::Size(214, 60);
 			this->To_Exit->TabIndex = 0;
-			this->To_Exit->Text = L"Exit Game";
-			this->To_Exit->UseVisualStyleBackColor = true;
+			this->To_Exit->Text = L"Р’С‹Р№С‚Рё РёР· РёРіСЂС‹";
+			this->To_Exit->UseVisualStyleBackColor = false;
 			this->To_Exit->Click += gcnew System::EventHandler(this, &Main_Menu::To_Exit_Click);
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->BackColor = System::Drawing::Color::Sienna;
+			this->label1->Font = (gcnew System::Drawing::Font(L"MS UI Gothic", 28, System::Drawing::FontStyle::Italic, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->label1->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->label1->Location = System::Drawing::Point(178, 65);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(291, 38);
+			this->label1->TabIndex = 1;
+			this->label1->Text = L"Infinity Dungeons";
 			// 
 			// Main_Menu
 			// 
@@ -116,6 +147,7 @@ namespace InfinityDungeons {
 			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
 			this->ClientSize = System::Drawing::Size(640, 480);
 			this->ControlBox = false;
+			this->Controls->Add(this->label1);
 			this->Controls->Add(this->To_Exit);
 			this->Controls->Add(this->To_Load_Game);
 			this->Controls->Add(this->To_Save_Game);
@@ -129,21 +161,22 @@ namespace InfinityDungeons {
 			this->Text = L"Main_Menu";
 			this->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &Main_Menu::Main_Menu_MouseDown_1);
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 
 #pragma endregion
-		// Импортируем Windows API функций
+		// РРјРїРѕСЂС‚РёСЂСѓРµРј Windows API С„СѓРЅРєС†РёР№
 		[System::Runtime::InteropServices::DllImport("user32.dll")]
 		static bool ReleaseCapture();
 
 		[System::Runtime::InteropServices::DllImport("user32.dll")]
 		static IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
-		// Метод для обработки перемещения окна
+		// РњРµС‚РѕРґ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё РїРµСЂРµРјРµС‰РµРЅРёСЏ РѕРєРЅР°
 		private: System::Void Main_Menu_MouseDown_1(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
 		{
-			// Отправляем системное сообщение о начале перемещения окна
+			// РћС‚РїСЂР°РІР»СЏРµРј СЃРёСЃС‚РµРјРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РЅР°С‡Р°Р»Рµ РїРµСЂРµРјРµС‰РµРЅРёСЏ РѕРєРЅР°
 			ReleaseCapture();
 			SendMessage(this->Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
 		}
@@ -161,24 +194,24 @@ namespace InfinityDungeons {
 			this->Close();
 		}
 
-		private: System::Void To_Save_Game_Click(System::Object^ sender, System::EventArgs^ e) 
+		private: System::Void To_Save_Game_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			// Путь к папке для сохранения
-			String^ saveFolder = Application::StartupPath + "\\SavedFiles\\";
+			// РџСѓС‚СЊ Рє РїР°РїРєРµ РґР»СЏ СЃРѕС…СЂР°РЅРµРЅРёСЏ СЂСЏРґРѕРј СЃ exe
+			String^ saveFolder = GetFilePath("SavedFiles\\");
 
-			// Создаем папку, если она не существует
+			// РЎРѕР·РґР°РµРј РїР°РїРєСѓ, РµСЃР»Рё РѕРЅР° РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚
 			if (!Directory::Exists(saveFolder)) {
 				Directory::CreateDirectory(saveFolder);
 			}
 
-			// Создаем форму для ввода имени файла
+			// РЎРѕР·РґР°РµРј С„РѕСЂРјСѓ РґР»СЏ РІРІРѕРґР° РёРјРµРЅРё С„Р°Р№Р»Р°
 			Form^ inputForm = gcnew Form();
-			inputForm->Text = "Сохранение файла";
+			inputForm->Text = "РЎРѕС…СЂР°РЅРµРЅРёРµ С„Р°Р№Р»Р°";
 			inputForm->Size = System::Drawing::Size(300, 200);
 			inputForm->StartPosition = FormStartPosition::CenterScreen;
 
 			Label^ labelFileName = gcnew Label();
-			labelFileName->Text = "Введите название файла:";
+			labelFileName->Text = "Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ С„Р°Р№Р»Р°:";
 			labelFileName->Location = Point(10, 20);
 			labelFileName->AutoSize = true;
 
@@ -187,7 +220,7 @@ namespace InfinityDungeons {
 			textBoxFileName->Size = System::Drawing::Size(260, 25);
 
 			Button^ btnSaveFile = gcnew Button();
-			btnSaveFile->Text = "Сохранить";
+			btnSaveFile->Text = "РЎРѕС…СЂР°РЅРёС‚СЊ";
 			btnSaveFile->Location = Point(100, 100);
 			btnSaveFile->DialogResult = System::Windows::Forms::DialogResult::OK;
 
@@ -196,150 +229,157 @@ namespace InfinityDungeons {
 			inputForm->Controls->Add(btnSaveFile);
 			inputForm->AcceptButton = btnSaveFile;
 
-			// Показываем форму
+			// РџРѕРєР°Р·С‹РІР°РµРј С„РѕСЂРјСѓ
 			if (inputForm->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
-				// Получаем введенное имя файла
+				// РџРѕР»СѓС‡Р°РµРј РІРІРµРґРµРЅРЅРѕРµ РёРјСЏ С„Р°Р№Р»Р°
 				String^ userFileName = textBoxFileName->Text;
 
-				// Проверяем, что имя не пустое
+				// РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РёРјСЏ РЅРµ РїСѓСЃС‚РѕРµ
 				if (String::IsNullOrWhiteSpace(userFileName)) {
-					MessageBox::Show("Имя файла не может быть пустым!", "Ошибка",
+					MessageBox::Show("РРјСЏ С„Р°Р№Р»Р° РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј!", "РћС€РёР±РєР°",
 						MessageBoxButtons::OK, MessageBoxIcon::Error);
 					return;
 				}
 
-				// Добавляем расширение, если не указано
+				// Р”РѕР±Р°РІР»СЏРµРј СЂР°СЃС€РёСЂРµРЅРёРµ, РµСЃР»Рё РЅРµ СѓРєР°Р·Р°РЅРѕ
 				if (!userFileName->EndsWith(".txt")) {
 					userFileName += ".txt";
 				}
 
-				// Полный путь к файлу
+				// РџРѕР»РЅС‹Р№ РїСѓС‚СЊ Рє С„Р°Р№Р»Сѓ
 				String^ fullPath = Path::Combine(saveFolder, userFileName);
+				String^ tempFilePath = GetFilePath("temp.txt");
 
 				try {
-					// Проверяем существование файла
+					// РџСЂРѕРІРµСЂСЏРµРј СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРµ С„Р°Р№Р»Р°
 					if (File::Exists(fullPath)) {
-						auto result = MessageBox::Show("Файл с таким именем уже существует. Перезаписать?",
-							"Подтверждение", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
+						auto result = MessageBox::Show("Р¤Р°Р№Р» СЃ С‚Р°РєРёРј РёРјРµРЅРµРј СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚. РџРµСЂРµР·Р°РїРёСЃР°С‚СЊ?",
+							"РџРѕРґС‚РІРµСЂР¶РґРµРЅРёРµ", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
 
 						if (result == System::Windows::Forms::DialogResult::No) {
 							return;
 						}
 					}
 
-					// Копируем файл
-					File::Copy("temp.txt", fullPath, true);
+					// РљРѕРїРёСЂСѓРµРј С„Р°Р№Р»
+					File::Copy(tempFilePath, fullPath, true);
 
-					MessageBox::Show("Файл успешно сохранен!", "Успех",
+					MessageBox::Show("Р¤Р°Р№Р» СѓСЃРїРµС€РЅРѕ СЃРѕС…СЂР°РЅРµРЅ!", "РЈСЃРїРµС…",
 						MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 				catch (Exception^ ex) {
-					MessageBox::Show("Ошибка сохранения: " + ex->Message, "Ошибка",
+					MessageBox::Show("РћС€РёР±РєР° СЃРѕС…СЂР°РЅРµРЅРёСЏ: " + ex->Message, "РћС€РёР±РєР°",
 						MessageBoxButtons::OK, MessageBoxIcon::Error);
 				}
 			}
 		}
 
+			   String^ GetFilePath(String^ filename) {
+				   String^ exePath = System::Reflection::Assembly::GetExecutingAssembly()->Location;
+				   String^ exeDirectory = System::IO::Path::GetDirectoryName(exePath);
+				   return System::IO::Path::Combine(exeDirectory, filename);
+			   }
+
 		Form^ loadFileForm;
 
 		private: System::Void To_Load_Game_Click(System::Object^ sender, System::EventArgs^ e)
 		{
-			// Создаем новую форму загрузки файлов
+			// РЎРѕР·РґР°РµРј РЅРѕРІСѓСЋ С„РѕСЂРјСѓ Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»РѕРІ
 			loadFileForm = gcnew Form();
-			loadFileForm->Text = "Загрузка файла";
+			loadFileForm->Text = "Р—Р°РіСЂСѓР·РєР° С„Р°Р№Р»Р°";
 			loadFileForm->Size = System::Drawing::Size(400, 500);
 			loadFileForm->StartPosition = FormStartPosition::CenterScreen;
 
-			// Создаем ListBox
+			// РЎРѕР·РґР°РµРј ListBox
 			ListBox^ listBoxFiles = gcnew ListBox();
 			listBoxFiles->Dock = DockStyle::Fill;
 			listBoxFiles->Font = gcnew System::Drawing::Font("Arial", 10);
 			listBoxFiles->DoubleClick += gcnew EventHandler(this, &Main_Menu::listBoxFiles_DoubleClick);
 
-			// Загружаем список файлов
+			// Р—Р°РіСЂСѓР¶Р°РµРј СЃРїРёСЃРѕРє С„Р°Р№Р»РѕРІ
 			LoadFileList(listBoxFiles);
 
-			// Добавляем ListBox на форму
+			// Р”РѕР±Р°РІР»СЏРµРј ListBox РЅР° С„РѕСЂРјСѓ
 			loadFileForm->Controls->Add(listBoxFiles);
 
-			// Показываем форму
+			// РџРѕРєР°Р·С‹РІР°РµРј С„РѕСЂРјСѓ
 			loadFileForm->ShowDialog();
 		}
 
-		// Метод загрузки списка файлов
+		// РњРµС‚РѕРґ Р·Р°РіСЂСѓР·РєРё СЃРїРёСЃРєР° С„Р°Р№Р»РѕРІ
 		private: System::Void LoadFileList(ListBox^ listBox) {
-			// Очищаем существующий список
+			// РћС‡РёС‰Р°РµРј СЃСѓС‰РµСЃС‚РІСѓСЋС‰РёР№ СЃРїРёСЃРѕРє
 			listBox->Items->Clear();
 
-			// Путь к папке с сохраненными файлами
+			// РџСѓС‚СЊ Рє РїР°РїРєРµ СЃ СЃРѕС…СЂР°РЅРµРЅРЅС‹РјРё С„Р°Р№Р»Р°РјРё
 			String^ saveFolder = Application::StartupPath + "\\SavedFiles\\";
 
 			try {
-				// Проверяем существование папки
+				// РџСЂРѕРІРµСЂСЏРµРј СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРµ РїР°РїРєРё
 				if (!Directory::Exists(saveFolder)) {
 					Directory::CreateDirectory(saveFolder);
 				}
 
-				// Получаем список всех текстовых файлов
+				// РџРѕР»СѓС‡Р°РµРј СЃРїРёСЃРѕРє РІСЃРµС… С‚РµРєСЃС‚РѕРІС‹С… С„Р°Р№Р»РѕРІ
 				array<String^>^ files = Directory::GetFiles(saveFolder, "*.txt");
 
-				// Добавляем имена файлов в ListBox
+				// Р”РѕР±Р°РІР»СЏРµРј РёРјРµРЅР° С„Р°Р№Р»РѕРІ РІ ListBox
 				for each (String ^ file in files) {
 					listBox->Items->Add(Path::GetFileName(file));
 				}
 
-				// Если файлов нет, показываем сообщение
+				// Р•СЃР»Рё С„Р°Р№Р»РѕРІ РЅРµС‚, РїРѕРєР°Р·С‹РІР°РµРј СЃРѕРѕР±С‰РµРЅРёРµ
 				if (files->Length == 0) {
-					MessageBox::Show("В папке нет файлов.", "Информация",
+					MessageBox::Show("Р’ РїР°РїРєРµ РЅРµС‚ С„Р°Р№Р»РѕРІ.", "РРЅС„РѕСЂРјР°С†РёСЏ",
 						MessageBoxButtons::OK, MessageBoxIcon::Information);
 				}
 			}
 			catch (Exception^ ex) {
-				MessageBox::Show("Ошибка получения списка файлов: " + ex->Message, "Ошибка",
+				MessageBox::Show("РћС€РёР±РєР° РїРѕР»СѓС‡РµРЅРёСЏ СЃРїРёСЃРєР° С„Р°Р№Р»РѕРІ: " + ex->Message, "РћС€РёР±РєР°",
 					MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
 
-		// Обработчик двойного клика по файлу
+		// РћР±СЂР°Р±РѕС‚С‡РёРє РґРІРѕР№РЅРѕРіРѕ РєР»РёРєР° РїРѕ С„Р°Р№Р»Сѓ
 		private: System::Void listBoxFiles_DoubleClick(Object^ sender, EventArgs^ e) {
-			// Получаем ListBox
+			// РџРѕР»СѓС‡Р°РµРј ListBox
 			ListBox^ listBox = safe_cast<ListBox^>(sender);
 
-			// Проверяем, выбран ли файл
+			// РџСЂРѕРІРµСЂСЏРµРј, РІС‹Р±СЂР°РЅ Р»Рё С„Р°Р№Р»
 			if (listBox->SelectedItem == nullptr) {
-				MessageBox::Show("Выберите файл!", "Внимание",
+				MessageBox::Show("Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р»!", "Р’РЅРёРјР°РЅРёРµ",
 					MessageBoxButtons::OK, MessageBoxIcon::Warning);
 				return;
 			}
 
-			// Получаем имя выбранного файла
+			// РџРѕР»СѓС‡Р°РµРј РёРјСЏ РІС‹Р±СЂР°РЅРЅРѕРіРѕ С„Р°Р№Р»Р°
 			String^ selectedFileName = listBox->SelectedItem->ToString();
 			String^ saveFolder = Application::StartupPath + "\\SavedFiles\\";
 
-			// Путь к временному файлу
+			// РџСѓС‚СЊ Рє РІСЂРµРјРµРЅРЅРѕРјСѓ С„Р°Р№Р»Сѓ
 			String^ tempFilePath = Application::StartupPath + "\\temp.txt";
 
 			try {
-				// Полный путь к исходному файлу
+				// РџРѕР»РЅС‹Р№ РїСѓС‚СЊ Рє РёСЃС…РѕРґРЅРѕРјСѓ С„Р°Р№Р»Сѓ
 				String^ fullFilePath = Path::Combine(saveFolder, selectedFileName);
 
-				// Читаем содержимое файла
+				// Р§РёС‚Р°РµРј СЃРѕРґРµСЂР¶РёРјРѕРµ С„Р°Р№Р»Р°
 				String^ fileContent = File::ReadAllText(fullFilePath);
 
-				// Сохраняем содержимое во временный файл
+				// РЎРѕС…СЂР°РЅСЏРµРј СЃРѕРґРµСЂР¶РёРјРѕРµ РІРѕ РІСЂРµРјРµРЅРЅС‹Р№ С„Р°Р№Р»
 				File::WriteAllText(tempFilePath, fileContent);
 
-				// Закрываем форму выбора файлов
+				// Р—Р°РєСЂС‹РІР°РµРј С„РѕСЂРјСѓ РІС‹Р±РѕСЂР° С„Р°Р№Р»РѕРІ
 				loadFileForm->Close();
 
 				LoadGame();
 
-				// Дополнительно можно открыть временный файл 
-				// или выполнить другие действия
+				// Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅРѕ РјРѕР¶РЅРѕ РѕС‚РєСЂС‹С‚СЊ РІСЂРµРјРµРЅРЅС‹Р№ С„Р°Р№Р» 
+				// РёР»Рё РІС‹РїРѕР»РЅРёС‚СЊ РґСЂСѓРіРёРµ РґРµР№СЃС‚РІРёСЏ
 				// System::Diagnostics::Process::Start(tempFilePath);
 			}
 			catch (Exception^ ex) {
-				MessageBox::Show("Ошибка загрузки файла: " + ex->Message, "Ошибка",
+				MessageBox::Show("РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р°: " + ex->Message, "РћС€РёР±РєР°",
 					MessageBoxButtons::OK, MessageBoxIcon::Error);
 			}
 		}
@@ -349,6 +389,11 @@ namespace InfinityDungeons {
 		public: System::Void SetLoadEnabled(bool Set)
 		{
 			To_Load_Game->Enabled = Set;
+		}
+
+		public: System::Void SetNewEnabled(bool Set)
+		{
+			To_New_Game->Enabled = Set;
 		}
 	};
 }

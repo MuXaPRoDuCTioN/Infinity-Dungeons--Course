@@ -3,6 +3,7 @@
 #include "Main_Menu.h"
 #include "Dungeon.h"
 #include "ShopForm.h"
+#include "TasksForm.h"
 
 namespace InfinityDungeons {
 
@@ -13,12 +14,12 @@ namespace InfinityDungeons {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	// Константы для Windows API
+	// РљРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ Windows API
 	#define WM_NCLBUTTONDOWN 0x00A1
 	#define HTCAPTION 2
 
 	/// <summary>
-	/// Сводка для Hub_location
+	/// РЎРІРѕРґРєР° РґР»СЏ Hub_location
 	/// </summary>
 	public ref class Hub_location : public System::Windows::Forms::Form
 	{
@@ -37,7 +38,7 @@ namespace InfinityDungeons {
 
 	protected:
 		/// <summary>
-		/// Освободить все используемые ресурсы.
+		/// РћСЃРІРѕР±РѕРґРёС‚СЊ РІСЃРµ РёСЃРїРѕР»СЊР·СѓРµРјС‹Рµ СЂРµСЃСѓСЂСЃС‹.
 		/// </summary>
 		~Hub_location()
 		{
@@ -46,7 +47,11 @@ namespace InfinityDungeons {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::Button^ buttonToTasks;
+	protected:
+
+	protected:
+
 	private: System::Windows::Forms::Button^ buttonToShop;
 	protected:
 
@@ -59,83 +64,104 @@ namespace InfinityDungeons {
 
 	private:
 		/// <summary>
-		/// Обязательная переменная конструктора.
+		/// РћР±СЏР·Р°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°.
 		/// </summary>
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
-		/// Требуемый метод для поддержки конструктора — не изменяйте 
-		/// содержимое этого метода с помощью редактора кода.
+		/// РўСЂРµР±СѓРµРјС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕРґРґРµСЂР¶РєРё РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° вЂ” РЅРµ РёР·РјРµРЅСЏР№С‚Рµ 
+		/// СЃРѕРґРµСЂР¶РёРјРѕРµ СЌС‚РѕРіРѕ РјРµС‚РѕРґР° СЃ РїРѕРјРѕС‰СЊСЋ СЂРµРґР°РєС‚РѕСЂР° РєРѕРґР°.
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			this->button1 = (gcnew System::Windows::Forms::Button());
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Hub_location::typeid));
+			this->buttonToTasks = (gcnew System::Windows::Forms::Button());
 			this->buttonToShop = (gcnew System::Windows::Forms::Button());
 			this->buttonToDungeon = (gcnew System::Windows::Forms::Button());
 			this->buttonInventory = (gcnew System::Windows::Forms::Button());
 			this->buttonExit = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
-			// button1
+			// buttonToTasks
 			// 
-			this->button1->Location = System::Drawing::Point(79, 206);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(120, 60);
-			this->button1->TabIndex = 0;
-			this->button1->Text = L"Task board";
-			this->button1->UseVisualStyleBackColor = true;
+			this->buttonToTasks->BackColor = System::Drawing::Color::Chocolate;
+			this->buttonToTasks->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonToTasks->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->buttonToTasks->Location = System::Drawing::Point(79, 206);
+			this->buttonToTasks->Name = L"buttonToTasks";
+			this->buttonToTasks->Size = System::Drawing::Size(120, 60);
+			this->buttonToTasks->TabIndex = 0;
+			this->buttonToTasks->Text = L"Рљ РґРѕСЃРєРµ СЃ Р·Р°РґР°РЅРёСЏРјРё";
+			this->buttonToTasks->UseVisualStyleBackColor = false;
+			this->buttonToTasks->Click += gcnew System::EventHandler(this, &Hub_location::buttonToTasks_Click);
 			// 
 			// buttonToShop
 			// 
-			this->buttonToShop->Location = System::Drawing::Point(281, 206);
+			this->buttonToShop->BackColor = System::Drawing::Color::Chocolate;
+			this->buttonToShop->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonToShop->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->buttonToShop->Location = System::Drawing::Point(272, 206);
 			this->buttonToShop->Name = L"buttonToShop";
 			this->buttonToShop->Size = System::Drawing::Size(120, 60);
 			this->buttonToShop->TabIndex = 1;
-			this->buttonToShop->Text = L"Shop";
-			this->buttonToShop->UseVisualStyleBackColor = true;
+			this->buttonToShop->Text = L"Р’ РјР°РіР°Р·РёРЅ";
+			this->buttonToShop->UseVisualStyleBackColor = false;
 			this->buttonToShop->Click += gcnew System::EventHandler(this, &Hub_location::buttonToShop_Click);
 			// 
 			// buttonToDungeon
 			// 
-			this->buttonToDungeon->Location = System::Drawing::Point(485, 206);
+			this->buttonToDungeon->BackColor = System::Drawing::Color::Chocolate;
+			this->buttonToDungeon->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonToDungeon->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->buttonToDungeon->Location = System::Drawing::Point(272, 403);
 			this->buttonToDungeon->Name = L"buttonToDungeon";
 			this->buttonToDungeon->Size = System::Drawing::Size(120, 60);
 			this->buttonToDungeon->TabIndex = 3;
-			this->buttonToDungeon->Text = L"To Dungeon";
-			this->buttonToDungeon->UseVisualStyleBackColor = true;
+			this->buttonToDungeon->Text = L"Р’ РїРѕРґР·РµРјРµР»СЊРµ";
+			this->buttonToDungeon->UseVisualStyleBackColor = false;
 			this->buttonToDungeon->Click += gcnew System::EventHandler(this, &Hub_location::buttonToDungeon_Click);
 			// 
 			// buttonInventory
 			// 
-			this->buttonInventory->Location = System::Drawing::Point(304, 432);
+			this->buttonInventory->BackColor = System::Drawing::Color::Chocolate;
+			this->buttonInventory->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->buttonInventory->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->buttonInventory->Location = System::Drawing::Point(475, 206);
 			this->buttonInventory->Name = L"buttonInventory";
-			this->buttonInventory->Size = System::Drawing::Size(75, 23);
+			this->buttonInventory->Size = System::Drawing::Size(120, 60);
 			this->buttonInventory->TabIndex = 4;
-			this->buttonInventory->Text = L"Inventory";
-			this->buttonInventory->UseVisualStyleBackColor = true;
+			this->buttonInventory->Text = L"РРЅРІРµРЅС‚Р°СЂСЊ";
+			this->buttonInventory->UseVisualStyleBackColor = false;
 			this->buttonInventory->Click += gcnew System::EventHandler(this, &Hub_location::buttonInventory_Click);
 			// 
 			// buttonExit
 			// 
-			this->buttonExit->Location = System::Drawing::Point(575, 12);
+			this->buttonExit->BackColor = System::Drawing::Color::Chocolate;
+			this->buttonExit->ForeColor = System::Drawing::SystemColors::ControlLightLight;
+			this->buttonExit->Location = System::Drawing::Point(571, 12);
 			this->buttonExit->Name = L"buttonExit";
-			this->buttonExit->Size = System::Drawing::Size(75, 23);
+			this->buttonExit->Size = System::Drawing::Size(58, 23);
 			this->buttonExit->TabIndex = 5;
 			this->buttonExit->Text = L"X";
-			this->buttonExit->UseVisualStyleBackColor = true;
+			this->buttonExit->UseVisualStyleBackColor = false;
 			this->buttonExit->Click += gcnew System::EventHandler(this, &Hub_location::buttonExit_Click);
 			// 
 			// Hub_location
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(680, 480);
+			this->BackgroundImage = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"$this.BackgroundImage")));
+			this->ClientSize = System::Drawing::Size(641, 475);
 			this->Controls->Add(this->buttonExit);
 			this->Controls->Add(this->buttonInventory);
 			this->Controls->Add(this->buttonToDungeon);
 			this->Controls->Add(this->buttonToShop);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->buttonToTasks);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::None;
 			this->Name = L"Hub_location";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
@@ -150,7 +176,7 @@ namespace InfinityDungeons {
 
 #pragma endregion
 
-		// Импортируем Windows API функций
+		// РРјРїРѕСЂС‚РёСЂСѓРµРј Windows API С„СѓРЅРєС†РёР№
 		[System::Runtime::InteropServices::DllImport("user32.dll")]
 		static bool ReleaseCapture();
 
@@ -159,7 +185,7 @@ namespace InfinityDungeons {
 
 		private: System::Void Hub_location_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) 
 		{
-			// Отправляем системное сообщение о начале перемещения окна
+			// РћС‚РїСЂР°РІР»СЏРµРј СЃРёСЃС‚РµРјРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РЅР°С‡Р°Р»Рµ РїРµСЂРµРјРµС‰РµРЅРёСЏ РѕРєРЅР°
 			ReleaseCapture();
 			SendMessage(this->Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
 		}
@@ -175,7 +201,7 @@ namespace InfinityDungeons {
 
 		private: Void Inventory_Closed(Object^ sender, FormClosedEventArgs^ e)
 		{
-			// Код, который выполнится после закрытия дочерней формы
+			// РљРѕРґ, РєРѕС‚РѕСЂС‹Р№ РІС‹РїРѕР»РЅРёС‚СЃСЏ РїРѕСЃР»Рµ Р·Р°РєСЂС‹С‚РёСЏ РґРѕС‡РµСЂРЅРµР№ С„РѕСЂРјС‹
 			parentForm->SetSaveEnabled(true);
 			buttonInventory->Enabled = true;
 		}
@@ -183,11 +209,15 @@ namespace InfinityDungeons {
 		private: System::Void Hub_location_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e) 
 		{
 			parentForm->SetLoadEnabled(true);
+			parentForm->SetSaveEnabled(false);
+			parentForm->SetNewEnabled(true);
 		}
 
 		private: System::Void Hub_location_Load(System::Object^ sender, System::EventArgs^ e)
 		{
 			parentForm->SetLoadEnabled(false);
+			parentForm->SetSaveEnabled(true);
+			parentForm->SetNewEnabled(false);
 		}
 
 		private: System::Void buttonExit_Click(System::Object^ sender, System::EventArgs^ e) 
@@ -207,8 +237,9 @@ namespace InfinityDungeons {
 
 		private: Void Dungeon_Closed(Object^ sender, FormClosedEventArgs^ e)
 		{
-			// Код, который выполнится после закрытия дочерней формы
+			// РљРѕРґ, РєРѕС‚РѕСЂС‹Р№ РІС‹РїРѕР»РЅРёС‚СЃСЏ РїРѕСЃР»Рµ Р·Р°РєСЂС‹С‚РёСЏ РґРѕС‡РµСЂРЅРµР№ С„РѕСЂРјС‹
 			buttonToDungeon->Enabled = true;
+			CheckActiveQuest();
 			this->Show();
 			parentForm->Show();
 		}
@@ -225,10 +256,49 @@ namespace InfinityDungeons {
 
 		private: Void Shop_Closed(Object^ sender, FormClosedEventArgs^ e)
 		{
-			// Код, который выполнится после закрытия дочерней формы
+			// РљРѕРґ, РєРѕС‚РѕСЂС‹Р№ РІС‹РїРѕР»РЅРёС‚СЃСЏ РїРѕСЃР»Рµ Р·Р°РєСЂС‹С‚РёСЏ РґРѕС‡РµСЂРЅРµР№ С„РѕСЂРјС‹
 			buttonToShop->Enabled = true;
 			this->Show();
 			parentForm->Show();
+		}
+
+		private: System::Void buttonToTasks_Click(System::Object^ sender, System::EventArgs^ e) 
+		{
+			TasksForm^ TaskDesk = gcnew TasksForm;
+			TaskDesk->FormClosed += gcnew FormClosedEventHandler(this, &Hub_location::Task_Closed);
+			TaskDesk->Show();
+			this->Hide();
+			parentForm->Hide();
+		}
+
+		private: Void Task_Closed(Object^ sender, FormClosedEventArgs^ e)
+		{
+			// РљРѕРґ, РєРѕС‚РѕСЂС‹Р№ РІС‹РїРѕР»РЅРёС‚СЃСЏ РїРѕСЃР»Рµ Р·Р°РєСЂС‹С‚РёСЏ РґРѕС‡РµСЂРЅРµР№ С„РѕСЂРјС‹
+			CheckActiveQuest();
+			this->Show();
+			parentForm->Show();
+		}
+
+		private: void CheckActiveQuest() 
+		{
+			array<String^>^ lines = File::ReadAllLines(GetFilePath("temp.txt"));
+
+			// РџСЂРѕРІРµСЂСЏРµРј 11-СЋ СЃС‚СЂРѕРєСѓ (РёРЅРґРµРєСЃ 10)
+			if (lines[10] != "None") {
+				// Р•СЃС‚СЊ Р°РєС‚РёРІРЅРѕРµ Р·Р°РґР°РЅРёРµ - Р±Р»РѕРєРёСЂСѓРµРј РєРЅРѕРїРєСѓ
+				buttonToTasks->Enabled = false;
+			}
+			else {
+				// РќРµС‚ Р°РєС‚РёРІРЅРѕРіРѕ Р·Р°РґР°РЅРёСЏ - РєРЅРѕРїРєР° Р°РєС‚РёРІРЅР°
+				buttonToTasks->Enabled = true;
+			}
+		}
+
+		private: static String^ GetFilePath(String^ filename) 
+		{
+			String^ exePath = System::Reflection::Assembly::GetExecutingAssembly()->Location;
+			String^ exeDirectory = System::IO::Path::GetDirectoryName(exePath);
+			return System::IO::Path::Combine(exeDirectory, filename);
 		}
 	};
 }

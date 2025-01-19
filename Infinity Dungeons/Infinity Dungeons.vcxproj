@@ -126,6 +126,8 @@
     <ClCompile Include="Main_Menu.cpp" />
     <ClCompile Include="New_Game.cpp" />
     <ClCompile Include="ShopForm.cpp" />
+    <ClCompile Include="SkillPointDistributionForm.cpp" />
+    <ClCompile Include="TasksForm.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dungeon.h">
@@ -147,7 +149,14 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Quest.h" />
     <ClInclude Include="ShopForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="SkillPointDistributionForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
+    <ClInclude Include="TasksForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Tile.h" />
@@ -171,6 +180,16 @@
     <EmbeddedResource Include="ShopForm.resx">
       <DependentUpon>ShopForm.h</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SkillPointDistributionForm.resx">
+      <DependentUpon>SkillPointDistributionForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TasksForm.resx">
+      <DependentUpon>TasksForm.h</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram2.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
